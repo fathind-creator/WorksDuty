@@ -495,7 +495,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, signInWithCustomToken, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, deleteDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // MENGGUNAKAN KONFIGURASI FIREBASE TERBARU MILIK USER
@@ -636,27 +636,18 @@
             }
         });
 
-        // INISIALISASI AUTENTIKASI AWAL (Mencegah Error Custom Token)
-        async function initializeAuth() {
-            try {
-                // Menghapus logika bawaan Canvas (__initial_auth_token) karena akan 
-                // selalu bentrok (mismatch) jika Anda menggunakan Config Firebase Anda sendiri.
-                await signInAnonymously(auth);
-            } catch (error) {
-                console.warn("Guest Auth Init failed. Harap aktifkan Sign-In 'Anonymous' di Firebase Console Anda.", error.code);
-            }
-        }
-        initializeAuth();
+        // Setup Persistent Login (Agar login tersimpan di browser)
+        setPersistence(auth, browserLocalPersistence).catch((error) => console.error("Persistence error:", error));
 
         // AUTH STATE OBSERVER (Guest Mode vs Full Mode)
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
                 window.currentUser = user;
                 if (!user.isAnonymous) {
-                    // Fully Logged In
+                    // Fully Logged In (Google Auth)
                     window.userProfileName = user.displayName || "Rekan Tim (Anonim)";
                     window.userProfilePhoto = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(window.userProfileName)}&background=e2e8f0&color=475569`;
-                    renderNavAuth(true);
+                    window.renderNavAuth(true);
 
                     // Register Kehadiran User (Online)
                     const userRef = doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid);
@@ -665,16 +656,22 @@
                     // Guest Mode (Read-Only)
                     window.userProfileName = "Tamu (Read-Only)";
                     window.userProfilePhoto = "https://ui-avatars.com/api/?name=Guest&background=f1f5f9&color=94a3b8";
-                    renderNavAuth(false);
+                    window.renderNavAuth(false);
                 }
                 bindLiveData();
             } else {
-                // Null session (Gagal Anonim atau sudah Logout)
-                window.currentUser = null;
-                window.userProfileName = "Tamu (Read-Only)";
-                window.userProfilePhoto = "https://ui-avatars.com/api/?name=Guest&background=f1f5f9&color=94a3b8";
-                renderNavAuth(false);
-                bindLiveData();
+                // Null session: Berarti user belum login atau baru saja Logout. 
+                // Coba set sebagai Anonymous (Tamu) sebagai fallback.
+                try {
+                    await signInAnonymously(auth);
+                } catch (error) {
+                    console.warn("Guest Auth Init failed.", error.code);
+                    window.currentUser = null;
+                    window.userProfileName = "Tamu (Read-Only)";
+                    window.userProfilePhoto = "https://ui-avatars.com/api/?name=Guest&background=f1f5f9&color=94a3b8";
+                    window.renderNavAuth(false);
+                    bindLiveData();
+                }
             }
         });
 
