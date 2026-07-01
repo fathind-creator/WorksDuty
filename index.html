@@ -155,7 +155,7 @@
                 
                 <!-- Drodown Menu User -->
                 <div class="relative z-[110]">
-                    <div class="flex items-center gap-2 bg-white/60 dark:bg-slate-800/60 dark:hover:bg-slate-700 px-3 py-2 rounded-xl border border-white dark:border-slate-700 shadow-sm cursor-pointer hover:bg-white/90 transition-colors" onclick="window.toggleProfileMenu()">
+                    <div id="profileContainer" class="flex items-center gap-2 bg-white/60 dark:bg-slate-800/60 dark:hover:bg-slate-700 px-3 py-2 rounded-xl border border-white dark:border-slate-700 shadow-sm cursor-pointer hover:bg-white/90 transition-colors" onclick="window.toggleProfileMenu()">
                         <img id="userAvatar" src="https://ui-avatars.com/api/?name=Guest" alt="User" class="w-9 h-9 rounded-full border-2 border-white shadow-sm">
                         <div class="flex flex-col hidden sm:flex">
                             <span id="userName" class="text-sm font-bold text-slate-800 dark:text-white leading-tight">Tamu</span>
@@ -834,6 +834,9 @@
             if(moduleName === 'keepit') { window.renderTagsSidebar(); window.renderNotes(); }
         };
 
+        // Alias untuk kompatibilitas dengan elemen HTML yang diedit manual
+        window.openSuperMenu = window.switchModule;
+
         window.goHome = () => {
             document.getElementById('module-rkb').classList.add('hidden'); document.getElementById('module-rkb').classList.remove('flex');
             document.getElementById('module-keepit').classList.add('hidden'); document.getElementById('module-keepit').classList.remove('flex');
@@ -850,8 +853,8 @@
         window.formatDate = (dateStr) => { if(!dateStr) return "-"; let dObj = /^\d+$/.test(dateStr) ? new Date(parseInt(dateStr)) : new Date(dateStr); return dObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }); };
 
         document.addEventListener('click', (e) => { 
-            const pMenu = document.getElementById('profileMenu'); const avatar = document.getElementById('userAvatar');
-            if (!pMenu.classList.contains('hidden') && !pMenu.contains(e.target) && e.target !== avatar && !avatar.contains(e.target)) pMenu.classList.add('hidden');
+            const pMenu = document.getElementById('profileMenu'); const pContainer = document.getElementById('profileContainer');
+            if (!pMenu.classList.contains('hidden') && !pMenu.contains(e.target) && pContainer && !pContainer.contains(e.target)) pMenu.classList.add('hidden');
             
             const nMenu = document.getElementById('notifMenu'); const nIcon = document.getElementById('notifBadge')?.parentElement;
             if (!nMenu.classList.contains('hidden') && !nMenu.contains(e.target) && !nIcon?.contains(e.target)) nMenu.classList.add('hidden');
