@@ -13,6 +13,7 @@
         }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         body { margin: 0; min-height: 100vh; overflow-x: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
@@ -463,7 +464,10 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-1">Tags (Pisahkan dengan koma)</label>
-                        <input type="text" id="kfTags" placeholder="SOP, Ide, Promo..." class="w-full glass-input p-2 text-sm">
+                        <div class="relative">
+                            <input type="text" id="kfTags" oninput="window.showTagSuggestions(event)" autocomplete="off" placeholder="SOP, Ide, Promo..." class="w-full glass-input p-2 text-sm">
+                            <div id="kfTagSuggestions" class="hidden absolute left-0 right-0 top-full mt-1 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg shadow-xl z-50 max-h-40 overflow-y-auto no-scrollbar"></div>
+                        </div>
                     </div>
                 </div>
                 
@@ -800,7 +804,7 @@
         };
 
         window.goHome = () => window.switchModule('home');
-        window.openSuperMenu = window.switchModule; // Alias Penting
+        window.openSuperMenu = window.switchModule; 
 
         // ----------------------------------------------------
         // AUTHENTICATION & INITIALIZATION
@@ -1079,6 +1083,10 @@
                 const tMenu = document.getElementById(`menu-${window.activeMenuId}`); 
                 if (tMenu && !tMenu.contains(e.target)) { tMenu.classList.add('hidden'); window.activeMenuId = null; } 
             } 
+            // Hide Keep Tag suggestions
+            if (!e.target.closest('#kfTags') && !e.target.closest('#kfTagSuggestions')) {
+                document.getElementById('kfTagSuggestions')?.classList.add('hidden');
+            }
         });
 
         // ----------------------------------------------------
@@ -1817,6 +1825,8 @@
                 kfContent.addEventListener('paste', function(e) {
                     e.preventDefault(); 
                     let text = (e.clipboardData || window.clipboardData).getData('text/plain');
+                    // Cegah injeksi HTML kotor agar editor tidak rusak
+                    text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                     let urlRegex = /(https?:\/\/[^\s]+)/g;
                     let html = text.replace(urlRegex, function(url) { return `<a href="${url}" target="_blank" class="text-blue-500 underline font-medium break-words">${url}</a>`; });
                     html = html.replace(/\n/g, '<br>'); document.execCommand("insertHTML", false, html);
@@ -1854,6 +1864,42 @@
             window.customKeepColors = window.customKeepColors.filter(c => c !== color);
             localStorage.setItem('fathsKeepColors', JSON.stringify(window.customKeepColors));
             window.renderKeepColorPicker();
+        };
+
+        // Autocomplete Tag Logika
+        window.showTagSuggestions = (e) => {
+            const input = e.target;
+            const val = input.value;
+            const suggestionsBox = document.getElementById('kfTagSuggestions');
+            
+            const parts = val.split(',');
+            const currentTag = parts[parts.length - 1].trim().toLowerCase();
+            
+            if (currentTag.length === 0) {
+                suggestionsBox.classList.add('hidden');
+                return;
+            }
+            
+            const matches = window.keepTags.filter(t => t.toLowerCase().includes(currentTag) && t.toLowerCase() !== currentTag);
+            
+            if (matches.length > 0) {
+                suggestionsBox.innerHTML = matches.map(m => `
+                    <div class="px-3 py-2 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-600 text-sm font-medium text-slate-700 dark:text-slate-200" onclick="window.selectKeepTag('${m}')">${m}</div>
+                `).join('');
+                suggestionsBox.classList.remove('hidden');
+            } else {
+                suggestionsBox.classList.add('hidden');
+            }
+        };
+
+        window.selectKeepTag = (tag) => {
+            const input = document.getElementById('kfTags');
+            let parts = input.value.split(',').map(p => p.trim());
+            parts.pop(); 
+            parts.push(tag);
+            input.value = parts.join(', ') + (parts.length > 0 ? ', ' : '');
+            document.getElementById('kfTagSuggestions').classList.add('hidden');
+            input.focus();
         };
 
         window.populateKeepFilters = () => {
@@ -1985,7 +2031,7 @@
                 document.getElementById('kfId').value = note.id;
                 document.getElementById('kfTitle').value = note.title;
                 document.getElementById('kfContent').innerHTML = note.content || '';
-                document.getElementById('kfTags').value = note.tags ? note.tags.join(', ') : '';
+                document.getElementById('kfTags').value = note.tags ? note.tags.join(', ') + ', ' : '';
                 document.getElementById('kfCoverUrl').value = note.coverUrl || '';
                 document.getElementById('kfIsPinned').value = note.isPinned || false;
                 
