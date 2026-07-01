@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fath's Works Duty Pro</title>
+    <title>My Works Duty</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -39,19 +39,19 @@
 
         /* EFEK GLASSMORPHISM */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.55);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
             border-radius: 20px;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 1);
+            border: 1px solid rgba(255, 255, 255, 0.9);
             border-radius: 16px;
             box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
@@ -72,12 +72,18 @@
         .glass-button:hover { background: rgba(255, 255, 255, 1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); transform: translateY(-1px); }
 
         .glass-input {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 12px;
             transition: all 0.3s ease;
         }
-        .glass-input:focus { outline: none; background: rgba(255, 255, 255, 1); border-color: #60a5fa; box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3); }
+        .glass-input:focus { outline: none; background: rgba(255, 255, 255, 0.95); border-color: #60a5fa; box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3); }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #0284c7 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
         .color-radio:checked + div { border: 3px solid #1e293b; transform: scale(1.1); }
         .holiday-red { color: #ef4444 !important; font-weight: 800; }
@@ -88,24 +94,30 @@
         .toggle-checkbox:checked { right: 0; border-color: #3b82f6; }
         .toggle-checkbox:checked + .toggle-label { background-color: #3b82f6; }
 
-        /* Custom Alert Dialog */
+        /* Solid Menu - Opaque & Clean */
+        .solid-menu {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Custom Modal Overlay */
         .alert-overlay { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); }
     </style>
 </head>
 <body class="flex flex-col p-4 md:p-6 min-h-screen relative">
 
-    <!-- LOGIN SCREEN - CLEAN & PROFESSIONAL -->
+    <!-- LOGIN SCREEN -->
     <div id="loginScreen" class="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[100] flex justify-center items-center p-4 transition-opacity duration-500">
-        <div class="bg-white/90 backdrop-blur-xl rounded-3xl w-full max-w-md p-10 shadow-2xl text-center relative overflow-hidden border border-white/50">
-            <!-- Glow Effects -->
-            <div class="absolute -top-20 -right-20 w-40 h-40 bg-blue-400 rounded-full blur-3xl opacity-40"></div>
-            <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-sky-400 rounded-full blur-3xl opacity-40"></div>
+        <div class="bg-white/95 backdrop-blur-xl rounded-3xl w-full max-w-md p-10 shadow-2xl text-center relative overflow-hidden border border-white/50">
+            <div class="absolute -top-20 -right-20 w-40 h-40 bg-blue-400 rounded-full blur-3xl opacity-30"></div>
+            <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-sky-400 rounded-full blur-3xl opacity-30"></div>
             
             <div class="relative z-10">
                 <div class="mx-auto w-20 h-20 bg-gradient-to-tr from-blue-500 to-sky-400 rounded-2xl shadow-xl flex items-center justify-center mb-6 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
                     <span class="text-4xl">✨</span>
                 </div>
-                <h1 class="text-3xl font-extrabold text-slate-800 mb-2 tracking-tight">Fath's Works Duty</h1>
+                <h1 class="text-3xl font-extrabold text-slate-800 mb-2 tracking-tight">My Works Duty</h1>
                 <p class="text-slate-500 font-medium mb-8 text-sm leading-relaxed">Manajemen tugas terpadu, cerdas, dan aman. Silakan masuk untuk mengakses live workspace tim Anda.</p>
                 
                 <button id="btnLogin" class="w-full bg-white border-2 border-slate-200 hover:border-blue-400 hover:bg-slate-50 text-slate-700 font-bold py-3.5 px-4 rounded-xl shadow-sm transition-all flex items-center justify-center gap-3">
@@ -120,7 +132,7 @@
         </div>
     </div>
 
-    <!-- MAIN APP CONTAINER (Hidden until logged in) -->
+    <!-- MAIN APP CONTAINER -->
     <div id="mainApp" class="hidden flex-col w-full h-full flex-1 transition-opacity duration-500 opacity-0">
         
         <nav class="flex flex-col sm:flex-row justify-between items-center mb-6 glass-panel p-4 z-10 gap-4">
@@ -138,7 +150,7 @@
             <!-- TABS NAVIGASI -->
             <div class="flex p-1 bg-white/50 border border-white/70 rounded-xl w-full sm:w-auto shadow-sm">
                 <button onclick="switchMainTab('workspace')" id="tab-workspace" class="flex-1 sm:flex-none px-6 py-2 text-sm font-bold rounded-lg bg-white shadow-sm text-blue-600 transition-all">Workspace</button>
-                <button onclick="switchMainTab('dashboard')" id="tab-dashboard" class="flex-1 sm:flex-none px-6 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:bg-white/60 transition-all flex items-center justify-center gap-1">Dashboard <span class="flex h-2 w-2 rounded-full bg-red-500"></span></button>
+                <button onclick="switchMainTab('dashboard')" id="tab-dashboard" class="flex-1 sm:flex-none px-6 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:bg-white/60 transition-all flex items-center gap-1 justify-center">Dashboard <span class="flex h-2 w-2 rounded-full bg-red-500"></span></button>
             </div>
 
             <!-- USER PROFILE -->
@@ -172,6 +184,7 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3 w-full xl:w-auto items-center">
+                    <!-- SEARCH BAR -->
                     <input type="text" id="searchInput" oninput="renderApp()" placeholder="🔍 Cari tugas tim..." class="glass-input p-2.5 flex-1 w-full sm:w-48 text-sm font-medium">
                     
                     <div class="flex gap-2 w-full sm:w-auto">
@@ -224,13 +237,13 @@
         <!-- ============================================== -->
         <div id="container-dashboard" class="hidden flex-col flex-1 w-full">
             
+            <!-- SECTION 1: OVERVIEW -->
             <div class="mb-4">
                 <h2 class="text-xl font-bold text-slate-800 mb-1">Performance Overview</h2>
                 <p class="text-sm text-slate-500">Ringkasan statistik dari seluruh tugas tim kolaboratif Anda.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                <!-- Stat Cards -->
                 <div class="glass-panel p-5 flex flex-col justify-center relative overflow-hidden bg-white/80">
                     <h3 class="text-slate-500 font-bold text-sm mb-1 z-10">Total Tugas Aktif</h3>
                     <div class="text-4xl font-extrabold text-slate-800 z-10" id="statTotal">0</div>
@@ -325,7 +338,6 @@
                             <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-1">Status Waktu</h3>
                             <div id="previewTimeLeft" class="text-sm font-bold p-3 rounded-xl text-center shadow-sm"></div>
                             <div><span class="block text-xs text-slate-500 mb-1">Total Hari Pengerjaan</span><span id="previewDuration" class="text-sm font-bold text-slate-800"></span></div>
-                            <!-- Fitur G-Calendar -->
                             <button onclick="addToGCalendar()" class="w-full mt-2 bg-white border border-slate-200 hover:bg-slate-50 hover:border-blue-300 text-slate-600 text-xs font-bold py-3 px-3 rounded-xl shadow-sm transition-all flex items-center justify-center gap-2">
                                 <svg class="w-4 h-4 text-blue-500" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg> Google Calendar
                             </button>
@@ -375,7 +387,6 @@
                         </div>
                     </div>
 
-                    <!-- Bagian Penjadwalan Custom (Mini Kalender Interaktif) -->
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
                         <div class="flex justify-between items-center mb-3">
                             <h3 class="text-sm font-bold text-slate-700 flex items-center gap-2">
@@ -406,7 +417,6 @@
                         <textarea id="taskDesc" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm resize-none focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all shadow-inner"></textarea>
                     </div>
 
-                    <!-- Notifikasi Toggle -->
                     <div class="flex items-center justify-between p-4 bg-blue-50/50 border border-blue-100 rounded-xl shadow-sm">
                         <div>
                             <h4 class="text-sm font-bold text-blue-800">🔔 Pengingat Web (Push Notification)</h4>
@@ -493,18 +503,18 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, deleteDoc, onSnapshot, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, deleteDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Firebase Setup using Provided Configuration
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'faths-work-duty';
+        // MENGGUNAKAN KONFIGURASI FIREBASE TERBARU (v11)
+        const appId = 'faths-work-duty';
         const firebaseConfig = {
-            apiKey: "AIzaSyA17rN56mr3e-qQi4GW-pR9tWK_Sz4PK34",
-            authDomain: "faths-work-duty.firebaseapp.com",
-            projectId: "faths-work-duty",
-            storageBucket: "faths-work-duty.firebasestorage.app",
-            messagingSenderId: "1021350807893",
-            appId: "1:1021350807893:web:4a13adf5bcdb322e9447dc"
+            apiKey: "AIzaSyCSEHSauZ0pixoG--e9GK3XhdivNqDOT08",
+            authDomain: "workspace-kanban-87108.firebaseapp.com",
+            projectId: "workspace-kanban-87108",
+            storageBucket: "workspace-kanban-87108.firebasestorage.app",
+            messagingSenderId: "806979287973",
+            appId: "1:806979287973:web:45b169dc1ce60d421dc64c"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -513,7 +523,7 @@
 
         // Global Variables
         window.currentUser = null;
-        window.userProfileName = "Pengguna Pro";
+        window.userProfileName = "Pengguna";
         window.userProfilePhoto = "";
         window.tasks = [];
         window.teamMembers = [];
@@ -537,11 +547,9 @@
 
         window.nationalHolidays = ["2026-01-01", "2026-02-17", "2026-03-20", "2026-04-10", "2026-05-01", "2026-05-14", "2026-06-01", "2026-08-17", "2026-12-25"];
 
-        // Data Unsubscribers
         let tasksUnsubscribe = null;
         let usersUnsubscribe = null;
 
-        // Custom Alert System
         window.showAlert = function(title, message, type = 'info') {
             const modal = document.getElementById('alertModal');
             const content = document.getElementById('alertModalContent');
@@ -558,7 +566,6 @@
             }
             
             modal.classList.remove('hidden');
-            // Small delay for animation
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
                 content.classList.remove('scale-95');
@@ -574,67 +581,96 @@
             setTimeout(() => { modal.classList.add('hidden'); }, 300);
         }
 
-        // ==========================================
-        // AUTHENTICATION & DATA BINDING (LIVE COLLAB)
-        // ==========================================
-
         document.getElementById('btnLogin').addEventListener('click', async () => {
             const btn = document.getElementById('btnLogin');
             const originalContent = btn.innerHTML;
-            btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-slate-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Memverifikasi...`;
+            btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-slate-700 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Memverifikasi...`;
             btn.disabled = true;
 
             try {
                 const provider = new GoogleAuthProvider();
                 await signInWithPopup(auth, provider);
             } catch (error) {
-                console.warn("Google Login failed (maybe blocked by strict preview iframe). Trying fallback...", error);
+                console.warn("Google Login failed. Trying Anonymous...", error);
                 try {
-                    // Fallback in case popups are blocked
                     await signInAnonymously(auth);
                 } catch (fallbackError) {
-                    console.error("Auth Error:", fallbackError);
-                    window.showAlert("Login Gagal", "Gagal menghubungkan ke Workspace Cloud.", "error");
-                    btn.innerHTML = originalContent;
-                    btn.disabled = false;
+                    window.showAlert("Peringatan Auth", "Gagal menghubungkan. Mengalihkan ke Mode Lokal Sementara...", "error");
+                    setTimeout(() => { window.handleLocalLogin(); }, 2500);
+                    btn.innerHTML = originalContent; btn.disabled = false;
                 }
             }
         });
 
+        window.handleLocalLogin = function() {
+            window.currentUser = { uid: 'local-guest-' + Date.now(), displayName: 'Pengguna Lokal' };
+            window.userProfileName = "Pengguna Lokal";
+            window.userProfilePhoto = `https://ui-avatars.com/api/?name=Local&background=e2e8f0&color=475569`;
+            
+            document.getElementById('userName').innerText = window.userProfileName;
+            document.getElementById('userAvatar').src = window.userProfilePhoto;
+
+            document.getElementById('loginScreen').classList.add('opacity-0');
+            setTimeout(() => {
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+                document.getElementById('mainApp').classList.add('flex');
+                setTimeout(() => { document.getElementById('mainApp').classList.remove('opacity-0'); }, 50);
+            }, 500);
+
+            try { window.tasks = JSON.parse(localStorage.getItem('fathsWorkDuty_local_tasks')) || []; } catch(e) { window.tasks = []; }
+            window.teamMembers = [{ uid: window.currentUser.uid, name: window.userProfileName, photo: window.userProfilePhoto, isOnline: true }];
+            window.renderApp(); if(window.currentTab === 'dashboard') window.renderTeamDashboard();
+        };
+
         window.handleLogout = async function() {
             try {
+                // Set isOnline to false before disconnecting
+                if (window.currentUser && !window.currentUser.uid.startsWith('local-guest')) {
+                    const userRef = doc(db, 'artifacts', appId, 'public', 'data', 'users', window.currentUser.uid);
+                    await setDoc(userRef, { isOnline: false, lastActive: new Date().toISOString() }, { merge: true }).catch(err=>console.log(err));
+                    await signOut(auth);
+                }
+                
                 if(tasksUnsubscribe) tasksUnsubscribe();
                 if(usersUnsubscribe) usersUnsubscribe();
-                await signOut(auth);
-                // Reset UI
-                window.tasks = [];
-                window.teamMembers = [];
+                
+                // Reset UI and global variables
+                window.tasks = []; window.teamMembers = []; window.currentUser = null;
+                const btn = document.getElementById('btnLogin');
+                if (btn) {
+                    btn.innerHTML = `<svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Lanjutkan dengan Google`;
+                    btn.disabled = false;
+                }
+
                 document.getElementById('mainApp').classList.add('opacity-0');
                 setTimeout(() => {
-                    document.getElementById('mainApp').classList.add('hidden');
-                    document.getElementById('mainApp').classList.remove('flex');
+                    document.getElementById('mainApp').classList.add('hidden'); document.getElementById('mainApp').classList.remove('flex');
                     document.getElementById('loginScreen').classList.remove('hidden');
                     setTimeout(() => { document.getElementById('loginScreen').classList.remove('opacity-0'); }, 10);
                 }, 500);
             } catch (e) { console.error(e); }
         };
 
-        // Watch Auth State
+        // Event listener for tab/window close to attempt offline marking
+        window.addEventListener('beforeunload', () => {
+            if (window.currentUser && !window.currentUser.uid.startsWith('local-guest')) {
+                const userRef = doc(db, 'artifacts', appId, 'public', 'data', 'users', window.currentUser.uid);
+                setDoc(userRef, { isOnline: false, lastActive: new Date().toISOString() }, { merge: true });
+            }
+        });
+
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 window.currentUser = user;
-                
-                // Determine display info
                 let displayName = user.displayName || "Rekan Tim (Anonim)";
                 let photoUrl = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=e2e8f0&color=475569`;
                 
-                // Set UI
                 document.getElementById('userName').innerText = displayName;
                 document.getElementById('userAvatar').src = photoUrl;
                 window.userProfileName = displayName;
                 window.userProfilePhoto = photoUrl;
 
-                // Animate Transition
                 document.getElementById('loginScreen').classList.add('opacity-0');
                 setTimeout(() => {
                     document.getElementById('loginScreen').classList.add('hidden');
@@ -643,16 +679,10 @@
                     setTimeout(() => { document.getElementById('mainApp').classList.remove('opacity-0'); }, 50);
                 }, 500);
 
-                // Register User Presence in Public Directory (for Team Dashboard)
+                // Register Kehadiran User (Online)
                 const userRef = doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid);
-                setDoc(userRef, {
-                    uid: user.uid,
-                    name: displayName,
-                    photo: photoUrl,
-                    lastActive: new Date().toISOString()
-                }, { merge: true }).catch(err => console.error("Presence error:", err));
+                setDoc(userRef, { uid: user.uid, name: displayName, photo: photoUrl, lastActive: new Date().toISOString(), isOnline: true }, { merge: true }).catch(err => console.error(err));
 
-                // Bind Live Data (Tasks & Team)
                 bindLiveData();
             }
         });
@@ -660,7 +690,7 @@
         function bindLiveData() {
             if(!window.currentUser) return;
             
-            // 1. Live Tasks (Public/Collaborative)
+            // 1. Live Tasks
             const tasksRef = collection(db, 'artifacts', appId, 'public', 'data', 'tasks');
             if(tasksUnsubscribe) tasksUnsubscribe();
             tasksUnsubscribe = onSnapshot(tasksRef, (snapshot) => {
@@ -682,70 +712,36 @@
             }, (error) => { console.error("Live Users Error:", error); });
         }
 
-        // ==========================================
-        // CORE FUNCTIONS (Saving/Updating Data via Firestore)
-        // ==========================================
-
-        // Helper to replace raw array mutations with Firestore writes
         window.persistTask = async function(taskObj) {
             if(!window.currentUser) return;
             try {
-                // Ensure creator info is attached
-                if(!taskObj.creatorId) {
-                    taskObj.creatorId = window.currentUser.uid;
-                    taskObj.creatorName = window.userProfileName;
+                if(!taskObj.creatorId) { taskObj.creatorId = window.currentUser.uid; taskObj.creatorName = window.userProfileName; }
+                if(!taskObj.updatedAt) taskObj.updatedAt = new Date().toISOString();
+                
+                if (window.currentUser.uid.startsWith('local-guest')) {
+                    const idx = window.tasks.findIndex(t => t.id === taskObj.id);
+                    if (idx !== -1) window.tasks[idx] = taskObj; else window.tasks.push(taskObj);
+                    localStorage.setItem('fathsWorkDuty_local_tasks', JSON.stringify(window.tasks));
+                    window.renderApp(); return;
                 }
+
                 const taskRef = doc(db, 'artifacts', appId, 'public', 'data', 'tasks', taskObj.id);
                 await setDoc(taskRef, taskObj, { merge: true });
-            } catch(e) { window.showAlert("Gagal Menyimpan", "Periksa koneksi Anda.", "error"); console.error(e); }
+            } catch(e) { window.showAlert("Gagal Menyimpan", "Periksa koneksi internet Anda.", "error"); console.error(e); }
         };
 
         window.removeTaskFromDB = async function(taskId) {
             if(!window.currentUser) return;
             try {
+                if (window.currentUser.uid.startsWith('local-guest')) {
+                    window.tasks = window.tasks.filter(t => t.id !== taskId);
+                    localStorage.setItem('fathsWorkDuty_local_tasks', JSON.stringify(window.tasks));
+                    window.renderApp(); return;
+                }
                 const taskRef = doc(db, 'artifacts', appId, 'public', 'data', 'tasks', taskId);
                 await deleteDoc(taskRef);
             } catch(e) { window.showAlert("Gagal Menghapus", "Periksa koneksi Anda.", "error"); console.error(e); }
         };
-
-        function requestNotificationPermission() {
-            if ("Notification" in window && Notification.permission !== "granted" && Notification.permission !== "denied") {
-                Notification.requestPermission();
-            }
-        }
-
-        window.checkNotifications = function() {
-            if (!("Notification" in window) || Notification.permission !== "granted") return;
-            const todayStr = new Date().toISOString().split('T')[0];
-            
-            window.tasks.forEach(t => {
-                if(t.notify && t.status !== 'done') {
-                    const end = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[t.selectedDates.length-1] : t.deadline;
-                    if(end === todayStr && t.notifiedOn !== todayStr) {
-                        new Notification("🚨 Tenggat Hari Ini!", { body: `Tugas Tim: ${t.title}`, icon: 'https://cdn-icons-png.flaticon.com/512/1004/1004314.png' });
-                        t.notifiedOn = todayStr;
-                        window.persistTask(t); // Update notification status
-                    }
-                }
-            });
-        }
-
-        window.addToGCalendar = function() {
-            const taskId = document.getElementById('previewTaskId').value;
-            const t = window.tasks.find(x => x.id === taskId);
-            if(!t) return;
-            
-            const startD = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[0].replace(/-/g, '') : new Date().toISOString().split('T')[0].replace(/-/g, '');
-            let endDStr = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[t.selectedDates.length-1] : (t.deadline || new Date().toISOString().split('T')[0]);
-            let endDObj = new Date(endDStr.substring(0,4), parseInt(endDStr.substring(5,7))-1, parseInt(endDStr.substring(8,10)));
-            endDObj.setDate(endDObj.getDate() + 1);
-            const formattedEndD = endDObj.toISOString().split('T')[0].replace(/-/g, '');
-
-            const desc = t.description ? `${t.description}\n\n` : '';
-            const finalDesc = `${desc}(Workspace Kolaboratif - Dibuat oleh ${t.creatorName || 'Tim'})`;
-            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(t.title)}&dates=${startD}/${formattedEndD}&details=${encodeURIComponent(finalDesc)}`;
-            window.open(url, '_blank');
-        }
 
         window.switchMainTab = function(tab) {
             window.currentTab = tab;
@@ -762,35 +758,30 @@
                 wBtn.classList.replace('text-blue-600', 'text-slate-600'); wBtn.classList.remove('bg-white', 'shadow-sm'); wBtn.classList.add('hover:bg-white/60');
                 dCont.classList.remove('hidden'); dCont.classList.add('flex');
                 wCont.classList.add('hidden'); wCont.classList.remove('flex');
-                renderDashboardStats();
-                renderTeamDashboard();
+                renderDashboardStats(); renderTeamDashboard();
             }
         }
 
         window.renderTeamDashboard = function() {
             const container = document.getElementById('teamMembersContainer');
-            if(!window.teamMembers || window.teamMembers.length === 0) {
-                container.innerHTML = '<div class="text-sm text-slate-500 col-span-full">Belum ada anggota tim lain.</div>';
-                return;
-            }
+            if(!window.teamMembers || window.teamMembers.length === 0) { container.innerHTML = '<div class="text-sm text-slate-500 col-span-full">Belum ada anggota tim aktif.</div>'; return; }
 
             let html = '';
-            // Sort to put current user first
-            const sortedTeam = [...window.teamMembers].sort((a, b) => {
-                if(a.uid === window.currentUser?.uid) return -1;
-                if(b.uid === window.currentUser?.uid) return 1;
-                return 0;
-            });
+            const sortedTeam = [...window.teamMembers].sort((a, b) => { if(a.uid === window.currentUser?.uid) return -1; if(b.uid === window.currentUser?.uid) return 1; return 0; });
 
             sortedTeam.forEach(member => {
                 const isMe = member.uid === window.currentUser?.uid;
-                const activeText = isMe ? '<span class="text-xs text-green-500 font-bold">Online (Anda)</span>' : '<span class="text-xs text-blue-400 font-medium">Anggota Tim</span>';
+                const isOnline = member.isOnline !== false; // Default to true if undefined
                 
+                const activeText = isMe ? '<span class="text-xs text-green-500 font-bold">Online (Anda)</span>' : (isOnline ? '<span class="text-xs text-blue-500 font-medium">Online</span>' : '<span class="text-xs text-slate-400 font-medium">Offline</span>');
+                const dotHtml = isOnline ? '<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></div>' : '<div class="absolute bottom-0 right-0 w-3 h-3 bg-slate-300 border-2 border-white rounded-full"></div>';
+                const opacityClass = isOnline ? '' : 'opacity-60 grayscale';
+
                 html += `
-                    <div class="flex items-center gap-3 p-3 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white transition-colors shadow-sm">
+                    <div class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 bg-white hover:bg-blue-50 transition-colors shadow-sm ${opacityClass}">
                         <div class="relative">
                             <img src="${member.photo || 'https://via.placeholder.com/150'}" alt="${member.name}" class="w-10 h-10 rounded-full border border-slate-200">
-                            <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></div>
+                            ${dotHtml}
                         </div>
                         <div class="flex flex-col truncate">
                             <span class="text-sm font-bold text-slate-800 truncate">${member.name || 'Anonim'}</span>
@@ -803,16 +794,9 @@
         }
 
         window.renderDashboardStats = function() {
-            const today = new Date();
-            const currMonthStr = today.toISOString().substring(0, 7);
-            
-            let total = 0, doneMonth = 0;
-            let statusCount = { 'todo': 0, 'inprogress': 0, 'done': 0 };
-            let priorCount = { 'Tinggi': 0, 'Sedang': 0, 'Rendah': 0 };
-            
-            let streak = 0;
-            let checkDate = new Date(today);
-            let doneDates = new Set();
+            const today = new Date(); const currMonthStr = today.toISOString().substring(0, 7);
+            let total = 0, doneMonth = 0; let statusCount = { 'todo': 0, 'inprogress': 0, 'done': 0 }; let priorCount = { 'Tinggi': 0, 'Sedang': 0, 'Rendah': 0 };
+            let streak = 0; let checkDate = new Date(today); let doneDates = new Set();
 
             window.tasks.forEach(t => {
                 if(t.status !== 'done') { total++; priorCount[t.priority || 'Rendah']++; }
@@ -821,17 +805,11 @@
                 if(t.status === 'done' && t.completedAt && t.completedAt.startsWith(currMonthStr)) doneMonth++;
             });
 
-            while(true) {
-                let dStr = checkDate.toISOString().split('T')[0];
-                if(doneDates.has(dStr)) { streak++; checkDate.setDate(checkDate.getDate() - 1); }
-                else break;
-            }
+            while(true) { let dStr = checkDate.toISOString().split('T')[0]; if(doneDates.has(dStr)) { streak++; checkDate.setDate(checkDate.getDate() - 1); } else break; }
 
-            document.getElementById('statTotal').innerText = total;
-            document.getElementById('statDone').innerText = doneMonth;
+            document.getElementById('statTotal').innerText = total; document.getElementById('statDone').innerText = doneMonth;
             let rate = (window.tasks.length > 0) ? Math.round((statusCount.done / window.tasks.length) * 100) : 0;
-            document.getElementById('statRate').innerText = rate + "%";
-            document.getElementById('statStreak').innerText = streak;
+            document.getElementById('statRate').innerText = rate + "%"; document.getElementById('statStreak').innerText = streak;
 
             let actT = total > 0 ? total : 1;
             document.getElementById('barTinggi').style.width = ((priorCount['Tinggi']/actT)*100)+'%'; document.getElementById('barTinggiText').innerText = priorCount['Tinggi'];
@@ -842,239 +820,90 @@
             if(canvas) {
                 const ctx = canvas.getContext('2d');
                 if(window.myDoughnutChart) window.myDoughnutChart.destroy();
-                window.myDoughnutChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['To Do', 'In Progress', 'Done'],
-                        datasets: [{
-                            data: [statusCount.todo, statusCount.inprogress, statusCount.done],
-                            backgroundColor: ['#cbd5e1', '#3b82f6', '#10b981'],
-                            borderWidth: 0, hoverOffset: 4
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8, font: {family: "'Plus Jakarta Sans', sans-serif", weight: 'bold'} } } }, cutout: '75%' }
-                });
+                window.myDoughnutChart = new Chart(ctx, { type: 'doughnut', data: { labels: ['To Do', 'In Progress', 'Done'], datasets: [{ data: [statusCount.todo, statusCount.inprogress, statusCount.done], backgroundColor: ['#cbd5e1', '#3b82f6', '#10b981'], borderWidth: 0, hoverOffset: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8, font: {family: "'Plus Jakarta Sans', sans-serif", weight: 'bold'} } } }, cutout: '75%' } });
             }
         }
 
-        window.toggleBodyScroll = function(lock) {
-            if(lock) document.body.style.overflow = 'hidden';
-            else document.body.style.overflow = '';
-        }
-
-        window.clearMonthFilter = function() {
-            const filterMonthInput = document.getElementById('filterMonth');
-            const searchInput = document.getElementById('searchInput');
-            if (filterMonthInput) filterMonthInput.value = '';
-            if (searchInput) searchInput.value = '';
-            const now = new Date(); window.currentYear = now.getFullYear(); window.currentMonth = now.getMonth();
-            renderApp();
-        }
-
-        window.onFilterMonthChange = function() {
-            const filterMonthVal = document.getElementById('filterMonth').value;
-            if (filterMonthVal) {
-                const [y, m] = filterMonthVal.split('-');
-                window.currentYear = parseInt(y); window.currentMonth = parseInt(m) - 1;
-            }
-            renderApp();
-        }
-
-        window.renderMiniCalendar = function() {
-            const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-            document.getElementById('miniCalTitle').innerText = `${monthNames[window.miniCalMonth]} ${window.miniCalYear}`;
-            const grid = document.getElementById('miniCalGrid');
-            if(!grid) return;
-            grid.innerHTML = '';
-
-            const firstDay = new Date(window.miniCalYear, window.miniCalMonth, 1).getDay(); 
-            const daysInMonth = new Date(window.miniCalYear, window.miniCalMonth + 1, 0).getDate();
-
-            for(let i = 0; i < firstDay; i++) grid.innerHTML += `<div class="p-1.5 opacity-0"></div>`;
-
-            for(let day = 1; day <= daysInMonth; day++) {
-                const dateStr = `${window.miniCalYear}-${String(window.miniCalMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const dayDate = new Date(dateStr);
-                const isWeekend = dayDate.getDay() === 0 || dayDate.getDay() === 6;
-                const isHoliday = window.nationalHolidays.includes(dateStr);
-                const isRedDay = isWeekend || isHoliday;
-                const isSelected = window.selectedTaskDates.includes(dateStr);
-                
-                let cellClass = "p-1.5 rounded-lg cursor-pointer transition-all border font-bold ";
-                if (isSelected) cellClass += "bg-blue-600 text-white border-blue-600 shadow-md transform scale-110";
-                else { cellClass += "hover:bg-blue-50 hover:border-blue-300 bg-white border-transparent shadow-sm "; cellClass += isRedDay ? "text-red-500" : "text-slate-700"; }
-                grid.innerHTML += `<div onclick="toggleTaskDate('${dateStr}')" class="${cellClass}">${day}</div>`;
-            }
-            document.getElementById('taskDurationText').innerText = window.selectedTaskDates.length;
-        }
-
-        window.changeMiniCal = function(offset) { window.miniCalMonth += offset; if(window.miniCalMonth < 0) { window.miniCalMonth = 11; window.miniCalYear--; } if(window.miniCalMonth > 11) { window.miniCalMonth = 0; window.miniCalYear++; } window.renderMiniCalendar(); }
-
-        window.toggleTaskDate = function(dateStr) {
-            if(window.selectedTaskDates.includes(dateStr)) window.selectedTaskDates = window.selectedTaskDates.filter(d => d !== dateStr);
-            else window.selectedTaskDates.push(dateStr);
-            window.selectedTaskDates.sort(); window.renderMiniCalendar();
-        }
+        window.toggleBodyScroll = function(lock) { if(lock) document.body.style.overflow = 'hidden'; else document.body.style.overflow = ''; }
+        window.clearMonthFilter = function() { const filterMonthInput = document.getElementById('filterMonth'); const searchInput = document.getElementById('searchInput'); if (filterMonthInput) filterMonthInput.value = ''; if (searchInput) searchInput.value = ''; const now = new Date(); window.currentYear = now.getFullYear(); window.currentMonth = now.getMonth(); renderApp(); }
+        window.onFilterMonthChange = function() { const filterMonthVal = document.getElementById('filterMonth').value; if (filterMonthVal) { const [y, m] = filterMonthVal.split('-'); window.currentYear = parseInt(y); window.currentMonth = parseInt(m) - 1; } renderApp(); }
 
         window.switchView = function(view) {
             window.currentView = view;
             ['board', 'list', 'calendar'].forEach(v => {
                 const btn = document.getElementById(`btn-${v}`); const container = document.getElementById(`view-${v}`);
-                if(v === view) {
-                    btn.classList.replace('text-slate-600', 'text-blue-600'); btn.classList.add('bg-white', 'shadow-sm'); btn.classList.remove('hover:bg-white/60'); container.classList.remove('hidden');
-                } else {
-                    btn.classList.replace('text-blue-600', 'text-slate-600'); btn.classList.remove('bg-white', 'shadow-sm'); btn.classList.add('hover:bg-white/60'); container.classList.add('hidden');
-                }
+                if(v === view) { btn.classList.replace('text-slate-600', 'text-blue-600'); btn.classList.add('bg-white', 'shadow-sm'); btn.classList.remove('hover:bg-white/60'); container.classList.remove('hidden'); } 
+                else { btn.classList.replace('text-blue-600', 'text-slate-600'); btn.classList.remove('bg-white', 'shadow-sm'); btn.classList.add('hover:bg-white/60'); container.classList.add('hidden'); }
             });
             renderApp();
         }
 
-        window.runAutomations = function() {
-            const today = new Date().toISOString().split('T')[0];
-            window.tasks.forEach(task => {
-                let modified = false;
-                if (task.status !== 'done' && task.subtasks && task.subtasks.length > 0) {
-                    if (task.subtasks.every(s => s.completed)) {
-                        window.handleMoveToDone(task, today); // Let the helper deal with DB save
-                        modified = true;
-                    }
-                }
-                const taskEnd = task.selectedDates && task.selectedDates.length > 0 ? task.selectedDates[task.selectedDates.length - 1] : task.deadline;
-                if (!modified && task.status !== 'done' && taskEnd && taskEnd < today && task.priority !== 'Tinggi') { 
-                    task.priority = 'Tinggi'; 
-                    window.persistTask(task);
-                }
-            });
-            window.checkNotifications();
-        }
-
-        window.handleMoveToDone = function(task, todayDate) {
-            if(task.status === 'done') return;
-            
-            if(task.type === 'Rutin Harian' || task.type === 'Rutin Bulanan') {
-                window.pendingRecurringTask = { task: task, today: todayDate };
-                window.toggleBodyScroll(true);
-                document.getElementById('recurringModal').classList.remove('hidden');
-                document.getElementById('recurringModal').classList.add('flex');
-            } else {
-                task.status = 'done';
-                task.completedAt = todayDate || new Date().toISOString().split('T')[0];
-                if (task.subtasks) task.subtasks.forEach(s => s.completed = true);
-                window.persistTask(task);
-            }
-        }
-
-        window.confirmRecurring = function(wantsClone) {
-            if(!window.pendingRecurringTask) return;
-            const task = window.pendingRecurringTask.task;
-            const todayDate = window.pendingRecurringTask.today;
-            
-            task.status = 'done';
-            task.completedAt = todayDate || new Date().toISOString().split('T')[0];
-            if (task.subtasks) task.subtasks.forEach(s => s.completed = true);
-            window.persistTask(task);
-
-            if(wantsClone) {
-                const newTask = JSON.parse(JSON.stringify(task));
-                newTask.id = Date.now().toString() + Math.floor(Math.random()*1000); // Unique
-                newTask.status = 'todo';
-                newTask.completedAt = null;
-                if (newTask.subtasks) newTask.subtasks.forEach(s => s.completed = false);
-                
-                if(newTask.selectedDates && newTask.selectedDates.length > 0) {
-                    newTask.selectedDates = newTask.selectedDates.map(dateStr => {
-                        let d = new Date(dateStr);
-                        if(task.type === 'Rutin Harian') d.setDate(d.getDate() + 1);
-                        if(task.type === 'Rutin Bulanan') d.setMonth(d.getMonth() + 1);
-                        return d.toISOString().split('T')[0];
-                    });
-                    newTask.selectedDates.sort();
-                    newTask.deadline = newTask.selectedDates[newTask.selectedDates.length-1];
-                }
-                window.persistTask(newTask);
-            }
-            
-            window.pendingRecurringTask = null;
-            window.toggleBodyScroll(false);
-            document.getElementById('recurringModal').classList.add('hidden');
-            document.getElementById('recurringModal').classList.remove('flex');
-        }
-
-        window.handleMoveOutFromDone = function(task, newStatus) {
-            task.completedAt = null;
-            if (task.subtasks && task.subtasks.length > 0) {
-                if (newStatus === 'todo') task.subtasks.forEach(s => s.completed = false);
-                else if (newStatus === 'inprogress') task.subtasks[task.subtasks.length - 1].completed = false;
-            }
-            task.status = newStatus;
-            window.persistTask(task);
-        }
-
         window.renderApp = function() {
             if(!window.currentUser) return;
-            const searchTerm = (document.getElementById('searchInput')?.value || '').toLowerCase();
-            const filterType = document.getElementById('filterType')?.value || 'Semua';
-            const filterPriority = document.getElementById('filterPriority')?.value || 'Semua';
-            const filterMonthVal = document.getElementById('filterMonth')?.value || '';
+            const searchTerm = (document.getElementById('searchInput')?.value || '').toLowerCase(); 
+            const filterType = document.getElementById('filterType')?.value || 'Semua'; 
+            const filterMonthVal = document.getElementById('filterMonth')?.value || ''; 
             const currentMonthStr = new Date().toISOString().substring(0, 7);
 
             let filteredTasks = window.tasks.filter(task => {
-                const matchSearch = task.title.toLowerCase().includes(searchTerm) || (task.description && task.description.toLowerCase().includes(searchTerm));
-                const matchType = filterType === 'Semua' || task.type === filterType;
-                const matchPriority = filterPriority === 'Semua' || task.priority === filterPriority;
+                const matchSearch = task.title.toLowerCase().includes(searchTerm) || (task.description && task.description.toLowerCase().includes(searchTerm)); 
+                const matchType = filterType === 'Semua' || task.type === filterType; 
                 let matchMonth = true;
-                if (window.currentView !== 'calendar') {
-                    const taskEnd = task.selectedDates && task.selectedDates.length > 0 ? task.selectedDates[task.selectedDates.length - 1] : task.deadline;
-                    if (filterMonthVal) { if (taskEnd) matchMonth = taskEnd.substring(0, 7) === filterMonthVal; } 
-                    else { if (taskEnd) { const taskMonth = taskEnd.substring(0, 7); if (taskMonth < currentMonthStr) matchMonth = false; } }
+                
+                // BYPASS MONTH FILTER IF SEARCHING: Allows finding past and future tasks easily
+                if (window.currentView !== 'calendar' && !searchTerm) { 
+                    const taskEnd = task.selectedDates && task.selectedDates.length > 0 ? task.selectedDates[task.selectedDates.length - 1] : task.deadline; 
+                    if (filterMonthVal) { 
+                        if (taskEnd) matchMonth = taskEnd.substring(0, 7) === filterMonthVal; 
+                    } else { 
+                        if (taskEnd) { 
+                            const taskMonth = taskEnd.substring(0, 7); 
+                            if (taskMonth < currentMonthStr) matchMonth = false; 
+                        } 
+                    } 
                 }
-                return matchSearch && matchType && matchPriority && matchMonth;
+                return matchSearch && matchType && matchMonth;
             });
 
             filteredTasks.sort((a, b) => {
-                if (a.status !== 'done' && b.status === 'done') return -1;
-                if (a.status === 'done' && b.status !== 'done') return 1;
-                const prioWeight = {'Tinggi': 3, 'Sedang': 2, 'Rendah': 1};
-                if (prioWeight[b.priority] !== prioWeight[a.priority]) return prioWeight[b.priority] - prioWeight[a.priority];
-                const aEnd = a.selectedDates && a.selectedDates.length > 0 ? a.selectedDates[a.selectedDates.length-1] : (a.deadline || '9999-12-31');
-                const bEnd = b.selectedDates && b.selectedDates.length > 0 ? b.selectedDates[b.selectedDates.length-1] : (b.deadline || '9999-12-31');
-                return new Date(aEnd) - new Date(bEnd);
+                if (searchTerm) {
+                    // Jika mencari, utamakan Prioritas lalu kemunculan terbaru (id/updatedAt)
+                    const prioWeight = {'Tinggi': 3, 'Sedang': 2, 'Rendah': 1}; 
+                    if (prioWeight[b.priority] !== prioWeight[a.priority]) return prioWeight[b.priority] - prioWeight[a.priority];
+                    return b.id.localeCompare(a.id); // Descending ID = Newer task
+                } else {
+                    // Sorting Normal berdasarkan Deadline terdekat
+                    if (a.status !== 'done' && b.status === 'done') return -1; if (a.status === 'done' && b.status !== 'done') return 1;
+                    const prioWeight = {'Tinggi': 3, 'Sedang': 2, 'Rendah': 1}; if (prioWeight[b.priority] !== prioWeight[a.priority]) return prioWeight[b.priority] - prioWeight[a.priority];
+                    const aEnd = a.selectedDates && a.selectedDates.length > 0 ? a.selectedDates[a.selectedDates.length-1] : (a.deadline || '9999-12-31'); const bEnd = b.selectedDates && b.selectedDates.length > 0 ? b.selectedDates[b.selectedDates.length-1] : (b.deadline || '9999-12-31');
+                    return new Date(aEnd) - new Date(bEnd);
+                }
             });
 
-            if (window.currentView === 'board') renderBoard(filteredTasks);
-            else if (window.currentView === 'list') renderList(filteredTasks);
-            else if (window.currentView === 'calendar') renderCalendar(filteredTasks); 
+            if (window.currentView === 'board') renderBoard(filteredTasks); else if (window.currentView === 'list') renderList(filteredTasks); else if (window.currentView === 'calendar') renderCalendar(filteredTasks); 
         }
 
         window.renderBoard = function(filteredTasks) {
-            const lists = { 'todo': '', 'inprogress': '', 'done': '' };
-            const counts = { 'todo': 0, 'inprogress': 0, 'done': 0 };
-            const today = new Date().toISOString().split('T')[0]; 
+            const lists = { 'todo': '', 'inprogress': '', 'done': '' }; const counts = { 'todo': 0, 'inprogress': 0, 'done': 0 }; const today = new Date().toISOString().split('T')[0]; 
 
             filteredTasks.forEach(task => {
-                const stat = task.status || 'todo';
-                counts[stat]++;
-                const taskEnd = task.selectedDates && task.selectedDates.length > 0 ? task.selectedDates[task.selectedDates.length-1] : task.deadline;
-                const isOverdue = stat !== 'done' && taskEnd < today;
-                const isToday = stat !== 'done' && taskEnd === today;
+                const stat = task.status || 'todo'; counts[stat]++; 
+                const taskEnd = task.selectedDates && task.selectedDates.length > 0 ? task.selectedDates[task.selectedDates.length-1] : task.deadline; 
+                const isOverdue = stat !== 'done' && taskEnd < today; const isToday = stat !== 'done' && taskEnd === today; const isDone = stat === 'done';
+                
+                // Menambahkan format bulan dan tahun untuk tag
+                const endObj = new Date(taskEnd); const monthYearStr = endObj.toLocaleDateString('id-ID', { month: 'short', year: 'numeric' });
 
-                let subHtml = '';
-                if(task.subtasks && task.subtasks.length > 0) {
-                    const completed = task.subtasks.filter(s => s.completed).length;
-                    const pct = (completed / task.subtasks.length) * 100;
-                    subHtml = `<div class="mt-3"><div class="h-1.5 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-blue-500" style="width: ${pct}%"></div></div></div>`;
-                }
+                let subHtml = ''; if(task.subtasks && task.subtasks.length > 0) { const completed = task.subtasks.filter(s => s.completed).length; const pct = (completed / task.subtasks.length) * 100; subHtml = `<div class="mt-3"><div class="h-1.5 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-blue-500" style="width: ${pct}%"></div></div></div>`; }
 
                 let prioDot = task.priority === 'Tinggi' ? `<span class="w-3 h-3 rounded-full bg-red-500 border-2 border-white shadow animate-pulse" title="Tinggi"></span>` : (task.priority === 'Sedang' ? `<span class="w-3 h-3 rounded-full bg-yellow-400 border-2 border-white shadow animate-pulse" title="Sedang"></span>` : `<span class="w-3 h-3 rounded-full bg-green-500 border-2 border-white shadow" title="Rendah"></span>`);
-                const isHex = task.color && task.color.startsWith('#');
-                const coverColorClass = isHex ? '' : (task.color || 'bg-slate-200');
-                const coverStyle = isHex ? `style="background-color: ${task.color};"` : '';
+                const isHex = task.color && task.color.startsWith('#'); const coverColorClass = isHex ? '' : (task.color || 'bg-slate-200'); const coverStyle = isHex ? `style="background-color: ${task.color};"` : '';
                 
                 lists[stat] += `
                     <div id="${task.id}" class="glass-card relative group pt-3 pb-4 px-4 bg-white/95 border-slate-200" draggable="true" ondragstart="drag(event)" onclick="openPreviewModal('${task.id}')">
                         <div class="absolute inset-x-0 top-0 h-2 rounded-t-2xl overflow-hidden ${coverColorClass}" ${coverStyle}></div>
                         <div class="flex justify-between items-start mb-2 mt-2">
-                            <div class="flex items-center gap-2">${prioDot} <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full shadow-sm">${formatDate(taskEnd)}</span></div>
+                            <div class="flex items-center gap-2">${prioDot} <span class="text-[10px] font-extrabold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full shadow-sm">${formatDate(taskEnd)}</span></div>
                             <div class="relative" onclick="event.stopPropagation()">
                                 <button onclick="toggleCardMenu(event, '${task.id}')" class="text-slate-400 hover:text-blue-600 p-1 bg-white hover:bg-slate-50 rounded-lg shadow-sm border border-slate-100 transition-colors"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg></button>
                                 ${buildMenuOptions(task)}
@@ -1083,9 +912,10 @@
                         <h3 class="font-extrabold text-slate-800 text-base mb-1 pr-4">${task.title}</h3>
                         <div class="text-[10px] text-slate-400 mb-2 truncate">👤 ${task.creatorName || 'Tim'}</div>
                         <div class="flex flex-wrap gap-1 mt-2">
+                            <span class="text-[10px] font-bold text-slate-600 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full">${monthYearStr}</span>
+                            ${isDone ? '<span class="text-[10px] font-bold text-emerald-600 bg-emerald-100 border border-emerald-200 px-2 py-0.5 rounded-full">SELESAI</span>' : ''}
                             ${isOverdue ? '<span class="text-[10px] font-bold text-red-600 bg-red-100 border border-red-200 px-2 py-0.5 rounded-full">TERLAMBAT</span>' : ''}
                             ${isToday ? '<span class="text-[10px] font-bold text-amber-600 bg-amber-100 border border-amber-200 px-2 py-0.5 rounded-full">HARI INI</span>' : ''}
-                            ${task.notify ? '<span class="text-[10px] font-bold text-blue-600 bg-blue-100 border border-blue-200 px-2 py-0.5 rounded-full flex items-center gap-1" title="Notifikasi Aktif"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path></svg></span>' : ''}
                         </div>
                         ${subHtml}
                     </div>
@@ -1093,9 +923,7 @@
             });
 
             const emptyStr = `<div class="text-center p-6 bg-white/40 text-slate-500 text-sm font-bold border-2 border-dashed border-slate-300 rounded-2xl shadow-inner">Tidak Ada Tugas</div>`;
-            document.getElementById('todo-list').innerHTML = lists.todo || emptyStr;
-            document.getElementById('inprogress-list').innerHTML = lists.inprogress || emptyStr;
-            document.getElementById('done-list').innerHTML = lists.done || emptyStr;
+            document.getElementById('todo-list').innerHTML = lists.todo || emptyStr; document.getElementById('inprogress-list').innerHTML = lists.inprogress || emptyStr; document.getElementById('done-list').innerHTML = lists.done || emptyStr;
             document.getElementById('count-todo').innerText = counts.todo; document.getElementById('count-inprogress').innerText = counts.inprogress; document.getElementById('count-done').innerText = counts.done;
         }
 
@@ -1104,43 +932,36 @@
             if (filteredTasks.length === 0) { container.innerHTML = `<div class="text-center p-8 text-slate-500 font-bold border-2 border-dashed border-slate-300 rounded-2xl bg-white/50">Tidak ada jadwal ditemukan.</div>`; return; }
             
             const groups = {};
-            filteredTasks.forEach(t => {
-                const end = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[t.selectedDates.length-1] : t.deadline;
-                const monthKey = end ? end.substring(0, 7) : '9999-12';
-                if(!groups[monthKey]) groups[monthKey] = [];
-                groups[monthKey].push(t);
-            });
-
-            const sortedMonths = Object.keys(groups).sort();
-            let html = '';
+            filteredTasks.forEach(t => { const end = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[t.selectedDates.length-1] : t.deadline; const monthKey = end ? end.substring(0, 7) : '9999-12'; if(!groups[monthKey]) groups[monthKey] = []; groups[monthKey].push(t); });
+            const sortedMonths = Object.keys(groups).sort(); let html = ''; const today = new Date().toISOString().split('T')[0];
             
             sortedMonths.forEach(monthKey => {
                 let monthName = "Akan Datang";
-                if(monthKey !== '9999-12') {
-                    const [y, m] = monthKey.split('-');
-                    const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-                    monthName = `${monthNames[parseInt(m)-1]} ${y}`;
-                }
+                if(monthKey !== '9999-12') { const [y, m] = monthKey.split('-'); const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]; monthName = `${monthNames[parseInt(m)-1]} ${y}`; }
 
                 html += `<div class="flex items-center gap-4 mt-8 mb-4 first:mt-1"><div class="h-px bg-slate-300 flex-1"></div><span class="text-[11px] font-extrabold text-slate-500 bg-white px-3 py-1 rounded-full shadow-sm uppercase tracking-widest">${monthName}</span><div class="h-px bg-slate-300 flex-1"></div></div>`;
 
                 groups[monthKey].forEach(t => {
                     const end = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[t.selectedDates.length-1] : t.deadline;
-                    const isHex = t.color && t.color.startsWith('#');
-                    const colorClass = isHex ? '' : (t.color || 'bg-slate-200');
-                    const colorStyle = isHex ? `style="background-color: ${t.color};"` : '';
-                    
-                    const isDone = t.status === 'done';
+                    const isOverdue = t.status !== 'done' && end < today; const isDone = t.status === 'done';
+                    const isHex = t.color && t.color.startsWith('#'); const colorClass = isHex ? '' : (t.color || 'bg-slate-200'); const colorStyle = isHex ? `style="background-color: ${t.color};"` : '';
                     const cardStyle = isDone ? 'bg-slate-50 opacity-60 hover:opacity-100 border-dashed border-slate-300' : 'bg-white hover:bg-slate-50 border-slate-200';
-                    const titleStyle = isDone ? 'text-slate-500 font-semibold line-through' : 'text-slate-800 font-bold';
-                    const checkIcon = isDone ? `<svg class="w-5 h-5 text-green-500 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>` : '';
+                    const titleStyle = isDone ? 'text-slate-500 font-semibold line-through' : 'text-slate-800 font-bold'; const checkIcon = isDone ? `<svg class="w-5 h-5 text-green-500 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>` : '';
+
+                    const tagsHtml = `
+                        <div class="flex gap-1 mt-1">
+                            ${isDone ? '<span class="text-[9px] font-bold text-emerald-600 bg-emerald-100 border border-emerald-200 px-1.5 py-0.5 rounded-full">SELESAI</span>' : ''}
+                            ${isOverdue ? '<span class="text-[9px] font-bold text-red-600 bg-red-100 border border-red-200 px-1.5 py-0.5 rounded-full">TERLAMBAT</span>' : ''}
+                        </div>
+                    `;
 
                     html += `<div class="glass-card p-4 flex justify-between items-center cursor-pointer mb-3 transition-all ${cardStyle}" onclick="openPreviewModal('${t.id}')">
                         <div class="flex items-center gap-4">
                             <div class="w-5 h-5 rounded-full ${colorClass} border-2 border-white shadow-sm" ${colorStyle}></div>
                             <div>
                                 <div class="${titleStyle} flex items-center">${t.title} ${checkIcon}</div>
-                                <div class="text-[10px] text-slate-400 font-medium">Oleh: ${t.creatorName || 'Tim'}</div>
+                                <div class="text-[10px] text-slate-400 font-medium mt-0.5">Oleh: ${t.creatorName || 'Tim'}</div>
+                                ${tagsHtml}
                             </div>
                         </div>
                         <div class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1 rounded-lg border border-slate-200 shadow-sm">${formatDate(end)}</div>
@@ -1151,38 +972,22 @@
         }
 
         window.renderCalendar = function(filteredTasks) {
-            const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-            document.getElementById('calendar-month-year').innerText = `${monthNames[window.currentMonth]} ${window.currentYear}`;
-            const grid = document.getElementById('calendar-grid');
-            grid.innerHTML = '';
-
-            const firstDay = new Date(window.currentYear, window.currentMonth, 1).getDay(); 
-            const daysInMonth = new Date(window.currentYear, window.currentMonth + 1, 0).getDate();
+            const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]; document.getElementById('calendar-month-year').innerText = `${monthNames[window.currentMonth]} ${window.currentYear}`;
+            const grid = document.getElementById('calendar-grid'); grid.innerHTML = '';
+            const firstDay = new Date(window.currentYear, window.currentMonth, 1).getDay(); const daysInMonth = new Date(window.currentYear, window.currentMonth + 1, 0).getDate();
 
             for(let i = 0; i < firstDay; i++) grid.innerHTML += `<div class="bg-white/30 rounded-xl opacity-40 p-1 border border-transparent"></div>`;
 
             for(let day = 1; day <= daysInMonth; day++) {
                 const dateStr = `${window.currentYear}-${String(window.currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const dayDate = new Date(dateStr);
-                const isWeekend = dayDate.getDay() === 0 || dayDate.getDay() === 6;
-                const isHoliday = window.nationalHolidays.includes(dateStr);
-                const isRedDay = isWeekend || isHoliday;
-                const textDayClass = isRedDay ? 'holiday-red' : 'text-slate-700';
+                const dayDate = new Date(dateStr); const isWeekend = dayDate.getDay() === 0 || dayDate.getDay() === 6; const isHoliday = window.nationalHolidays.includes(dateStr); const isRedDay = isWeekend || isHoliday; const textDayClass = isRedDay ? 'holiday-red' : 'text-slate-700';
 
-                const tasksOnDay = filteredTasks.filter(t => {
-                    if (t.selectedDates && t.selectedDates.length > 0) return t.selectedDates.includes(dateStr);
-                    else {
-                        const start = t.startDate || t.deadline || '9999-12-31'; const end = t.endDate || t.deadline || '0000-00-00';
-                        return dateStr >= start && dateStr <= end;
-                    }
-                });
+                const tasksOnDay = filteredTasks.filter(t => { if (t.selectedDates && t.selectedDates.length > 0) return t.selectedDates.includes(dateStr); else { const start = t.startDate || t.deadline || '9999-12-31'; const end = t.endDate || t.deadline || '0000-00-00'; return dateStr >= start && dateStr <= end; } });
                 
                 let tasksHtml = '';
                 tasksOnDay.slice(0, 3).forEach(t => { 
                     let bg = t.status === 'done' ? 'bg-green-50 text-green-700 opacity-70 line-through border-green-200' : 'bg-white border-slate-200 shadow-sm text-slate-800';
-                    let markHtml = '';
-                    if (t.color && t.color.startsWith('#')) markHtml = `<span style="color: ${t.color}">●</span>`;
-                    else { let markClass = t.color ? t.color.replace('bg-', 'text-').replace('-200', '-500') : 'text-slate-400'; markHtml = `<span class="${markClass}">●</span>`; }
+                    let markHtml = ''; if (t.color && t.color.startsWith('#')) markHtml = `<span style="color: ${t.color}">●</span>`; else { let markClass = t.color ? t.color.replace('bg-', 'text-').replace('-200', '-500') : 'text-slate-400'; markHtml = `<span class="${markClass}">●</span>`; }
                     tasksHtml += `<div onclick="event.stopPropagation(); openPreviewModal('${t.id}')" class="text-[10px] p-1.5 mb-1 rounded-md cursor-pointer truncate font-bold border hover:scale-105 transition-transform ${bg}" title="${t.title}">${markHtml} ${t.title}</div>`;
                 });
                 if(tasksOnDay.length > 3) tasksHtml += `<div class="text-[10px] text-blue-600 font-extrabold bg-blue-50 border border-blue-100 rounded px-1 text-center">+${tasksOnDay.length - 3} lainnya</div>`;
@@ -1190,19 +995,26 @@
                 const isToday = (day === new Date().getDate() && window.currentMonth === new Date().getMonth() && window.currentYear === new Date().getFullYear());
                 const dayStyle = isToday ? 'bg-blue-50/80 border-2 border-blue-400 shadow-md' : 'bg-white/60 border border-white hover:bg-white';
 
-                grid.innerHTML += `
-                    <div onclick="openDayModal('${dateStr}')" class="rounded-xl p-1 md:p-2 flex flex-col overflow-hidden cursor-pointer hover:ring-2 hover:ring-blue-300 transition-all ${dayStyle}">
-                        <div class="text-xs font-extrabold text-right mb-1 ${textDayClass} ${isToday ? 'text-blue-700 bg-blue-200 inline-block ml-auto px-2 rounded-full' : ''}">${day}</div>
-                        <div class="flex-1 overflow-y-auto no-scrollbar">${tasksHtml}</div>
-                    </div>
-                `;
+                grid.innerHTML += `<div onclick="openDayModal('${dateStr}')" class="rounded-xl p-1 md:p-2 flex flex-col overflow-hidden cursor-pointer hover:ring-2 hover:ring-blue-300 transition-all ${dayStyle}"><div class="text-xs font-extrabold text-right mb-1 ${textDayClass} ${isToday ? 'text-blue-700 bg-blue-200 inline-block ml-auto px-2 rounded-full' : ''}">${day}</div><div class="flex-1 overflow-y-auto no-scrollbar">${tasksHtml}</div></div>`;
             }
         }
 
+        window.changeCalendarMonth = function(offset) {
+            window.currentMonth += offset;
+            if (window.currentMonth < 0) {
+                window.currentMonth = 11;
+                window.currentYear--;
+            }
+            if (window.currentMonth > 11) {
+                window.currentMonth = 0;
+                window.currentYear++;
+            }
+            window.renderApp();
+        }
+
         window.buildMenuOptions = function(task) {
-            // FIX: Removed transparency classes, added solid background and robust shadow
             return `
-                <div id="menu-${task.id}" class="hidden absolute right-0 top-8 w-44 bg-white border border-slate-200 p-1.5 shadow-2xl rounded-xl z-50 flex flex-col transform origin-top-right">
+                <div id="menu-${task.id}" class="hidden absolute right-0 top-8 w-44 solid-menu p-1.5 rounded-xl z-50 flex flex-col transform origin-top-right">
                     <button onclick="editFromMenu(event, '${task.id}')" class="text-left px-3 py-2 text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors">Edit Jadwal</button>
                     <button onclick="duplicateTask(event, '${task.id}')" class="text-left px-3 py-2 text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors">Duplikat</button>
                     <div class="h-px bg-slate-100 my-1"></div>
@@ -1218,105 +1030,48 @@
 
         window.toggleCardMenu = function(e, id) {
             e.stopPropagation(); 
-            if (window.activeMenuId && window.activeMenuId !== id) { 
-                const oldMenu = document.getElementById(`menu-${window.activeMenuId}`); 
-                if (oldMenu) oldMenu.classList.add('hidden'); 
-                const oldCard = document.getElementById(window.activeMenuId); 
-                if (oldCard) oldCard.classList.remove('z-50'); 
-            }
+            if (window.activeMenuId && window.activeMenuId !== id) { const oldMenu = document.getElementById(`menu-${window.activeMenuId}`); if (oldMenu) oldMenu.classList.add('hidden'); const oldCard = document.getElementById(window.activeMenuId); if (oldCard) oldCard.classList.remove('z-50'); }
             const menu = document.getElementById(`menu-${id}`); const card = document.getElementById(id);
             if (menu.classList.contains('hidden')) { menu.classList.remove('hidden'); if (card) card.classList.add('z-50'); window.activeMenuId = id; } 
             else { menu.classList.add('hidden'); if (card) card.classList.remove('z-50'); window.activeMenuId = null; }
         }
 
         window.editFromMenu = function(e, id) { e.stopPropagation(); window.toggleCardMenu(e, id); window.openModal(id); }
-        
-        window.duplicateTask = function(e, id) { 
-            e.stopPropagation(); window.toggleCardMenu(e, id); 
-            const taskToCopy = window.tasks.find(t => t.id === id); 
-            if (taskToCopy) { 
-                const newTask = JSON.parse(JSON.stringify(taskToCopy)); 
-                newTask.id = Date.now().toString() + Math.floor(Math.random()*1000); 
-                newTask.createdDate = Date.now().toString(); 
-                newTask.title = newTask.title + " (Salinan)"; 
-                window.persistTask(newTask); 
-            } 
-        }
-        
-        window.moveTaskMenu = function(e, id, newStatus) { 
-            e.stopPropagation(); window.toggleCardMenu(e, id); 
-            const task = window.tasks.find(t => t.id === id); 
-            if (task) { 
-                if (newStatus === 'done' && task.status !== 'done') {
-                    window.handleMoveToDone(task, new Date().toISOString().split('T')[0]);
-                } 
-                else if (task.status === 'done' && newStatus !== 'done') {
-                    window.handleMoveOutFromDone(task, newStatus);
-                } else {
-                    task.status = newStatus;
-                    window.persistTask(task);
-                }
-            } 
-        }
+        window.duplicateTask = function(e, id) { e.stopPropagation(); window.toggleCardMenu(e, id); const taskToCopy = window.tasks.find(t => t.id === id); if (taskToCopy) { const newTask = JSON.parse(JSON.stringify(taskToCopy)); newTask.id = Date.now().toString() + Math.floor(Math.random()*1000); newTask.createdDate = Date.now().toString(); newTask.title = newTask.title + " (Salinan)"; window.persistTask(newTask); } }
+        window.moveTaskMenu = function(e, id, newStatus) { e.stopPropagation(); window.toggleCardMenu(e, id); const task = window.tasks.find(t => t.id === id); if (task) { if (newStatus === 'done' && task.status !== 'done') { window.handleMoveToDone(task, new Date().toISOString().split('T')[0]); } else if (task.status === 'done' && newStatus !== 'done') { window.handleMoveOutFromDone(task, newStatus); } else { task.status = newStatus; window.persistTask(task); } } }
 
-        document.addEventListener('click', (e) => { 
-            if (window.activeMenuId) { 
-                const menu = document.getElementById(`menu-${window.activeMenuId}`); 
-                if (menu && !menu.contains(e.target)) { 
-                    menu.classList.add('hidden'); 
-                    const card = document.getElementById(window.activeMenuId); 
-                    if (card) card.classList.remove('z-50'); 
-                    window.activeMenuId = null; 
-                } 
-            } 
-        });
+        document.addEventListener('click', (e) => { if (window.activeMenuId) { const menu = document.getElementById(`menu-${window.activeMenuId}`); if (menu && !menu.contains(e.target)) { menu.classList.add('hidden'); const card = document.getElementById(window.activeMenuId); if (card) card.classList.remove('z-50'); window.activeMenuId = null; } } });
 
-        // Drag & Drop
         window.allowDrop = function(e) { e.preventDefault(); }
         window.drag = function(e) { e.dataTransfer.setData("taskId", e.target.id); setTimeout(() => e.target.style.opacity = '0.4', 0); }
-        window.drop = function(e, newStatus) { 
-            e.preventDefault(); 
-            const taskId = e.dataTransfer.getData("taskId"); 
-            const task = window.tasks.find(t => t.id === taskId); 
-            if (task) { 
-                if (newStatus === 'done' && task.status !== 'done') {
-                    window.handleMoveToDone(task, new Date().toISOString().split('T')[0]);
-                } 
-                else if (task.status === 'done' && newStatus !== 'done') {
-                    window.handleMoveOutFromDone(task, newStatus);
-                } else {
-                    task.status = newStatus;
-                    window.persistTask(task);
-                }
-            } 
-        }
+        window.drop = function(e, newStatus) { e.preventDefault(); const taskId = e.dataTransfer.getData("taskId"); const task = window.tasks.find(t => t.id === taskId); if (task) { if (newStatus === 'done' && task.status !== 'done') { window.handleMoveToDone(task, new Date().toISOString().split('T')[0]); } else if (task.status === 'done' && newStatus !== 'done') { window.handleMoveOutFromDone(task, newStatus); } else { task.status = newStatus; window.persistTask(task); } } }
         document.addEventListener('dragend', (e) => { if(e.target.style) e.target.style.opacity = '1'; });
 
-        // Deletion Process
-        window.openDeleteModal = function(e, id) { 
-            e.stopPropagation(); 
-            if(window.activeMenuId){ 
-                document.getElementById(`menu-${window.activeMenuId}`).classList.add('hidden'); 
-                document.getElementById(window.activeMenuId)?.classList.remove('z-50'); 
-                window.activeMenuId = null; 
-            } 
-            window.taskToDeleteId = id; 
-            window.toggleBodyScroll(true); 
-            document.getElementById('deleteModal').classList.remove('hidden'); 
-            document.getElementById('deleteModal').classList.add('flex'); 
+        window.openDeleteModal = function(e, id) { e.stopPropagation(); if(window.activeMenuId){ document.getElementById(`menu-${window.activeMenuId}`).classList.add('hidden'); document.getElementById(window.activeMenuId)?.classList.remove('z-50'); window.activeMenuId = null; } window.taskToDeleteId = id; window.toggleBodyScroll(true); document.getElementById('deleteModal').classList.remove('hidden'); document.getElementById('deleteModal').classList.add('flex'); }
+        window.closeDeleteModal = function() { window.taskToDeleteId = null; window.toggleBodyScroll(false); document.getElementById('deleteModal').classList.add('hidden'); document.getElementById('deleteModal').classList.remove('flex'); }
+        window.confirmDelete = function() { if (window.taskToDeleteId) { window.removeTaskFromDB(window.taskToDeleteId); window.closeDeleteModal(); } }
+
+        window.renderMiniCalendar = function() {
+            const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            document.getElementById('miniCalTitle').innerText = `${monthNames[window.miniCalMonth]} ${window.miniCalYear}`;
+            const grid = document.getElementById('miniCalGrid'); if(!grid) return; grid.innerHTML = '';
+            const firstDay = new Date(window.miniCalYear, window.miniCalMonth, 1).getDay(); const daysInMonth = new Date(window.miniCalYear, window.miniCalMonth + 1, 0).getDate();
+            for(let i = 0; i < firstDay; i++) grid.innerHTML += `<div class="p-1.5 opacity-0"></div>`;
+
+            for(let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${window.miniCalYear}-${String(window.miniCalMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dayDate = new Date(dateStr); const isWeekend = dayDate.getDay() === 0 || dayDate.getDay() === 6; const isHoliday = window.nationalHolidays.includes(dateStr); const isRedDay = isWeekend || isHoliday;
+                const isSelected = window.selectedTaskDates.includes(dateStr);
+                let cellClass = "p-1.5 rounded-lg cursor-pointer transition-all border font-bold ";
+                if (isSelected) cellClass += "bg-blue-600 text-white border-blue-600 shadow-md transform scale-110";
+                else { cellClass += "hover:bg-blue-50 hover:border-blue-300 bg-white border-transparent shadow-sm "; cellClass += isRedDay ? "text-red-500" : "text-slate-700"; }
+                grid.innerHTML += `<div onclick="toggleTaskDate('${dateStr}')" class="${cellClass}">${day}</div>`;
+            }
+            document.getElementById('taskDurationText').innerText = window.selectedTaskDates.length;
         }
-        window.closeDeleteModal = function() { 
-            window.taskToDeleteId = null; 
-            window.toggleBodyScroll(false); 
-            document.getElementById('deleteModal').classList.add('hidden'); 
-            document.getElementById('deleteModal').classList.remove('flex'); 
-        }
-        window.confirmDelete = function() { 
-            if (window.taskToDeleteId) { 
-                window.removeTaskFromDB(window.taskToDeleteId);
-                window.closeDeleteModal(); 
-            } 
-        }
+
+        window.changeMiniCal = function(offset) { window.miniCalMonth += offset; if(window.miniCalMonth < 0) { window.miniCalMonth = 11; window.miniCalYear--; } if(window.miniCalMonth > 11) { window.miniCalMonth = 0; window.miniCalYear++; } window.renderMiniCalendar(); }
+        window.toggleTaskDate = function(dateStr) { if(window.selectedTaskDates.includes(dateStr)) window.selectedTaskDates = window.selectedTaskDates.filter(d => d !== dateStr); else window.selectedTaskDates.push(dateStr); window.selectedTaskDates.sort(); window.renderMiniCalendar(); }
 
         window.renderColorPicker = function() {
             const container = document.getElementById('colorPickerContainer'); if(!container) return; let html = '';
@@ -1326,73 +1081,79 @@
             container.innerHTML = html;
         }
 
-        window.addCustomColor = function(e) { const val = e.target.value; if(!window.customColors.includes(val)) { window.customColors.push(val); localStorage.setItem('fathsCustomColors', JSON.stringify(window.customColors)); } renderColorPicker(); setTimeout(() => { const rb = document.querySelector(`input[name="taskColor"][value="${val}"]`); if(rb) rb.checked = true; }, 10); }
-        window.removeCustomColor = function(color, e) { e.preventDefault(); e.stopPropagation(); window.customColors = window.customColors.filter(c => c !== color); localStorage.setItem('fathsCustomColors', JSON.stringify(window.customColors)); renderColorPicker(); const checked = document.querySelector('input[name="taskColor"]:checked'); if(!checked) document.querySelector(`input[name="taskColor"][value="bg-slate-200"]`).checked = true; }
+        window.addCustomColor = function(e) { const val = e.target.value; if(!window.customColors.includes(val)) { window.customColors.push(val); localStorage.setItem('fathsCustomColors', JSON.stringify(window.customColors)); } window.renderColorPicker(); setTimeout(() => { const rb = document.querySelector(`input[name="taskColor"][value="${val}"]`); if(rb) rb.checked = true; }, 10); }
+        window.removeCustomColor = function(color, e) { e.preventDefault(); e.stopPropagation(); window.customColors = window.customColors.filter(c => c !== color); localStorage.setItem('fathsCustomColors', JSON.stringify(window.customColors)); window.renderColorPicker(); const checked = document.querySelector('input[name="taskColor"]:checked'); if(!checked) document.querySelector(`input[name="taskColor"][value="bg-slate-200"]`).checked = true; }
+
+        window.runAutomations = function() {
+            const today = new Date().toISOString().split('T')[0];
+            window.tasks.forEach(task => {
+                let modified = false;
+                if (task.status !== 'done' && task.subtasks && task.subtasks.length > 0) {
+                    if (task.subtasks.every(s => s.completed)) { window.handleMoveToDone(task, today); modified = true; }
+                }
+                const taskEnd = task.selectedDates && task.selectedDates.length > 0 ? task.selectedDates[task.selectedDates.length - 1] : task.deadline;
+                if (!modified && task.status !== 'done' && taskEnd && taskEnd < today && task.priority !== 'Tinggi') { task.priority = 'Tinggi'; window.persistTask(task); }
+            });
+            window.checkNotifications();
+        }
+
+        window.requestNotificationPermission = function() {
+            if ("Notification" in window && Notification.permission !== "granted" && Notification.permission !== "denied") {
+                Notification.requestPermission();
+            }
+        }
+
+        window.checkNotifications = function() {
+            if (!("Notification" in window) || Notification.permission !== "granted") return;
+            const todayStr = new Date().toISOString().split('T')[0];
+            
+            window.tasks.forEach(t => {
+                if(t.notify && t.status !== 'done') {
+                    const end = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[t.selectedDates.length-1] : t.deadline;
+                    if(end === todayStr && t.notifiedOn !== todayStr) {
+                        new Notification("🚨 Tenggat Hari Ini!", { body: `Tugas Tim: ${t.title}`, icon: 'https://cdn-icons-png.flaticon.com/512/1004/1004314.png' });
+                        t.notifiedOn = todayStr; window.persistTask(t);
+                    }
+                }
+            });
+        }
 
         window.openModal = function(taskId = null) {
-            const modal = document.getElementById('taskModal');
-            const form = document.getElementById('taskForm');
-            window.toggleBodyScroll(true); 
-            modal.classList.remove('hidden'); modal.classList.add('flex');
-            const titleEl = document.getElementById('modalTitle'); const submitBtn = document.getElementById('submitBtn');
-            window.renderColorPicker();
+            const modal = document.getElementById('taskModal'); const form = document.getElementById('taskForm'); window.toggleBodyScroll(true); modal.classList.remove('hidden'); modal.classList.add('flex'); const titleEl = document.getElementById('modalTitle'); const submitBtn = document.getElementById('submitBtn'); window.renderColorPicker();
             
             if (taskId) {
                 const task = window.tasks.find(t => t.id === taskId);
                 if (task) {
-                    titleEl.innerText = '🔍 Edit Jadwal Tim'; submitBtn.innerText = 'Update Perubahan';
-                    document.getElementById('editTaskId').value = task.id; 
-                    
-                    document.getElementById('taskTitle').value = task.title; document.getElementById('taskType').value = task.type;
-                    document.getElementById('taskNotify').checked = task.notify || false;
+                    titleEl.innerText = '🔍 Edit Jadwal Tim'; submitBtn.innerText = 'Update Perubahan'; document.getElementById('editTaskId').value = task.id; 
+                    document.getElementById('taskTitle').value = task.title; document.getElementById('taskType').value = task.type; document.getElementById('taskNotify').checked = task.notify || false;
                     
                     if (task.selectedDates && task.selectedDates.length > 0) { window.selectedTaskDates = [...task.selectedDates]; } 
-                    else if (task.startDate && task.endDate) {
-                        window.selectedTaskDates = []; let curr = new Date(task.startDate); let endD = new Date(task.endDate);
-                        while(curr <= endD) { const dStr = curr.toISOString().split('T')[0]; const isWE = curr.getDay() === 0 || curr.getDay() === 6; if(!isWE && !window.nationalHolidays.includes(dStr)) window.selectedTaskDates.push(dStr); curr.setDate(curr.getDate() + 1); }
-                    } else { window.selectedTaskDates = []; }
+                    else if (task.startDate && task.endDate) { window.selectedTaskDates = []; let curr = new Date(task.startDate); let endD = new Date(task.endDate); while(curr <= endD) { const dStr = curr.toISOString().split('T')[0]; const isWE = curr.getDay() === 0 || curr.getDay() === 6; if(!isWE && !window.nationalHolidays.includes(dStr)) window.selectedTaskDates.push(dStr); curr.setDate(curr.getDate() + 1); } } 
+                    else { window.selectedTaskDates = []; }
 
-                    if (window.selectedTaskDates.length > 0) { const firstDateObj = new Date(window.selectedTaskDates[0]); window.miniCalMonth = firstDateObj.getMonth(); window.miniCalYear = firstDateObj.getFullYear(); } 
-                    else { window.miniCalMonth = new Date().getMonth(); window.miniCalYear = new Date().getFullYear(); }
+                    if (window.selectedTaskDates.length > 0) { const firstDateObj = new Date(window.selectedTaskDates[0]); window.miniCalMonth = firstDateObj.getMonth(); window.miniCalYear = firstDateObj.getFullYear(); } else { window.miniCalMonth = new Date().getMonth(); window.miniCalYear = new Date().getFullYear(); }
 
-                    document.getElementById('taskStatus').value = task.status || 'todo'; 
-                    document.getElementById('taskPriority').value = task.priority || 'Rendah'; 
-                    document.getElementById('taskDesc').value = task.description || '';
+                    document.getElementById('taskStatus').value = task.status || 'todo'; document.getElementById('taskPriority').value = task.priority || 'Rendah'; document.getElementById('taskDesc').value = task.description || '';
                     
-                    let colorVal = task.color || 'bg-slate-200';
-                    if(colorVal.startsWith('#') && !window.customColors.includes(colorVal)) { window.customColors.push(colorVal); localStorage.setItem('fathsCustomColors', JSON.stringify(window.customColors)); renderColorPicker(); }
-                    let radioOption = document.querySelector(`input[name="taskColor"][value="${colorVal}"]`);
-                    if(radioOption) radioOption.checked = true; else { const defaultOpt = document.querySelector(`input[name="taskColor"][value="bg-slate-200"]`); if(defaultOpt) defaultOpt.checked = true; }
+                    let colorVal = task.color || 'bg-slate-200'; if(colorVal.startsWith('#') && !window.customColors.includes(colorVal)) { window.customColors.push(colorVal); localStorage.setItem('fathsCustomColors', JSON.stringify(window.customColors)); window.renderColorPicker(); }
+                    let radioOption = document.querySelector(`input[name="taskColor"][value="${colorVal}"]`); if(radioOption) radioOption.checked = true; else { const defaultOpt = document.querySelector(`input[name="taskColor"][value="bg-slate-200"]`); if(defaultOpt) defaultOpt.checked = true; }
 
-                    window.currentSubtasks = task.subtasks ? JSON.parse(JSON.stringify(task.subtasks)) : [];
-                    const container = document.getElementById('subtaskContainer'); const chevron = document.getElementById('subtaskChevron');
+                    window.currentSubtasks = task.subtasks ? JSON.parse(JSON.stringify(task.subtasks)) : []; const container = document.getElementById('subtaskContainer'); const chevron = document.getElementById('subtaskChevron');
                     if (window.currentSubtasks.length > 0) { container.classList.remove('hidden'); chevron.classList.add('rotate-180'); } else { container.classList.add('hidden'); chevron.classList.remove('rotate-180'); }
                 }
             } else {
-                form.reset(); document.getElementById('editTaskId').value = '';
-                document.getElementById('taskStatus').value = 'todo'; document.getElementById('taskPriority').value = 'Rendah'; 
-                const defaultColorOpt = document.querySelector(`input[name="taskColor"][value="bg-slate-200"]`); if(defaultColorOpt) defaultColorOpt.checked = true;
-                titleEl.innerText = '✨ Tambah Jadwal Tim'; submitBtn.innerText = 'Sebarkan ke Tim';
-                document.getElementById('taskNotify').checked = false;
-                
-                window.selectedTaskDates = []; window.miniCalMonth = new Date().getMonth(); window.miniCalYear = new Date().getFullYear();
-                window.currentSubtasks = []; document.getElementById('subtaskContainer').classList.add('hidden'); document.getElementById('subtaskChevron').classList.remove('rotate-180');
+                form.reset(); document.getElementById('editTaskId').value = ''; document.getElementById('taskStatus').value = 'todo'; document.getElementById('taskPriority').value = 'Rendah'; const defaultColorOpt = document.querySelector(`input[name="taskColor"][value="bg-slate-200"]`); if(defaultColorOpt) defaultColorOpt.checked = true;
+                titleEl.innerText = '✨ Tambah Jadwal Tim'; submitBtn.innerText = 'Sebarkan ke Tim'; document.getElementById('taskNotify').checked = false;
+                window.selectedTaskDates = []; window.miniCalMonth = new Date().getMonth(); window.miniCalYear = new Date().getFullYear(); window.currentSubtasks = []; document.getElementById('subtaskContainer').classList.add('hidden'); document.getElementById('subtaskChevron').classList.remove('rotate-180');
             }
             window.renderSubtasks(); window.renderMiniCalendar(); document.getElementById('taskTitle').focus();
         }
 
-        window.closeModal = function() { 
-            const modal = document.getElementById('taskModal');
-            window.toggleBodyScroll(false); modal.classList.add('hidden'); modal.classList.remove('flex'); 
-        }
+        window.closeModal = function() { const modal = document.getElementById('taskModal'); window.toggleBodyScroll(false); modal.classList.add('hidden'); modal.classList.remove('flex'); }
 
         window.saveTask = function(e) {
             e.preventDefault();
-            const editId = document.getElementById('editTaskId').value;
-            const title = document.getElementById('taskTitle').value.trim(); const type = document.getElementById('taskType').value;
-            const status = document.getElementById('taskStatus').value; const priority = document.getElementById('taskPriority').value;
-            const notify = document.getElementById('taskNotify').checked;
-            
+            const editId = document.getElementById('editTaskId').value; const title = document.getElementById('taskTitle').value.trim(); const type = document.getElementById('taskType').value; const status = document.getElementById('taskStatus').value; const priority = document.getElementById('taskPriority').value; const notify = document.getElementById('taskNotify').checked;
             if(notify) window.requestNotificationPermission();
 
             window.selectedTaskDates.sort();
@@ -1401,34 +1162,52 @@
             const startDate = window.selectedTaskDates[0]; const endDate = window.selectedTaskDates[window.selectedTaskDates.length - 1]; const duration = window.selectedTaskDates.length; const deadline = endDate; 
             const desc = document.getElementById('taskDesc').value.trim(); const colorOption = document.querySelector('input[name="taskColor"]:checked'); const color = colorOption ? colorOption.value : 'bg-slate-200';
 
-            const taskPayload = {
-                title: title, type: type, priority: priority, notify: notify,
-                startDate: startDate, endDate: endDate, duration: duration, deadline: deadline, selectedDates: [...window.selectedTaskDates],
-                status: status, description: desc, subtasks: window.currentSubtasks, color: color,
-                updatedAt: new Date().toISOString()
-            };
+            const taskPayload = { title: title, type: type, priority: priority, notify: notify, startDate: startDate, endDate: endDate, duration: duration, deadline: deadline, selectedDates: [...window.selectedTaskDates], status: status, description: desc, subtasks: window.currentSubtasks, color: color, updatedAt: new Date().toISOString() };
 
             if (editId) {
-                taskPayload.id = editId;
-                // Preserve creator info
-                const existingTask = window.tasks.find(t => t.id === editId);
-                if(existingTask) {
-                    taskPayload.creatorId = existingTask.creatorId;
-                    taskPayload.creatorName = existingTask.creatorName;
-                    taskPayload.createdDate = existingTask.createdDate;
-                }
+                taskPayload.id = editId; const existingTask = window.tasks.find(t => t.id === editId);
+                if(existingTask) { taskPayload.creatorId = existingTask.creatorId; taskPayload.creatorName = existingTask.creatorName; taskPayload.createdDate = existingTask.createdDate; }
             } else {
-                taskPayload.id = Date.now().toString() + Math.floor(Math.random()*1000);
-                taskPayload.createdDate = Date.now().toString();
-                taskPayload.creatorId = window.currentUser.uid;
-                taskPayload.creatorName = window.userProfileName;
+                taskPayload.id = Date.now().toString() + Math.floor(Math.random()*1000); taskPayload.createdDate = Date.now().toString(); taskPayload.creatorId = window.currentUser.uid; taskPayload.creatorName = window.userProfileName;
             }
 
-            window.persistTask(taskPayload);
-            window.closeModal();
+            window.persistTask(taskPayload); window.closeModal();
         }
 
-        // Subtasks Logic
+        window.handleMoveToDone = function(task, todayDate) {
+            if(task.status === 'done') return;
+            if(task.type === 'Rutin Harian' || task.type === 'Rutin Bulanan') {
+                window.pendingRecurringTask = { task: task, today: todayDate };
+                window.toggleBodyScroll(true); document.getElementById('recurringModal').classList.remove('hidden'); document.getElementById('recurringModal').classList.add('flex');
+            } else {
+                task.status = 'done'; task.completedAt = todayDate || new Date().toISOString().split('T')[0];
+                if (task.subtasks) task.subtasks.forEach(s => s.completed = true);
+                window.persistTask(task);
+            }
+        }
+
+        window.confirmRecurring = function(wantsClone) {
+            if(!window.pendingRecurringTask) return;
+            const task = window.pendingRecurringTask.task; const todayDate = window.pendingRecurringTask.today;
+            task.status = 'done'; task.completedAt = todayDate || new Date().toISOString().split('T')[0];
+            if (task.subtasks) task.subtasks.forEach(s => s.completed = true);
+            window.persistTask(task);
+
+            if(wantsClone) {
+                const newTask = JSON.parse(JSON.stringify(task));
+                newTask.id = Date.now().toString() + Math.floor(Math.random()*1000); newTask.status = 'todo'; newTask.completedAt = null;
+                if (newTask.subtasks) newTask.subtasks.forEach(s => s.completed = false);
+                if(newTask.selectedDates && newTask.selectedDates.length > 0) {
+                    newTask.selectedDates = newTask.selectedDates.map(dateStr => { let d = new Date(dateStr); if(task.type === 'Rutin Harian') d.setDate(d.getDate() + 1); if(task.type === 'Rutin Bulanan') d.setMonth(d.getMonth() + 1); return d.toISOString().split('T')[0]; });
+                    newTask.selectedDates.sort(); newTask.deadline = newTask.selectedDates[newTask.selectedDates.length-1];
+                }
+                window.persistTask(newTask);
+            }
+            window.pendingRecurringTask = null; window.toggleBodyScroll(false); document.getElementById('recurringModal').classList.add('hidden'); document.getElementById('recurringModal').classList.remove('flex');
+        }
+
+        window.handleMoveOutFromDone = function(task, newStatus) { task.completedAt = null; if (task.subtasks && task.subtasks.length > 0) { if (newStatus === 'todo') task.subtasks.forEach(s => s.completed = false); else if (newStatus === 'inprogress') task.subtasks[task.subtasks.length - 1].completed = false; } task.status = newStatus; window.persistTask(task); }
+
         window.renderSubtasks = function() {
             const list = document.getElementById('subtaskList'); list.innerHTML = '';
             window.currentSubtasks.forEach(st => {
@@ -1441,12 +1220,9 @@
         window.toggleSubtask = function(id) { const st = window.currentSubtasks.find(t => t.id === id); if(st) st.completed = !st.completed; window.renderSubtasks(); }
         window.deleteSubtask = function(id) { window.currentSubtasks = window.currentSubtasks.filter(t => t.id !== id); window.renderSubtasks(); }
 
-        // Preview Logic
         window.openPreviewModal = function(taskId) {
             const task = window.tasks.find(t => t.id === taskId); if (!task) return;
-            window.toggleBodyScroll(true); 
-            document.getElementById('previewTaskId').value = task.id; document.getElementById('previewTitle').innerText = task.title;
-            document.getElementById('previewCreatorName').innerText = task.creatorName || 'Tim';
+            window.toggleBodyScroll(true); document.getElementById('previewTaskId').value = task.id; document.getElementById('previewTitle').innerText = task.title; document.getElementById('previewCreatorName').innerText = task.creatorName || 'Tim';
             
             const endD = task.selectedDates && task.selectedDates.length > 0 ? task.selectedDates[task.selectedDates.length-1] : task.deadline;
             const cover = document.getElementById('previewCover'); const isHex = task.color && task.color.startsWith('#'); cover.className = `h-16 w-full relative ${isHex ? '' : (task.color || 'bg-slate-200')}`; cover.style.backgroundColor = isHex ? task.color : '';
@@ -1468,8 +1244,7 @@
             if(task.status === 'done') { const doneDate = task.completedAt || today; if (doneDate < endD) { durText += " <span class='text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded text-[10px] ml-2 inline-block shadow-sm font-bold'>Selesai Lebih Awal 🚀</span>"; } }
             document.getElementById('previewDuration').innerHTML = durText;
 
-            window.renderPreviewSubtasks(task);
-            document.getElementById('previewModal').classList.remove('hidden'); document.getElementById('previewModal').classList.add('flex');
+            window.renderPreviewSubtasks(task); document.getElementById('previewModal').classList.remove('hidden'); document.getElementById('previewModal').classList.add('flex');
         }
 
         window.closePreviewModal = function() { window.toggleBodyScroll(false); document.getElementById('previewModal').classList.add('hidden'); document.getElementById('previewModal').classList.remove('flex'); }
@@ -1483,38 +1258,21 @@
                     if (st.completed) completed++; let opacityStr = 'cursor-pointer hover:bg-white hover:border-blue-200';
                     cont.innerHTML += `<label class="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200 transition-all shadow-sm ${opacityStr}"><input type="checkbox" ${st.completed ? 'checked' : ''} onchange="toggleSubtaskInPreview('${task.id}', '${st.id}')" class="w-5 h-5 rounded text-blue-600 border-slate-300 focus:ring-blue-500"><span class="flex-1 text-sm font-bold ${st.completed ? 'line-through text-slate-400' : 'text-slate-800'}">${st.text}</span></label>`;
                 });
-                let pct = Math.round((completed / task.subtasks.length) * 100);
-                document.getElementById('previewProgressBar').style.width = pct + '%'; document.getElementById('previewProgressBar').className = `h-full transition-all duration-500 shadow-sm ${pct === 100 ? 'bg-green-500' : 'bg-blue-500'}`; document.getElementById('previewProgressText').innerText = pct + '% Selesai';
+                let pct = Math.round((completed / task.subtasks.length) * 100); document.getElementById('previewProgressBar').style.width = pct + '%'; document.getElementById('previewProgressBar').className = `h-full bg-blue-500 transition-all duration-500 shadow-sm ${pct === 100 ? 'bg-green-500' : 'bg-blue-500'}`; document.getElementById('previewProgressText').innerText = pct + '% Selesai';
             } else {
                 sect.classList.remove('hidden'); document.getElementById('previewProgressContainer').classList.add('hidden');
                 cont.innerHTML = `<div class="text-sm font-bold text-slate-400 p-4 border-2 border-dashed border-slate-300 rounded-xl text-center bg-slate-50">Tidak ada checklist rincian untuk tugas ini.</div>`;
             }
         }
 
-        window.toggleSubtaskInPreview = function(tId, sId) {
-            const task = window.tasks.find(t => t.id === tId);
-            if(task) {
-                const sub = task.subtasks.find(s => s.id === sId);
-                if(sub) { 
-                    sub.completed = !sub.completed; 
-                    window.persistTask(task); // Sync DB
-                    window.openPreviewModal(tId); // Re-render preview 
-                }
-            }
-        }
+        window.toggleSubtaskInPreview = function(tId, sId) { const task = window.tasks.find(t => t.id === tId); if(task) { const sub = task.subtasks.find(s => s.id === sId); if(sub) { sub.completed = !sub.completed; window.persistTask(task); window.openPreviewModal(tId); } } }
 
         window.copyTaskInfo = function() {
             const tId = document.getElementById('previewTaskId').value; const t = window.tasks.find(x => x.id === tId);
             if(t) {
-                const textToCopy = `[Tugas: ${t.title}] - Deadline: ${formatDate(t.selectedDates ? t.selectedDates[t.selectedDates.length-1] : t.deadline)} (Status: ${t.status})`;
+                const textToCopy = `[Tugas: ${t.title}] - Deadline: ${window.formatDate(t.selectedDates ? t.selectedDates[t.selectedDates.length-1] : t.deadline)} (Status: ${t.status})`;
                 const textArea = document.createElement("textarea"); textArea.value = textToCopy; document.body.appendChild(textArea); textArea.select();
-                try { 
-                    document.execCommand('copy'); 
-                    const btn = document.querySelector('button[title="Salin Info"]'); 
-                    btn.innerHTML = '<span class="text-green-600 text-xs font-bold px-2">Tersalin!</span>'; 
-                    setTimeout(() => { btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>'; }, 2000); 
-                } catch (err) {} 
-                document.body.removeChild(textArea);
+                try { document.execCommand('copy'); const btn = document.querySelector('button[title="Salin Info"]'); btn.innerHTML = '<span class="text-green-600 text-xs font-bold px-2">Tersalin!</span>'; setTimeout(() => { btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>'; }, 2000); } catch (err) {} document.body.removeChild(textArea);
             }
         }
 
@@ -1536,9 +1294,23 @@
         }
 
         window.closeDayModal = function() { window.toggleBodyScroll(false); document.getElementById('dayModal').classList.add('hidden'); document.getElementById('dayModal').classList.remove('flex'); }
-
         window.formatDate = function(dateStr) { if(!dateStr) return "-"; let dObj = /^\d+$/.test(dateStr) ? new Date(parseInt(dateStr)) : new Date(dateStr); return dObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }); }
-        
+        window.addToGCalendar = function() {
+            const taskId = document.getElementById('previewTaskId').value;
+            const t = window.tasks.find(x => x.id === taskId);
+            if(!t) return;
+            
+            const startD = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[0].replace(/-/g, '') : new Date().toISOString().split('T')[0].replace(/-/g, '');
+            let endDStr = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[t.selectedDates.length-1] : (t.deadline || new Date().toISOString().split('T')[0]);
+            let endDObj = new Date(endDStr.substring(0,4), parseInt(endDStr.substring(5,7))-1, parseInt(endDStr.substring(8,10)));
+            endDObj.setDate(endDObj.getDate() + 1);
+            const formattedEndD = endDObj.toISOString().split('T')[0].replace(/-/g, '');
+
+            const desc = t.description ? `${t.description}\n\n` : '';
+            const finalDesc = `${desc}(Workspace Kolaboratif - Dibuat oleh ${t.creatorName || 'Tim'})`;
+            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(t.title)}&dates=${startD}/${formattedEndD}&details=${encodeURIComponent(finalDesc)}`;
+            window.open(url, '_blank');
+        }
     </script>
 </body>
 </html>
