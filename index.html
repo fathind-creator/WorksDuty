@@ -55,11 +55,12 @@
             border-radius: 16px;
             box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
-            cursor: grab;
             position: relative;
         }
 
-        .glass-card:active { cursor: grabbing; }
+        /* DRAGGABLE CURSORS (Hanya saat auth aktif) */
+        .can-drag { cursor: grab; }
+        .can-drag:active { cursor: grabbing; }
         .glass-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1); }
 
         .glass-button {
@@ -107,33 +108,30 @@
 </head>
 <body class="flex flex-col p-4 md:p-6 min-h-screen relative">
 
-    <!-- LOGIN SCREEN -->
-    <div id="loginScreen" class="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[100] flex justify-center items-center p-4 transition-opacity duration-500">
+    <!-- AUTH PROMPT MODAL (Redirect ke Google) -->
+    <div id="authPromptModal" class="hidden opacity-0 fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex justify-center items-center p-4 transition-opacity duration-300">
         <div class="bg-white/95 backdrop-blur-xl rounded-3xl w-full max-w-md p-10 shadow-2xl text-center relative overflow-hidden border border-white/50">
             <div class="absolute -top-20 -right-20 w-40 h-40 bg-blue-400 rounded-full blur-3xl opacity-30"></div>
             <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-sky-400 rounded-full blur-3xl opacity-30"></div>
             
             <div class="relative z-10">
-                <div class="mx-auto w-20 h-20 bg-gradient-to-tr from-blue-500 to-sky-400 rounded-2xl shadow-xl flex items-center justify-center mb-6 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
-                    <span class="text-4xl">✨</span>
+                <div class="mx-auto w-16 h-16 bg-blue-50 text-blue-500 rounded-full shadow-inner flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 </div>
-                <h1 class="text-3xl font-extrabold text-slate-800 mb-2 tracking-tight">My Works Duty</h1>
-                <p class="text-slate-500 font-medium mb-8 text-sm leading-relaxed">Manajemen tugas terpadu, cerdas, dan aman. Silakan masuk untuk mengakses live workspace tim Anda.</p>
+                <h1 class="text-3xl font-extrabold text-slate-800 mb-2 tracking-tight">Akses Terbatas</h1>
+                <p class="text-slate-500 font-medium mb-8 text-sm leading-relaxed">Anda sedang dalam Mode Tamu (Read-Only). Silakan masuk dengan Google untuk menambah, mengubah, atau menghapus jadwal workspace.</p>
                 
-                <button id="btnLogin" class="w-full bg-white border-2 border-slate-200 hover:border-blue-400 hover:bg-slate-50 text-slate-700 font-bold py-3.5 px-4 rounded-xl shadow-sm transition-all flex items-center justify-center gap-3">
+                <button id="btnGoogleLogin" onclick="loginWithGoogle()" class="w-full bg-white border-2 border-slate-200 hover:border-blue-400 hover:bg-slate-50 text-slate-700 font-bold py-3.5 px-4 rounded-xl shadow-sm transition-all flex items-center justify-center gap-3">
                     <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                     Lanjutkan dengan Google
                 </button>
-                <div class="mt-6 flex items-center justify-center gap-2 text-xs font-bold text-slate-400">
-                    <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                    Tersinkronisasi Realtime di Cloud
-                </div>
+                <button onclick="closeAuthPrompt()" class="mt-5 text-sm font-bold text-slate-400 hover:text-slate-600 transition-colors">Nanti Saja (Lihat Saja)</button>
             </div>
         </div>
     </div>
 
     <!-- MAIN APP CONTAINER -->
-    <div id="mainApp" class="hidden flex-col w-full h-full flex-1 transition-opacity duration-500 opacity-0">
+    <div id="mainApp" class="flex flex-col w-full h-full flex-1">
         
         <nav class="flex flex-col sm:flex-row justify-between items-center mb-6 glass-panel p-4 z-10 gap-4">
             <div class="flex items-center gap-3 w-full sm:w-auto">
@@ -153,15 +151,9 @@
                 <button onclick="switchMainTab('dashboard')" id="tab-dashboard" class="flex-1 sm:flex-none px-6 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:bg-white/60 transition-all flex items-center gap-1 justify-center">Dashboard <span class="flex h-2 w-2 rounded-full bg-red-500"></span></button>
             </div>
 
-            <!-- USER PROFILE -->
-            <div class="flex items-center gap-3 bg-white/60 px-3 py-2 rounded-xl border border-white shadow-sm w-full sm:w-auto justify-between sm:justify-end">
-                <div class="flex items-center gap-2">
-                    <img id="userAvatar" src="" alt="User" class="w-8 h-8 rounded-full border-2 border-white shadow-sm bg-slate-200">
-                    <div class="flex flex-col">
-                        <span id="userName" class="text-sm font-bold text-slate-800 leading-tight">Memuat...</span>
-                    </div>
-                </div>
-                <button onclick="handleLogout()" class="text-slate-400 hover:text-red-500 bg-white p-1.5 rounded-lg shadow-sm transition-colors" title="Keluar"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg></button>
+            <!-- USER PROFILE (Dynamic) -->
+            <div id="navAuthContainer" class="flex items-center gap-3 bg-white/60 px-3 py-2 rounded-xl border border-white shadow-sm w-full sm:w-auto justify-between sm:justify-end">
+                <!-- Di-inject via JS -->
             </div>
         </nav>
 
@@ -222,8 +214,8 @@
                     <div class="flex justify-between items-center mb-4">
                         <h2 id="calendar-month-year" class="text-xl font-extrabold text-slate-800 uppercase tracking-wide">Bulan</h2>
                         <div class="flex gap-2">
-                            <button onclick="changeCalendarMonth(-1)" class="glass-button p-2 text-slate-600 bg-white/70"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
-                            <button onclick="changeCalendarMonth(1)" class="glass-button p-2 text-slate-600 bg-white/70"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+                            <button onclick="window.changeCalendarMonth(-1)" class="glass-button p-2 text-slate-600 bg-white/70"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                            <button onclick="window.changeCalendarMonth(1)" class="glass-button p-2 text-slate-600 bg-white/70"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
                         </div>
                     </div>
                     <div class="grid grid-cols-7 gap-1 text-center font-extrabold text-sm text-slate-400 mb-2"><div class="text-red-400">Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div class="text-red-400">Sab</div></div>
@@ -396,9 +388,9 @@
                         </div>
                         <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm">
                             <div class="flex justify-between items-center mb-3 px-1 border-b border-slate-100 pb-2">
-                                <button type="button" onclick="changeMiniCal(-1)" class="p-1 hover:bg-slate-100 rounded-lg text-slate-600 transition-colors bg-slate-50 border border-slate-200"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                                <button type="button" onclick="window.changeMiniCal(-1)" class="p-1 hover:bg-slate-100 rounded-lg text-slate-600 transition-colors bg-slate-50 border border-slate-200"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
                                 <span id="miniCalTitle" class="text-sm font-bold text-slate-800 uppercase tracking-wide">Juni 2026</span>
-                                <button type="button" onclick="changeMiniCal(1)" class="p-1 hover:bg-slate-100 rounded-lg text-slate-600 transition-colors bg-slate-50 border border-slate-200"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+                                <button type="button" onclick="window.changeMiniCal(1)" class="p-1 hover:bg-slate-100 rounded-lg text-slate-600 transition-colors bg-slate-50 border border-slate-200"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
                             </div>
                             <div class="grid grid-cols-7 gap-1 text-center text-xs font-extrabold text-slate-400 mb-2"><div class="text-red-400">Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div class="text-red-400">Sab</div></div>
                             <div id="miniCalGrid" class="grid grid-cols-7 gap-1 text-center text-sm"></div>
@@ -437,7 +429,7 @@
                             <div id="subtaskList" class="mb-3 space-y-2 pr-1 max-h-48 overflow-y-auto"></div>
                             <div class="flex gap-2">
                                 <input type="text" id="newSubtaskInput" onkeypress="handleSubtaskEnter(event)" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-sm focus:outline-none focus:border-blue-400 shadow-inner" placeholder="Langkah kolaborasi baru...">
-                                <button type="button" onclick="addSubtask()" class="bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl text-sm font-bold text-blue-600 hover:bg-blue-50 transition-colors shadow-sm">Tambah</button>
+                                <button type="button" onclick="window.addSubtask()" class="bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl text-sm font-bold text-blue-600 hover:bg-blue-50 transition-colors shadow-sm">Tambah</button>
                             </div>
                         </div>
                     </div>
@@ -503,10 +495,10 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, deleteDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // MENGGUNAKAN KONFIGURASI FIREBASE TERBARU (v11)
+        // MENGGUNAKAN KONFIGURASI FIREBASE TERBARU MILIK USER
         const appId = 'faths-work-duty';
         const firebaseConfig = {
             apiKey: "AIzaSyCSEHSauZ0pixoG--e9GK3XhdivNqDOT08",
@@ -523,8 +515,8 @@
 
         // Global Variables
         window.currentUser = null;
-        window.userProfileName = "Pengguna";
-        window.userProfilePhoto = "";
+        window.userProfileName = "Tamu (Read-Only)";
+        window.userProfilePhoto = "https://ui-avatars.com/api/?name=Guest&background=f1f5f9&color=94a3b8";
         window.tasks = [];
         window.teamMembers = [];
         window.currentSubtasks = [];
@@ -550,39 +542,65 @@
         let tasksUnsubscribe = null;
         let usersUnsubscribe = null;
 
-        window.showAlert = function(title, message, type = 'info') {
-            const modal = document.getElementById('alertModal');
-            const content = document.getElementById('alertModalContent');
-            const icon = document.getElementById('alertIcon');
+        // FUNGSI CUSTOM ALERT UNTUK MENGGANTIKAN ALERT BAWAAN BROWSER
+        window.showAlert = function(title, message, type="info") {
             document.getElementById('alertTitle').innerText = title;
             document.getElementById('alertMessage').innerText = message;
-            
-            if(type === 'error') {
-                icon.className = "mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4 text-red-600";
-                icon.innerHTML = `<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-            } else {
-                icon.className = "mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 mb-4 text-blue-600";
-                icon.innerHTML = `<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-            }
-            
+            const modal = document.getElementById('alertModal');
             modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                content.classList.remove('scale-95');
-                content.classList.add('scale-100');
-            }, 10);
-        }
+            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('alertModalContent').classList.remove('scale-95'); }, 10);
+        };
+        
         window.closeAlert = function() {
             const modal = document.getElementById('alertModal');
-            const content = document.getElementById('alertModalContent');
-            modal.classList.add('opacity-0');
-            content.classList.remove('scale-100');
-            content.classList.add('scale-95');
+            modal.classList.add('opacity-0'); document.getElementById('alertModalContent').classList.add('scale-95');
             setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        };
+
+        // HELPER FUNGSI AUTHENTIKASI & GUEST MODE
+        window.isGuest = function() {
+            return !window.currentUser || window.currentUser.isAnonymous;
+        };
+
+        window.showAuthPrompt = function() {
+            const modal = document.getElementById('authPromptModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+        };
+
+        window.closeAuthPrompt = function() {
+            const modal = document.getElementById('authPromptModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        };
+
+        window.renderNavAuth = function(isLoggedIn) {
+            const authContainer = document.getElementById('navAuthContainer');
+            if (isLoggedIn) {
+                authContainer.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <img src="${window.userProfilePhoto}" alt="User" class="w-8 h-8 rounded-full border-2 border-white shadow-sm bg-slate-200">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-slate-800 leading-tight">${window.userProfileName}</span>
+                        </div>
+                    </div>
+                    <button onclick="handleLogout()" class="text-slate-400 hover:text-red-500 bg-white p-1.5 rounded-lg shadow-sm transition-colors" title="Keluar"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg></button>
+                `;
+            } else {
+                authContainer.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full border-2 border-white shadow-sm bg-slate-200 flex items-center justify-center text-slate-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></div>
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-slate-500 leading-tight">Mode Tamu</span>
+                        </div>
+                    </div>
+                    <button onclick="showAuthPrompt()" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-1.5 rounded-lg shadow-sm text-xs font-bold transition-colors">Login</button>
+                `;
+            }
         }
 
-        document.getElementById('btnLogin').addEventListener('click', async () => {
-            const btn = document.getElementById('btnLogin');
+        window.loginWithGoogle = async function() {
+            const btn = document.getElementById('btnGoogleLogin');
             const originalContent = btn.innerHTML;
             btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-slate-700 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Memverifikasi...`;
             btn.disabled = true;
@@ -590,107 +608,78 @@
             try {
                 const provider = new GoogleAuthProvider();
                 await signInWithPopup(auth, provider);
+                closeAuthPrompt();
             } catch (error) {
-                console.warn("Google Login failed. Trying Anonymous...", error);
-                try {
-                    await signInAnonymously(auth);
-                } catch (fallbackError) {
-                    window.showAlert("Peringatan Auth", "Gagal menghubungkan. Mengalihkan ke Mode Lokal Sementara...", "error");
-                    setTimeout(() => { window.handleLocalLogin(); }, 2500);
-                    btn.innerHTML = originalContent; btn.disabled = false;
-                }
+                console.warn("Google Login failed", error);
+                window.showAlert("Login Gagal", "Gagal menghubungkan ke akun Google. Pastikan popup pada browser tidak diblokir.", "error");
+                btn.innerHTML = originalContent; 
+                btn.disabled = false;
             }
-        });
-
-        window.handleLocalLogin = function() {
-            window.currentUser = { uid: 'local-guest-' + Date.now(), displayName: 'Pengguna Lokal' };
-            window.userProfileName = "Pengguna Lokal";
-            window.userProfilePhoto = `https://ui-avatars.com/api/?name=Local&background=e2e8f0&color=475569`;
-            
-            document.getElementById('userName').innerText = window.userProfileName;
-            document.getElementById('userAvatar').src = window.userProfilePhoto;
-
-            document.getElementById('loginScreen').classList.add('opacity-0');
-            setTimeout(() => {
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('mainApp').classList.remove('hidden');
-                document.getElementById('mainApp').classList.add('flex');
-                setTimeout(() => { document.getElementById('mainApp').classList.remove('opacity-0'); }, 50);
-            }, 500);
-
-            try { window.tasks = JSON.parse(localStorage.getItem('fathsWorkDuty_local_tasks')) || []; } catch(e) { window.tasks = []; }
-            window.teamMembers = [{ uid: window.currentUser.uid, name: window.userProfileName, photo: window.userProfilePhoto, isOnline: true }];
-            window.renderApp(); if(window.currentTab === 'dashboard') window.renderTeamDashboard();
         };
 
         window.handleLogout = async function() {
             try {
-                // Set isOnline to false before disconnecting
-                if (window.currentUser && !window.currentUser.uid.startsWith('local-guest')) {
+                if (!isGuest()) {
                     const userRef = doc(db, 'artifacts', appId, 'public', 'data', 'users', window.currentUser.uid);
                     await setDoc(userRef, { isOnline: false, lastActive: new Date().toISOString() }, { merge: true }).catch(err=>console.log(err));
                     await signOut(auth);
+                    // Setelah sign out, onAuthStateChanged otomatis login anonim & menampilkan prompt login (sebagai menu awal)
+                    showAuthPrompt();
                 }
-                
-                if(tasksUnsubscribe) tasksUnsubscribe();
-                if(usersUnsubscribe) usersUnsubscribe();
-                
-                // Reset UI and global variables
-                window.tasks = []; window.teamMembers = []; window.currentUser = null;
-                const btn = document.getElementById('btnLogin');
-                if (btn) {
-                    btn.innerHTML = `<svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Lanjutkan dengan Google`;
-                    btn.disabled = false;
-                }
-
-                document.getElementById('mainApp').classList.add('opacity-0');
-                setTimeout(() => {
-                    document.getElementById('mainApp').classList.add('hidden'); document.getElementById('mainApp').classList.remove('flex');
-                    document.getElementById('loginScreen').classList.remove('hidden');
-                    setTimeout(() => { document.getElementById('loginScreen').classList.remove('opacity-0'); }, 10);
-                }, 500);
             } catch (e) { console.error(e); }
         };
 
-        // Event listener for tab/window close to attempt offline marking
         window.addEventListener('beforeunload', () => {
-            if (window.currentUser && !window.currentUser.uid.startsWith('local-guest')) {
+            if (!isGuest()) {
                 const userRef = doc(db, 'artifacts', appId, 'public', 'data', 'users', window.currentUser.uid);
                 setDoc(userRef, { isOnline: false, lastActive: new Date().toISOString() }, { merge: true });
             }
         });
 
+        // INISIALISASI AUTENTIKASI AWAL (Mencegah Error Custom Token)
+        async function initializeAuth() {
+            try {
+                // Menghapus logika bawaan Canvas (__initial_auth_token) karena akan 
+                // selalu bentrok (mismatch) jika Anda menggunakan Config Firebase Anda sendiri.
+                await signInAnonymously(auth);
+            } catch (error) {
+                console.warn("Guest Auth Init failed. Harap aktifkan Sign-In 'Anonymous' di Firebase Console Anda.", error.code);
+            }
+        }
+        initializeAuth();
+
+        // AUTH STATE OBSERVER (Guest Mode vs Full Mode)
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 window.currentUser = user;
-                let displayName = user.displayName || "Rekan Tim (Anonim)";
-                let photoUrl = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=e2e8f0&color=475569`;
-                
-                document.getElementById('userName').innerText = displayName;
-                document.getElementById('userAvatar').src = photoUrl;
-                window.userProfileName = displayName;
-                window.userProfilePhoto = photoUrl;
+                if (!user.isAnonymous) {
+                    // Fully Logged In
+                    window.userProfileName = user.displayName || "Rekan Tim (Anonim)";
+                    window.userProfilePhoto = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(window.userProfileName)}&background=e2e8f0&color=475569`;
+                    renderNavAuth(true);
 
-                document.getElementById('loginScreen').classList.add('opacity-0');
-                setTimeout(() => {
-                    document.getElementById('loginScreen').classList.add('hidden');
-                    document.getElementById('mainApp').classList.remove('hidden');
-                    document.getElementById('mainApp').classList.add('flex');
-                    setTimeout(() => { document.getElementById('mainApp').classList.remove('opacity-0'); }, 50);
-                }, 500);
-
-                // Register Kehadiran User (Online)
-                const userRef = doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid);
-                setDoc(userRef, { uid: user.uid, name: displayName, photo: photoUrl, lastActive: new Date().toISOString(), isOnline: true }, { merge: true }).catch(err => console.error(err));
-
+                    // Register Kehadiran User (Online)
+                    const userRef = doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid);
+                    setDoc(userRef, { uid: user.uid, name: window.userProfileName, photo: window.userProfilePhoto, lastActive: new Date().toISOString(), isOnline: true }, { merge: true }).catch(err => console.error(err));
+                } else {
+                    // Guest Mode (Read-Only)
+                    window.userProfileName = "Tamu (Read-Only)";
+                    window.userProfilePhoto = "https://ui-avatars.com/api/?name=Guest&background=f1f5f9&color=94a3b8";
+                    renderNavAuth(false);
+                }
+                bindLiveData();
+            } else {
+                // Null session (Gagal Anonim atau sudah Logout)
+                window.currentUser = null;
+                window.userProfileName = "Tamu (Read-Only)";
+                window.userProfilePhoto = "https://ui-avatars.com/api/?name=Guest&background=f1f5f9&color=94a3b8";
+                renderNavAuth(false);
                 bindLiveData();
             }
         });
 
         function bindLiveData() {
-            if(!window.currentUser) return;
-            
-            // 1. Live Tasks
+            // Hapus blokir currentUser agar data UI tetap berjalan normal
             const tasksRef = collection(db, 'artifacts', appId, 'public', 'data', 'tasks');
             if(tasksUnsubscribe) tasksUnsubscribe();
             tasksUnsubscribe = onSnapshot(tasksRef, (snapshot) => {
@@ -701,7 +690,6 @@
                 renderApp();
             }, (error) => { console.error("Live Tasks Error:", error); });
 
-            // 2. Live Team Presence
             const usersRef = collection(db, 'artifacts', appId, 'public', 'data', 'users');
             if(usersUnsubscribe) usersUnsubscribe();
             usersUnsubscribe = onSnapshot(usersRef, (snapshot) => {
@@ -713,31 +701,19 @@
         }
 
         window.persistTask = async function(taskObj) {
-            if(!window.currentUser) return;
+            if(isGuest()) { showAuthPrompt(); return; }
             try {
                 if(!taskObj.creatorId) { taskObj.creatorId = window.currentUser.uid; taskObj.creatorName = window.userProfileName; }
                 if(!taskObj.updatedAt) taskObj.updatedAt = new Date().toISOString();
                 
-                if (window.currentUser.uid.startsWith('local-guest')) {
-                    const idx = window.tasks.findIndex(t => t.id === taskObj.id);
-                    if (idx !== -1) window.tasks[idx] = taskObj; else window.tasks.push(taskObj);
-                    localStorage.setItem('fathsWorkDuty_local_tasks', JSON.stringify(window.tasks));
-                    window.renderApp(); return;
-                }
-
                 const taskRef = doc(db, 'artifacts', appId, 'public', 'data', 'tasks', taskObj.id);
                 await setDoc(taskRef, taskObj, { merge: true });
             } catch(e) { window.showAlert("Gagal Menyimpan", "Periksa koneksi internet Anda.", "error"); console.error(e); }
         };
 
         window.removeTaskFromDB = async function(taskId) {
-            if(!window.currentUser) return;
+            if(isGuest()) { showAuthPrompt(); return; }
             try {
-                if (window.currentUser.uid.startsWith('local-guest')) {
-                    window.tasks = window.tasks.filter(t => t.id !== taskId);
-                    localStorage.setItem('fathsWorkDuty_local_tasks', JSON.stringify(window.tasks));
-                    window.renderApp(); return;
-                }
                 const taskRef = doc(db, 'artifacts', appId, 'public', 'data', 'tasks', taskId);
                 await deleteDoc(taskRef);
             } catch(e) { window.showAlert("Gagal Menghapus", "Periksa koneksi Anda.", "error"); console.error(e); }
@@ -771,7 +747,7 @@
 
             sortedTeam.forEach(member => {
                 const isMe = member.uid === window.currentUser?.uid;
-                const isOnline = member.isOnline !== false; // Default to true if undefined
+                const isOnline = member.isOnline === true; // Strictly Check boolean
                 
                 const activeText = isMe ? '<span class="text-xs text-green-500 font-bold">Online (Anda)</span>' : (isOnline ? '<span class="text-xs text-blue-500 font-medium">Online</span>' : '<span class="text-xs text-slate-400 font-medium">Offline</span>');
                 const dotHtml = isOnline ? '<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></div>' : '<div class="absolute bottom-0 right-0 w-3 h-3 bg-slate-300 border-2 border-white rounded-full"></div>';
@@ -839,7 +815,6 @@
         }
 
         window.renderApp = function() {
-            if(!window.currentUser) return;
             const searchTerm = (document.getElementById('searchInput')?.value || '').toLowerCase(); 
             const filterType = document.getElementById('filterType')?.value || 'Semua'; 
             const filterMonthVal = document.getElementById('filterMonth')?.value || ''; 
@@ -867,9 +842,7 @@
 
             filteredTasks.sort((a, b) => {
                 if (searchTerm) {
-                    // Jika mencari, utamakan Prioritas lalu kemunculan terbaru (id/updatedAt)
-                    const prioWeight = {'Tinggi': 3, 'Sedang': 2, 'Rendah': 1}; 
-                    if (prioWeight[b.priority] !== prioWeight[a.priority]) return prioWeight[b.priority] - prioWeight[a.priority];
+                    // Jika mencari, utamakan yang terbaru aktif (id fallback timestamp terbaru)
                     return b.id.localeCompare(a.id); // Descending ID = Newer task
                 } else {
                     // Sorting Normal berdasarkan Deadline terdekat
@@ -885,6 +858,8 @@
 
         window.renderBoard = function(filteredTasks) {
             const lists = { 'todo': '', 'inprogress': '', 'done': '' }; const counts = { 'todo': 0, 'inprogress': 0, 'done': 0 }; const today = new Date().toISOString().split('T')[0]; 
+            const authDragStr = !isGuest() ? 'true' : 'false';
+            const dragClass = !isGuest() ? 'can-drag' : '';
 
             filteredTasks.forEach(task => {
                 const stat = task.status || 'todo'; counts[stat]++; 
@@ -900,7 +875,7 @@
                 const isHex = task.color && task.color.startsWith('#'); const coverColorClass = isHex ? '' : (task.color || 'bg-slate-200'); const coverStyle = isHex ? `style="background-color: ${task.color};"` : '';
                 
                 lists[stat] += `
-                    <div id="${task.id}" class="glass-card relative group pt-3 pb-4 px-4 bg-white/95 border-slate-200" draggable="true" ondragstart="drag(event)" onclick="openPreviewModal('${task.id}')">
+                    <div id="${task.id}" class="glass-card ${dragClass} group pt-3 pb-4 px-4 bg-white/95 border-slate-200" draggable="${authDragStr}" ondragstart="drag(event)" onclick="openPreviewModal('${task.id}')">
                         <div class="absolute inset-x-0 top-0 h-2 rounded-t-2xl overflow-hidden ${coverColorClass}" ${coverStyle}></div>
                         <div class="flex justify-between items-start mb-2 mt-2">
                             <div class="flex items-center gap-2">${prioDot} <span class="text-[10px] font-extrabold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full shadow-sm">${formatDate(taskEnd)}</span></div>
@@ -1030,6 +1005,8 @@
 
         window.toggleCardMenu = function(e, id) {
             e.stopPropagation(); 
+            if (isGuest()) { showAuthPrompt(); return; } // AUTH GUARD
+            
             if (window.activeMenuId && window.activeMenuId !== id) { const oldMenu = document.getElementById(`menu-${window.activeMenuId}`); if (oldMenu) oldMenu.classList.add('hidden'); const oldCard = document.getElementById(window.activeMenuId); if (oldCard) oldCard.classList.remove('z-50'); }
             const menu = document.getElementById(`menu-${id}`); const card = document.getElementById(id);
             if (menu.classList.contains('hidden')) { menu.classList.remove('hidden'); if (card) card.classList.add('z-50'); window.activeMenuId = id; } 
@@ -1043,11 +1020,19 @@
         document.addEventListener('click', (e) => { if (window.activeMenuId) { const menu = document.getElementById(`menu-${window.activeMenuId}`); if (menu && !menu.contains(e.target)) { menu.classList.add('hidden'); const card = document.getElementById(window.activeMenuId); if (card) card.classList.remove('z-50'); window.activeMenuId = null; } } });
 
         window.allowDrop = function(e) { e.preventDefault(); }
-        window.drag = function(e) { e.dataTransfer.setData("taskId", e.target.id); setTimeout(() => e.target.style.opacity = '0.4', 0); }
-        window.drop = function(e, newStatus) { e.preventDefault(); const taskId = e.dataTransfer.getData("taskId"); const task = window.tasks.find(t => t.id === taskId); if (task) { if (newStatus === 'done' && task.status !== 'done') { window.handleMoveToDone(task, new Date().toISOString().split('T')[0]); } else if (task.status === 'done' && newStatus !== 'done') { window.handleMoveOutFromDone(task, newStatus); } else { task.status = newStatus; window.persistTask(task); } } }
+        window.drag = function(e) { 
+            if (isGuest()) return; // AUTH GUARD
+            e.dataTransfer.setData("taskId", e.target.id); 
+            setTimeout(() => e.target.style.opacity = '0.4', 0); 
+        }
+        window.drop = function(e, newStatus) { 
+            e.preventDefault(); 
+            if (isGuest()) { showAuthPrompt(); return; } // AUTH GUARD
+            
+            const taskId = e.dataTransfer.getData("taskId"); const task = window.tasks.find(t => t.id === taskId); if (task) { if (newStatus === 'done' && task.status !== 'done') { window.handleMoveToDone(task, new Date().toISOString().split('T')[0]); } else if (task.status === 'done' && newStatus !== 'done') { window.handleMoveOutFromDone(task, newStatus); } else { task.status = newStatus; window.persistTask(task); } } }
         document.addEventListener('dragend', (e) => { if(e.target.style) e.target.style.opacity = '1'; });
 
-        window.openDeleteModal = function(e, id) { e.stopPropagation(); if(window.activeMenuId){ document.getElementById(`menu-${window.activeMenuId}`).classList.add('hidden'); document.getElementById(window.activeMenuId)?.classList.remove('z-50'); window.activeMenuId = null; } window.taskToDeleteId = id; window.toggleBodyScroll(true); document.getElementById('deleteModal').classList.remove('hidden'); document.getElementById('deleteModal').classList.add('flex'); }
+        window.openDeleteModal = function(e, id) { e.stopPropagation(); if(isGuest()){ showAuthPrompt(); return; } if(window.activeMenuId){ document.getElementById(`menu-${window.activeMenuId}`).classList.add('hidden'); document.getElementById(window.activeMenuId)?.classList.remove('z-50'); window.activeMenuId = null; } window.taskToDeleteId = id; window.toggleBodyScroll(true); document.getElementById('deleteModal').classList.remove('hidden'); document.getElementById('deleteModal').classList.add('flex'); }
         window.closeDeleteModal = function() { window.taskToDeleteId = null; window.toggleBodyScroll(false); document.getElementById('deleteModal').classList.add('hidden'); document.getElementById('deleteModal').classList.remove('flex'); }
         window.confirmDelete = function() { if (window.taskToDeleteId) { window.removeTaskFromDB(window.taskToDeleteId); window.closeDeleteModal(); } }
 
@@ -1065,7 +1050,7 @@
                 let cellClass = "p-1.5 rounded-lg cursor-pointer transition-all border font-bold ";
                 if (isSelected) cellClass += "bg-blue-600 text-white border-blue-600 shadow-md transform scale-110";
                 else { cellClass += "hover:bg-blue-50 hover:border-blue-300 bg-white border-transparent shadow-sm "; cellClass += isRedDay ? "text-red-500" : "text-slate-700"; }
-                grid.innerHTML += `<div onclick="toggleTaskDate('${dateStr}')" class="${cellClass}">${day}</div>`;
+                grid.innerHTML += `<div onclick="window.toggleTaskDate('${dateStr}')" class="${cellClass}">${day}</div>`;
             }
             document.getElementById('taskDurationText').innerText = window.selectedTaskDates.length;
         }
@@ -1076,8 +1061,8 @@
         window.renderColorPicker = function() {
             const container = document.getElementById('colorPickerContainer'); if(!container) return; let html = '';
             window.defaultColors.forEach(c => { html += `<label class="cursor-pointer relative"><input type="radio" name="taskColor" value="${c}" class="sr-only color-radio"><div class="w-8 h-8 rounded-full ${c} shadow-sm transition-transform border-2 border-white hover:scale-110"></div></label>`; });
-            window.customColors.forEach(c => { html += `<label class="cursor-pointer relative group"><input type="radio" name="taskColor" value="${c}" class="sr-only color-radio"><div class="w-8 h-8 rounded-full shadow-sm transition-transform border-2 border-white hover:scale-110" style="background-color: ${c};"></div><button type="button" onclick="removeCustomColor('${c}', event)" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity w-4 h-4 flex items-center justify-center text-[10px] shadow z-10 hover:bg-red-600"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></label>`; });
-            html += `<label class="relative flex items-center justify-center w-8 h-8 rounded-full border-2 border-dashed border-slate-400 cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-colors bg-slate-50 shadow-sm hover:scale-110" title="Tambah Warna Kustom"><input type="color" onchange="addCustomColor(event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" value="#3b82f6"><svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></label>`;
+            window.customColors.forEach(c => { html += `<label class="cursor-pointer relative group"><input type="radio" name="taskColor" value="${c}" class="sr-only color-radio"><div class="w-8 h-8 rounded-full shadow-sm transition-transform border-2 border-white hover:scale-110" style="background-color: ${c};"></div><button type="button" onclick="window.removeCustomColor('${c}', event)" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity w-4 h-4 flex items-center justify-center text-[10px] shadow z-10 hover:bg-red-600"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></label>`; });
+            html += `<label class="relative flex items-center justify-center w-8 h-8 rounded-full border-2 border-dashed border-slate-400 cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-colors bg-slate-50 shadow-sm hover:scale-110" title="Tambah Warna Kustom"><input type="color" onchange="window.addCustomColor(event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" value="#3b82f6"><svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></label>`;
             container.innerHTML = html;
         }
 
@@ -1119,6 +1104,8 @@
         }
 
         window.openModal = function(taskId = null) {
+            if (isGuest()) { showAuthPrompt(); return; } // AUTH GUARD
+
             const modal = document.getElementById('taskModal'); const form = document.getElementById('taskForm'); window.toggleBodyScroll(true); modal.classList.remove('hidden'); modal.classList.add('flex'); const titleEl = document.getElementById('modalTitle'); const submitBtn = document.getElementById('submitBtn'); window.renderColorPicker();
             
             if (taskId) {
@@ -1211,7 +1198,7 @@
         window.renderSubtasks = function() {
             const list = document.getElementById('subtaskList'); list.innerHTML = '';
             window.currentSubtasks.forEach(st => {
-                list.innerHTML += `<div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 shadow-sm transition-colors"><input type="checkbox" ${st.completed ? 'checked' : ''} onchange="toggleSubtask('${st.id}')" class="w-5 h-5 rounded text-blue-500 border-slate-300"><span class="flex-1 text-sm font-bold ${st.completed ? 'line-through text-slate-400' : 'text-slate-700'}">${st.text}</span><button type="button" onclick="deleteSubtask('${st.id}')" class="text-slate-400 hover:text-red-500 hover:bg-red-50 p-1 rounded-md transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div>`;
+                list.innerHTML += `<div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 shadow-sm transition-colors"><input type="checkbox" ${st.completed ? 'checked' : ''} onchange="window.toggleSubtask('${st.id}')" class="w-5 h-5 rounded text-blue-500 border-slate-300"><span class="flex-1 text-sm font-bold ${st.completed ? 'line-through text-slate-400' : 'text-slate-700'}">${st.text}</span><button type="button" onclick="window.deleteSubtask('${st.id}')" class="text-slate-400 hover:text-red-500 hover:bg-red-50 p-1 rounded-md transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div>`;
             });
         }
         window.toggleSubtaskSection = function() { const container = document.getElementById('subtaskContainer'); const chevron = document.getElementById('subtaskChevron'); if (container.classList.contains('hidden')) { container.classList.remove('hidden'); chevron.classList.add('rotate-180'); } else { container.classList.add('hidden'); chevron.classList.remove('rotate-180'); } }
@@ -1255,8 +1242,9 @@
             if (task.subtasks && task.subtasks.length > 0) {
                 sect.classList.remove('hidden'); cont.innerHTML = ''; let completed = 0;
                 task.subtasks.forEach(st => {
-                    if (st.completed) completed++; let opacityStr = 'cursor-pointer hover:bg-white hover:border-blue-200';
-                    cont.innerHTML += `<label class="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200 transition-all shadow-sm ${opacityStr}"><input type="checkbox" ${st.completed ? 'checked' : ''} onchange="toggleSubtaskInPreview('${task.id}', '${st.id}')" class="w-5 h-5 rounded text-blue-600 border-slate-300 focus:ring-blue-500"><span class="flex-1 text-sm font-bold ${st.completed ? 'line-through text-slate-400' : 'text-slate-800'}">${st.text}</span></label>`;
+                    if (st.completed) completed++; let opacityStr = isGuest() ? 'cursor-not-allowed opacity-80' : 'cursor-pointer hover:bg-white hover:border-blue-200';
+                    const disAttr = isGuest() ? 'disabled' : '';
+                    cont.innerHTML += `<label class="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200 transition-all shadow-sm ${opacityStr}"><input type="checkbox" ${st.completed ? 'checked' : ''} ${disAttr} onchange="window.toggleSubtaskInPreview('${task.id}', '${st.id}')" class="w-5 h-5 rounded text-blue-600 border-slate-300 focus:ring-blue-500"><span class="flex-1 text-sm font-bold ${st.completed ? 'line-through text-slate-400' : 'text-slate-800'}">${st.text}</span></label>`;
                 });
                 let pct = Math.round((completed / task.subtasks.length) * 100); document.getElementById('previewProgressBar').style.width = pct + '%'; document.getElementById('previewProgressBar').className = `h-full bg-blue-500 transition-all duration-500 shadow-sm ${pct === 100 ? 'bg-green-500' : 'bg-blue-500'}`; document.getElementById('previewProgressText').innerText = pct + '% Selesai';
             } else {
@@ -1265,7 +1253,7 @@
             }
         }
 
-        window.toggleSubtaskInPreview = function(tId, sId) { const task = window.tasks.find(t => t.id === tId); if(task) { const sub = task.subtasks.find(s => s.id === sId); if(sub) { sub.completed = !sub.completed; window.persistTask(task); window.openPreviewModal(tId); } } }
+        window.toggleSubtaskInPreview = function(tId, sId) { if(isGuest()) { showAuthPrompt(); return; } const task = window.tasks.find(t => t.id === tId); if(task) { const sub = task.subtasks.find(s => s.id === sId); if(sub) { sub.completed = !sub.completed; window.persistTask(task); window.openPreviewModal(tId); } } }
 
         window.copyTaskInfo = function() {
             const tId = document.getElementById('previewTaskId').value; const t = window.tasks.find(x => x.id === tId);
@@ -1286,7 +1274,7 @@
                 tasksOnDay.forEach(t => {
                     const isDone = t.status === 'done'; const cardStyle = isDone ? 'bg-slate-50 opacity-70 border-dashed border-slate-300' : 'bg-white border-slate-200 shadow-sm hover:shadow-md'; const titleStyle = isDone ? 'text-slate-500 font-semibold line-through' : 'text-slate-800 font-bold'; const checkIcon = isDone ? `<svg class="w-4 h-4 text-green-500 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>` : '';
                     const isHex = t.color && t.color.startsWith('#'); const colorClass = isHex ? '' : (t.color || 'bg-slate-200'); const colorStyle = isHex ? `style="background-color: ${t.color};"` : '';
-                    html += `<div class="p-4 border rounded-xl flex justify-between items-center cursor-pointer transition-all ${cardStyle}" onclick="closeDayModal(); openPreviewModal('${t.id}')"><div class="flex items-center gap-4"><div class="w-4 h-4 rounded-full ${colorClass} border border-slate-200 shadow-sm" ${colorStyle}></div><div><div class="${titleStyle} text-sm flex items-center">${t.title} ${checkIcon}</div><div class="text-[10px] font-medium text-slate-400">Oleh: ${t.creatorName || 'Tim'}</div></div></div></div>`;
+                    html += `<div class="p-4 border rounded-xl flex justify-between items-center cursor-pointer transition-all ${cardStyle}" onclick="window.closeDayModal(); window.openPreviewModal('${t.id}')"><div class="flex items-center gap-4"><div class="w-4 h-4 rounded-full ${colorClass} border border-slate-200 shadow-sm" ${colorStyle}></div><div><div class="${titleStyle} text-sm flex items-center">${t.title} ${checkIcon}</div><div class="text-[10px] font-medium text-slate-400">Oleh: ${t.creatorName || 'Tim'}</div></div></div></div>`;
                 });
                 listContainer.innerHTML = html;
             }
