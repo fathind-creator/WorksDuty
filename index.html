@@ -64,6 +64,7 @@
         html.dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.2) !important; color: #fcd34d !important; border-color: rgba(245, 158, 11, 0.3) !important; }
         html.dark .hover\:bg-slate-100:hover { background-color: #334155 !important; }
         html.dark .bg-slate-200 { background-color: #475569 !important; }
+        html.dark .hover\:bg-slate-800:hover { background-color: #1e293b !important; }
         
         /* Utilities */
         .color-radio:checked + div { border: 3px solid #1e293b; transform: scale(1.1); }
@@ -81,7 +82,7 @@
 <body class="flex flex-col p-4 md:p-6 min-h-screen relative">
 
     <!-- Custom Alert Modal (Bebas Crash) -->
-    <div id="customAlert" class="hidden fixed inset-0 bg-slate-900/60 z-[250] flex justify-center items-center p-4 backdrop-blur-sm transition-opacity">
+    <div id="customAlert" class="hidden fixed inset-0 bg-slate-900/60 z-[300] flex justify-center items-center p-4 backdrop-blur-sm transition-opacity">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-2xl max-w-sm w-full text-center border border-slate-200 dark:border-slate-700">
             <h3 id="alertTitle" class="text-lg font-bold text-slate-900 dark:text-white mb-2">Info</h3>
             <p id="alertMessage" class="text-sm text-slate-600 dark:text-slate-300 mb-6"></p>
@@ -117,7 +118,7 @@
     <div id="mainApp" class="flex flex-col w-full h-full flex-1 transition-all duration-500 opacity-0">
         
         <!-- Navbar with High Z-Index to avoid overlap -->
-        <nav class="flex flex-col sm:flex-row justify-between items-center mb-6 glass-panel p-4 gap-4 relative z-50">
+        <nav class="flex flex-col sm:flex-row justify-between items-center mb-6 glass-panel p-4 gap-4 relative z-[100]">
             <div class="flex items-center gap-3 w-full sm:w-auto">
                 <div class="w-10 h-10 bg-gradient-to-tr from-blue-500 to-sky-400 rounded-xl shadow-md flex items-center justify-center text-white text-lg font-bold">✨</div>
                 <div>
@@ -134,15 +135,33 @@
                 <button onclick="window.switchMainTab('dashboard')" id="tab-dashboard" class="flex-1 sm:flex-none px-6 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:bg-white/60 transition-all flex items-center gap-1">Dashboard <span class="flex h-2 w-2 rounded-full bg-red-500"></span></button>
             </div>
 
-            <!-- USER PROFILE & EXPORT -->
+            <!-- USER PROFILE, NOTIFICATIONS, & EXPORT -->
             <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
                 <button onclick="window.exportCSV()" class="p-2 bg-white/60 hover:bg-white rounded-xl border border-white shadow-sm text-slate-500 hover:text-green-600 transition-colors" title="Export CSV Laporan">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                 </button>
+
+                <!-- Personal Notifications Bell -->
+                <div class="relative z-[110]">
+                    <div class="flex items-center justify-center cursor-pointer p-2 bg-white/60 hover:bg-white dark:hover:bg-slate-700 rounded-xl border border-white dark:border-slate-700 shadow-sm transition-colors" onclick="window.toggleNotifications()">
+                        <svg class="w-5 h-5 text-slate-500 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                        <span id="notifBadge" class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 border border-white dark:border-slate-800 rounded-full hidden"></span>
+                    </div>
+                    <!-- Dropdown Notifikasi -->
+                    <div id="notifMenu" class="hidden absolute right-0 top-12 w-72 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden flex flex-col">
+                        <div class="p-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
+                            <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Notifikasi Pribadi</p>
+                            <button onclick="window.markAllNotifAsRead(event)" class="text-[10px] text-blue-500 hover:text-blue-700 font-bold">Tandai Dibaca</button>
+                        </div>
+                        <div id="notifList" class="max-h-64 overflow-y-auto flex flex-col">
+                            <!-- Data notifikasi -->
+                        </div>
+                    </div>
+                </div>
                 
                 <!-- Drodown Menu User -->
-                <div class="relative z-[100]">
-                    <div class="flex items-center gap-2 bg-white/60 px-3 py-2 rounded-xl border border-white shadow-sm cursor-pointer hover:bg-white/90 transition-colors" onclick="window.toggleProfileMenu()">
+                <div class="relative z-[110]">
+                    <div class="flex items-center gap-2 bg-white/60 dark:hover:bg-slate-700 px-3 py-2 rounded-xl border border-white dark:border-slate-700 shadow-sm cursor-pointer hover:bg-white/90 transition-colors" onclick="window.toggleProfileMenu()">
                         <img id="userAvatar" src="https://ui-avatars.com/api/?name=Guest" alt="User" class="w-8 h-8 rounded-full border-2 border-white shadow-sm">
                         <div class="flex flex-col">
                             <span id="userName" class="text-sm font-bold text-slate-800 leading-tight">Tamu</span>
@@ -150,8 +169,8 @@
                         <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                     
-                    <!-- Dropdown Profil Box (Solid & Fixed Z-Index) -->
-                    <div id="profileMenu" class="hidden absolute right-0 top-14 w-56 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl z-[150] overflow-hidden">
+                    <!-- Dropdown Profil Box -->
+                    <div id="profileMenu" class="hidden absolute right-0 top-14 w-56 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden">
                         <div class="p-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
                             <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Pengaturan</p>
                         </div>
@@ -180,7 +199,6 @@
                         <input type="month" id="filterMonth" onchange="window.onFilterMonthChange()" class="glass-input p-2.5 flex-1 sm:w-40 text-sm font-medium cursor-pointer" title="Filter Bulan">
                         <button onclick="window.clearFilters()" class="glass-input px-3 text-slate-400 hover:text-red-500 bg-white/60 flex items-center justify-center" title="Bersihkan Filter"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                     </div>
-                    <!-- Filter Tipe dan Prioritas Dipulihkan -->
                     <select id="filterType" onchange="window.renderApp()" class="glass-input p-2.5 w-full sm:w-36 text-sm font-medium cursor-pointer"><option value="Semua">Semua Tipe</option><option value="Sekali Jalan">Sekali Jalan</option><option value="Rutin Harian">Rutin Harian</option><option value="Rutin Bulanan">Rutin Bulanan</option></select>
                     <select id="filterPriority" onchange="window.renderApp()" class="glass-input p-2.5 w-full sm:w-32 text-sm font-medium cursor-pointer"><option value="Semua">Prioritas</option><option value="Tinggi">Tinggi</option><option value="Sedang">Sedang</option><option value="Rendah">Rendah</option></select>
                     
@@ -257,13 +275,12 @@
             <h2 class="text-xl font-bold text-slate-800 border-b border-slate-200 pb-2 mt-4">👥 Team & Activity</h2>
             <div class="glass-panel p-6 bg-white/70">
                 <div id="teamList" class="flex flex-wrap gap-4">
-                    <!-- Data Tim Dimuat Disini, Anonim Disembunyikan -->
+                    <!-- Data Tim Dimuat Disini, Klik untuk Mini Dashboard -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- FORM ADD/EDIT MODAL -->
     <div id="taskModal" class="hidden fixed inset-0 bg-slate-900/60 z-[200] justify-center items-start p-4 pt-10 pb-24 backdrop-blur-sm overflow-y-auto transition-opacity">
         <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-2xl p-8 shadow-2xl border border-slate-200 dark:border-slate-700 my-auto">
             <div class="flex justify-between items-center mb-6">
@@ -307,7 +324,6 @@
                 
                 <input type="hidden" id="taskStatus" value="todo"> 
 
-                <!-- Custom Color Picker Restore -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Warna Cover</label>
                     <div id="colorPickerContainer" class="flex gap-3 flex-wrap items-center"></div>
@@ -324,7 +340,7 @@
                     <div class="relative inline-block w-10 h-5 align-middle select-none transition duration-200 ease-in"><input type="checkbox" id="taskNotify" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-300 appearance-none cursor-pointer transition-all duration-300 z-10"/><label for="taskNotify" class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-300 cursor-pointer transition-all duration-300"></label></div>
                 </div>
 
-                <!-- Subtask Management Restore -->
+                <!-- Subtask Management -->
                 <div class="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden transition-all">
                     <button type="button" onclick="window.toggleSubtaskSection()" class="w-full p-3 font-semibold text-slate-700 dark:text-slate-300 flex justify-between items-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"><span class="flex items-center gap-2"><svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg> Kelola Checklist</span><svg id="subtaskChevron" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
                     <div id="subtaskContainer" class="hidden p-4 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
@@ -337,7 +353,7 @@
                 </div>
 
                 <div class="flex gap-3 pt-4 border-t border-slate-100 dark:border-slate-700">
-                    <button type="button" onclick="window.closeModal()" class="flex-1 bg-slate-50 border border-slate-200 py-3 rounded-xl font-bold text-slate-600 hover:bg-slate-100 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-600">Batal / X</button>
+                    <button type="button" onclick="window.closeModal()" class="flex-1 bg-slate-50 border border-slate-200 py-3 rounded-xl font-bold text-slate-600 hover:bg-slate-100 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-600">Batal</button>
                     <button type="submit" id="submitBtn" class="flex-1 bg-gradient-to-r from-blue-500 to-sky-500 text-white rounded-xl font-bold py-3 shadow-lg hover:shadow-xl hover:opacity-90 transition-all">Simpan</button>
                 </div>
             </form>
@@ -370,7 +386,7 @@
                             <div id="previewSubtasks" class="space-y-2"></div>
                         </div>
                         <div>
-                            <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-2"><svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg> Log Aktivitas</h3>
+                            <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-2"><svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg> Log Aktivitas & Chat</h3>
                             <div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-slate-700 flex flex-col h-64">
                                 <div id="previewLogs" class="flex-1 p-4 overflow-y-auto space-y-3 text-sm"></div>
                                 <div class="p-2 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-b-xl flex gap-2">
@@ -400,14 +416,48 @@
         </div>
     </div>
 
+    <!-- User Mini Dashboard Modal -->
+    <div id="userDashboardModal" class="hidden fixed inset-0 bg-slate-900/60 z-[250] justify-center items-center p-4 backdrop-blur-sm transition-opacity">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl w-full max-w-2xl p-6 shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col max-h-[85vh]">
+            <div class="flex justify-between items-start mb-6">
+                <div class="flex items-center gap-4">
+                    <img id="udAvatar" src="" class="w-14 h-14 rounded-full border-4 border-slate-100 dark:border-slate-700 shadow-md">
+                    <div>
+                        <h2 id="udName" class="text-xl font-extrabold text-slate-800 dark:text-white leading-tight">Nama User</h2>
+                        <p class="text-xs font-bold text-blue-500 uppercase tracking-wider">Mini Dashboard - Tugas Buatan Anggota</p>
+                    </div>
+                </div>
+                <button onclick="window.closeUserDashboard()" class="text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 p-1.5 rounded-full transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 mb-6">
+                <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl border border-slate-100 dark:border-slate-700 text-center">
+                    <p class="text-xs text-slate-500 font-bold mb-1">To Do</p>
+                    <p id="udTodo" class="text-2xl font-extrabold text-slate-700 dark:text-slate-200">0</p>
+                </div>
+                <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-xl border border-blue-100 dark:border-blue-800 text-center">
+                    <p class="text-xs text-blue-600 dark:text-blue-400 font-bold mb-1">In Progress</p>
+                    <p id="udInProgress" class="text-2xl font-extrabold text-blue-700 dark:text-blue-300">0</p>
+                </div>
+                <div class="bg-green-50 dark:bg-green-900/20 p-3 rounded-xl border border-green-100 dark:border-green-800 text-center">
+                    <p class="text-xs text-green-600 dark:text-green-400 font-bold mb-1">Done</p>
+                    <p id="udDone" class="text-2xl font-extrabold text-green-700 dark:text-green-300">0</p>
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto pr-2 space-y-2 no-scrollbar" id="udTaskList">
+                <!-- List Tasks of User -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Modals (Recurring, Day, Delete) -->
     <div id="recurringModal" class="hidden fixed inset-0 bg-slate-900/60 z-[250] justify-center items-center p-4 backdrop-blur-sm transition-opacity">
         <div class="bg-white rounded-2xl w-full max-w-sm p-6 text-center border border-blue-200 shadow-2xl"><div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 mb-4"><svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg></div><h3 class="text-lg font-bold text-slate-900 mb-2">Tugas Rutin Selesai! 🎉</h3><p class="text-sm text-slate-500 mb-6 leading-relaxed">Apakah Anda ingin membuat kloning otomatis untuk periode berikutnya?</p><div class="flex gap-3"><button onclick="window.confirmRecurring(false)" class="flex-1 bg-slate-50 border border-slate-200 py-2 rounded-xl text-slate-600 hover:bg-slate-100 font-bold">Tidak</button><button onclick="window.confirmRecurring(true)" class="flex-1 bg-blue-500 text-white rounded-xl font-bold py-2 shadow hover:bg-blue-600 transition-colors">Ya, Jadwalkan</button></div></div>
     </div>
-
     <div id="dayModal" class="hidden fixed inset-0 bg-slate-900/60 z-[200] justify-center items-start p-4 pt-20 pb-24 backdrop-blur-sm transition-opacity">
         <div class="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl border border-slate-200 my-auto"><div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3"><h2 id="dayModalTitle" class="text-xl font-extrabold text-slate-800">Tugas Harian</h2><button onclick="window.closeDayModal()" class="text-slate-400 hover:bg-slate-100 p-1.5 rounded-full transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div><div id="dayModalList" class="flex flex-col gap-2 max-h-[60vh] overflow-y-auto pr-1 no-scrollbar"></div></div>
     </div>
-
     <div id="deleteModal" class="hidden fixed inset-0 bg-slate-900/60 z-[300] justify-center items-start p-4 pt-20 pb-24 backdrop-blur-sm transition-opacity">
         <div class="bg-white rounded-2xl w-full max-w-sm p-6 text-center border border-red-200 shadow-2xl my-auto"><div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4"><svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div><h3 class="text-lg font-bold text-slate-900 mb-2">Hapus Jadwal?</h3><p class="text-sm text-slate-500 mb-6">Jadwal akan dihapus permanen.</p><div class="flex gap-3"><button onclick="window.closeDeleteModal()" class="flex-1 bg-slate-50 border border-slate-200 py-2 rounded-xl text-slate-600 hover:bg-slate-100 font-bold">Batal</button><button onclick="window.confirmDelete()" class="flex-1 bg-red-500 text-white rounded-xl font-bold py-2 shadow hover:bg-red-600 transition-colors">Ya, Hapus</button></div></div>
     </div>
@@ -417,14 +467,14 @@
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Konfigurasi Project Firebase (workspace-kanban-87108)
+        // Konfigurasi Project Firebase Anda
         const firebaseConfig = {
             apiKey: "AIzaSyCSEHSauZ0pixoG--e9GK3XhdivNqDOT08",
             authDomain: "workspace-kanban-87108.firebaseapp.com",
             projectId: "workspace-kanban-87108",
             storageBucket: "workspace-kanban-87108.firebasestorage.app",
             messagingSenderId: "806979287973",
-            appId: "1:806979287973:web:45b169dc1ce60d421dc64c"
+            appId: "1:806979287973:web:b43e597dc60861499447dc"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -432,11 +482,12 @@
         const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
 
-        // Variabel Global Data
+        // Global State
         window.currentUser = null;
         window.isGuest = true;
         window.tasks = [];
         window.activeUsers = [];
+        window.myNotifications = [];
         window.currentSubtasks = [];
         window.taskToDeleteId = null;
         window.activeMenuId = null; 
@@ -453,6 +504,8 @@
         window.customColors = JSON.parse(localStorage.getItem('fathsCustomColors')) || [];
         window.nationalHolidays = ["2026-01-01", "2026-02-17", "2026-03-20", "2026-04-10", "2026-05-01", "2026-05-14", "2026-06-01", "2026-08-17", "2026-12-25"];
 
+        let notifUnsubscribe = null;
+
         // Custom Alerts Logic
         window.showAlert = (title, message, showLoginBtn = false) => {
             document.getElementById('alertTitle').innerText = title;
@@ -464,25 +517,34 @@
         };
         window.closeAlert = () => document.getElementById('customAlert').classList.add('hidden');
 
-        // Pengecekan Login Awal (Persistence)
+        // Initial Auth Check
         onAuthStateChanged(auth, async (user) => {
             if (user && !user.isAnonymous) {
-                // User Asli Login
                 window.currentUser = user;
                 window.isGuest = false;
                 setupUIForUser(user);
                 
-                // Mendaftarkan status online
+                // Mendaftarkan status online dengan UID
                 setDoc(doc(db, "active_users", user.uid), {
+                    uid: user.uid,
                     name: user.displayName || 'Anonim',
                     avatar: user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || 'U')}`,
                     lastSeen: new Date().toISOString(),
                     isOnline: true
                 }, { merge: true });
 
+                // Listen to Personal Notifications
+                if(notifUnsubscribe) notifUnsubscribe();
+                notifUnsubscribe = onSnapshot(doc(db, "user_notifications", user.uid), (docSnap) => {
+                    window.myNotifications = docSnap.exists() ? docSnap.data().items || [] : [];
+                    window.renderNotifications();
+                });
+
                 loadWorkspaceData(user);
             } else {
-                // Belum Login - Otomatis masuk Mode Tamu saat pertama load
+                if(notifUnsubscribe) notifUnsubscribe();
+                window.myNotifications = [];
+                window.renderNotifications();
                 window.enterGuestMode();
             }
         });
@@ -490,17 +552,15 @@
         window.showLoginScreen = () => {
             document.getElementById('loginScreen').classList.remove('hidden');
             document.getElementById('loginScreen').classList.add('flex');
-            document.getElementById('profileMenu').classList.add('hidden'); // Tutup menu jika terbuka
+            document.getElementById('profileMenu').classList.add('hidden');
         };
-        
         window.closeLoginScreen = () => {
             document.getElementById('loginScreen').classList.add('hidden');
             document.getElementById('loginScreen').classList.remove('flex');
         };
 
         function setupUIForUser(user) {
-            document.getElementById('loginScreen').classList.add('hidden');
-            document.getElementById('loginScreen').classList.remove('flex');
+            window.closeLoginScreen();
             const main = document.getElementById('mainApp');
             main.classList.remove('opacity-0');
             
@@ -518,26 +578,16 @@
 
         function loadWorkspaceData(user) {
             const teamDocRef = doc(db, "workJourney", "team_workspace");
-            
-            // Dengarkan Perubahan Realtime (Live Collab)
             onSnapshot(teamDocRef, async (docSnap) => {
                 if (docSnap.exists() && docSnap.data().tasks) {
                     window.tasks = docSnap.data().tasks;
                 } else if (!window.isGuest) {
-                    // Migrasi data jika kosong
-                    const oldDoc = await getDoc(doc(db, "workJourney", user.uid));
-                    if (oldDoc.exists() && oldDoc.data().tasks) {
-                        window.tasks = oldDoc.data().tasks;
-                        setDoc(teamDocRef, { tasks: window.tasks });
-                    } else {
-                        window.tasks = [];
-                        setDoc(teamDocRef, { tasks: [] });
-                    }
+                    window.tasks = [];
+                    setDoc(teamDocRef, { tasks: [] });
                 }
                 window.renderApp();
             }, (error) => { console.error("Gagal load data: ", error); });
 
-            // Pantau Anggota Tim yang Aktif
             onSnapshot(collection(db, "active_users"), (snapshot) => {
                 window.activeUsers = [];
                 snapshot.forEach(doc => { if(doc.data().isOnline) window.activeUsers.push(doc.data()); });
@@ -549,7 +599,6 @@
             setPersistence(auth, browserLocalPersistence).then(() => {
                 signInWithPopup(auth, googleProvider).catch((err) => {
                     if(err.code === 'auth/popup-blocked') window.showAlert("Popup Diblokir", "Harap izinkan pop-up browser untuk login Google.");
-                    else window.showAlert("Gagal Login", err.message);
                 });
             });
         };
@@ -559,7 +608,7 @@
             window.currentUser = { uid: 'guest', displayName: 'Mode Tamu', photoURL: 'https://ui-avatars.com/api/?name=Tamu' };
             setupUIForUser(window.currentUser);
             loadWorkspaceData(window.currentUser);
-            window.closeLoginScreen(); // Memastikan overlay mati
+            window.closeLoginScreen(); 
         };
 
         window.logoutApp = () => {
@@ -582,9 +631,8 @@
             else window.logoutApp();
         }
 
-        // Penjaga Aksi (Hanya user asli yang bisa edit)
         window.enforceLogin = (actionName) => {
-            if (window.isGuest || !window.currentUser) {
+            if (window.isGuest || !window.currentUser || window.currentUser.uid === 'guest') {
                 window.showAlert("Akses Terbatas", `Anda dalam Mode Tamu. Silakan Login dengan Google untuk melakukan aksi ini (${actionName}).`, true);
                 return false;
             }
@@ -593,8 +641,67 @@
 
         window.saveToStorage = () => {
             if (!window.enforceLogin("Simpan Data")) return;
-            setDoc(doc(db, "workJourney", "team_workspace"), { tasks: window.tasks })
-                .catch(() => window.showAlert("Gagal Simpan", "Koneksi database bermasalah."));
+            setDoc(doc(db, "workJourney", "team_workspace"), { tasks: window.tasks });
+        };
+
+        // --- Notifications & Logs Logic ---
+        window.sendNotification = async (targetUid, message, taskId) => {
+            if (!targetUid || targetUid === 'guest' || (window.currentUser && targetUid === window.currentUser.uid)) return;
+            const docRef = doc(db, "user_notifications", targetUid);
+            try {
+                const docSnap = await getDoc(docRef);
+                const items = docSnap.exists() ? docSnap.data().items || [] : [];
+                items.unshift({ id: Date.now().toString(), msg: message, taskId: taskId, read: false, time: new Date().toISOString() });
+                await setDoc(docRef, { items: items.slice(0, 30) }, { merge: true });
+            } catch(e) { console.log(e); }
+        };
+
+        window.renderNotifications = () => {
+            const list = document.getElementById('notifList');
+            const badge = document.getElementById('notifBadge');
+            const unreadCount = window.myNotifications.filter(n => !n.read).length;
+
+            if (unreadCount > 0) badge.classList.remove('hidden');
+            else badge.classList.add('hidden');
+
+            if (window.myNotifications.length === 0) {
+                list.innerHTML = `<div class="p-4 text-center text-xs text-slate-400 font-bold">Belum ada notifikasi.</div>`;
+                return;
+            }
+
+            list.innerHTML = window.myNotifications.map(n => `
+                <div onclick="window.readNotification('${n.id}', '${n.taskId}')" class="p-3 border-b border-slate-50 dark:border-slate-700/50 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${!n.read ? 'bg-blue-50/50 dark:bg-blue-900/20' : ''}">
+                    <p class="text-xs text-slate-700 dark:text-slate-300 ${!n.read ? 'font-bold' : ''}">${n.msg}</p>
+                    <p class="text-[9px] text-slate-400 mt-1">${window.formatDate(n.time)}</p>
+                </div>
+            `).join('');
+        };
+
+        window.readNotification = (notifId, taskId) => {
+            const notif = window.myNotifications.find(n => n.id === notifId);
+            if(notif && !notif.read) {
+                notif.read = true;
+                setDoc(doc(db, "user_notifications", window.currentUser.uid), { items: window.myNotifications }, { merge: true });
+            }
+            window.toggleNotifications(false);
+            if(taskId) window.openPreviewModal(taskId);
+        };
+
+        window.markAllNotifAsRead = (e) => {
+            e.stopPropagation();
+            window.myNotifications.forEach(n => n.read = true);
+            setDoc(doc(db, "user_notifications", window.currentUser.uid), { items: window.myNotifications }, { merge: true });
+        };
+
+        window.toggleNotifications = (forceState = null) => {
+            const menu = document.getElementById('notifMenu');
+            if(forceState !== null) {
+                if(forceState) menu.classList.remove('hidden');
+                else menu.classList.add('hidden');
+            } else {
+                menu.classList.toggle('hidden');
+            }
+            if(!menu.classList.contains('hidden')) document.getElementById('profileMenu').classList.add('hidden');
         };
 
         window.addLog = (task, message) => {
@@ -605,17 +712,37 @@
             task.logs.unshift({ msg: message, user: userName, time: `${date}, ${time}` });
         };
 
+        // UI Toggles
         window.toggleProfileMenu = () => {
             document.getElementById('profileMenu').classList.toggle('hidden');
+            document.getElementById('notifMenu').classList.add('hidden');
         };
 
         window.toggleDarkMode = () => {
             document.documentElement.classList.toggle('dark');
-            const isDark = document.documentElement.classList.contains('dark');
-            if(window.currentTab === 'dashboard') window.renderDashboardStats(); // Render ulang warna chart
+            if(window.currentTab === 'dashboard') window.renderDashboardStats(); 
         };
 
-        // Helper fungsi pencarian dengan Highlight Kuning
+        // Outside Click Listeners
+        document.addEventListener('click', (e) => { 
+            // Profil Menu
+            const pMenu = document.getElementById('profileMenu');
+            const avatar = document.getElementById('userAvatar');
+            if (!pMenu.classList.contains('hidden') && !pMenu.contains(e.target) && e.target !== avatar) pMenu.classList.add('hidden');
+            
+            // Notif Menu
+            const nMenu = document.getElementById('notifMenu');
+            const nIcon = document.getElementById('notifBadge')?.parentElement;
+            if (!nMenu.classList.contains('hidden') && !nMenu.contains(e.target) && !nIcon?.contains(e.target)) nMenu.classList.add('hidden');
+            
+            // Task Dot Menu
+            if (window.activeMenuId) { 
+                const tMenu = document.getElementById(`menu-${window.activeMenuId}`); 
+                if (tMenu && !tMenu.contains(e.target)) { tMenu.classList.add('hidden'); window.activeMenuId = null; } 
+            } 
+        });
+
+        // --- Core Rendering & Filters ---
         window.highlightText = (text, term) => {
             if (!term) return text;
             const regex = new RegExp(`(${term})`, "gi");
@@ -629,9 +756,7 @@
         };
 
         window.switchMainTab = (tab) => { 
-            window.currentTab = tab; 
-            window.renderApp(); 
-            
+            window.currentTab = tab; window.renderApp(); 
             const wBtn = document.getElementById('tab-workspace'); const dBtn = document.getElementById('tab-dashboard');
             if (tab === 'workspace') {
                 wBtn.className = "flex-1 sm:flex-none px-6 py-2 text-sm font-bold rounded-lg bg-white dark:bg-slate-700 shadow-sm text-blue-600 transition-all";
@@ -640,7 +765,6 @@
                 dBtn.className = "flex-1 sm:flex-none px-6 py-2 text-sm font-bold rounded-lg bg-white dark:bg-slate-700 shadow-sm text-blue-600 transition-all flex items-center gap-1";
                 wBtn.className = "flex-1 sm:flex-none px-6 py-2 text-sm font-semibold rounded-lg text-slate-600 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-700/60 transition-all";
             }
-
             document.getElementById('container-workspace').classList.toggle('hidden', tab !== 'workspace'); 
             document.getElementById('container-dashboard').classList.toggle('hidden', tab !== 'dashboard'); 
             document.getElementById('container-dashboard').classList.toggle('flex', tab === 'dashboard'); 
@@ -649,12 +773,10 @@
 
         window.switchView = (view) => { 
             window.currentView = view; 
-            
             ['board', 'list', 'calendar'].forEach(v => {
                 const btn = document.getElementById(`btn-${v}`);
                 if (v === view) btn.className = "flex-1 sm:flex-none px-4 py-2 text-sm font-bold rounded-lg bg-white dark:bg-slate-700 shadow-sm text-blue-600 transition-all flex items-center justify-center gap-1";
                 else btn.className = "flex-1 sm:flex-none px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-700/60 transition-all flex items-center justify-center gap-1";
-                
                 document.getElementById(`view-${v}`).classList.toggle('hidden', v !== view);
                 if(v==='board') document.getElementById(`view-${v}`).classList.toggle('grid', v === view);
                 if(v==='calendar') document.getElementById(`view-${v}`).classList.toggle('flex', v === view);
@@ -663,21 +785,15 @@
         };
 
         window.clearFilters = () => { 
-            document.getElementById('searchInput').value = ''; 
-            document.getElementById('filterMonth').value = ''; 
-            document.getElementById('filterType').value = 'Semua'; 
-            document.getElementById('filterPriority').value = 'Semua'; 
-            const now = new Date();
-            window.currentYear = now.getFullYear(); window.currentMonth = now.getMonth();
+            document.getElementById('searchInput').value = ''; document.getElementById('filterMonth').value = ''; 
+            document.getElementById('filterType').value = 'Semua'; document.getElementById('filterPriority').value = 'Semua'; 
+            const now = new Date(); window.currentYear = now.getFullYear(); window.currentMonth = now.getMonth();
             window.renderApp(); 
         };
         
         window.onFilterMonthChange = () => {
             const filterMonthVal = document.getElementById('filterMonth').value;
-            if (filterMonthVal) {
-                const [y, m] = filterMonthVal.split('-');
-                window.currentYear = parseInt(y); window.currentMonth = parseInt(m) - 1;
-            }
+            if (filterMonthVal) { const [y, m] = filterMonthVal.split('-'); window.currentYear = parseInt(y); window.currentMonth = parseInt(m) - 1; }
             window.renderApp();
         };
 
@@ -685,12 +801,8 @@
             window.currentMonth += offset;
             if(window.currentMonth < 0) { window.currentMonth = 11; window.currentYear--; }
             if(window.currentMonth > 11) { window.currentMonth = 0; window.currentYear++; }
-            
-            // Sync dengan input filter
             const filterEl = document.getElementById('filterMonth');
-            if(filterEl) {
-                filterEl.value = `${window.currentYear}-${String(window.currentMonth + 1).padStart(2, '0')}`;
-            }
+            if(filterEl) filterEl.value = `${window.currentYear}-${String(window.currentMonth + 1).padStart(2, '0')}`;
             window.renderApp();
         };
 
@@ -699,8 +811,6 @@
             const searchTerm = rawTerm.toLowerCase();
             const filterType = document.getElementById('filterType')?.value || 'Semua';
             const filterPriority = document.getElementById('filterPriority')?.value || 'Semua';
-            
-            // Bypass filter bulan jika user sedang melakukan pencarian text kuning
             const filterMonthVal = searchTerm ? '' : (document.getElementById('filterMonth')?.value || '');
 
             let filteredTasks = window.tasks.filter(task => {
@@ -716,11 +826,8 @@
                 return matchSearch && matchType && matchMonth && matchPriority;
             });
 
-            // Sorting
             filteredTasks.sort((a, b) => {
-                if (searchTerm) {
-                    return parseInt(b.id) - parseInt(a.id); // Sort by ID (terbaru update)
-                }
+                if (searchTerm) return parseInt(b.id) - parseInt(a.id);
                 if (a.status !== 'done' && b.status === 'done') return -1;
                 if (a.status === 'done' && b.status !== 'done') return 1;
                 const prioWeight = {'Tinggi': 3, 'Sedang': 2, 'Rendah': 1};
@@ -756,12 +863,13 @@
                 const coverColorClass = task.color && task.color.startsWith('#') ? '' : (task.color || 'bg-slate-200');
                 const coverStyle = task.color && task.color.startsWith('#') ? `style="background-color: ${task.color};"` : '';
                 
-                // Cek status bulan (Tagging yang diminta user)
                 let dateTag = window.formatDate(taskEnd);
                 if (term) {
                     const d = new Date(taskEnd); const monthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"];
                     dateTag = `${monthNames[d.getMonth()]} ${d.getFullYear()}`;
                 }
+
+                const creatorName = task.creatorName ? task.creatorName : 'Anonim';
 
                 lists[task.status] += `
                     <div id="${task.id}" class="glass-card relative group pt-3 pb-4 px-4" draggable="${!window.isGuest}" ondragstart="window.drag(event)" onclick="window.openPreviewModal('${task.id}')">
@@ -774,6 +882,7 @@
                             </div>
                         </div>
                         <h3 class="font-bold text-slate-800 dark:text-white text-base mb-1">${window.highlightText(task.title, term)}</h3>
+                        <p class="text-[10px] text-slate-400 dark:text-slate-500 font-medium mb-2 truncate">Oleh: <span class="font-bold text-slate-600 dark:text-slate-400">${creatorName}</span></p>
                         ${task.status === 'done' ? '<span class="text-[10px] font-bold text-green-600 bg-green-100 px-1.5 py-0.5 rounded mr-1">SELESAI</span>' : ''}
                         ${isOverdue ? '<span class="text-[10px] font-bold text-red-500 bg-red-50 px-1.5 py-0.5 rounded mr-1">TERLAMBAT</span>' : ''}
                         ${isToday ? '<span class="text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded mr-1">HARI INI</span>' : ''}
@@ -813,13 +922,19 @@
                 groups[monthKey].forEach(t => {
                     const end = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[t.selectedDates.length-1] : t.deadline;
                     const colorClass = t.color && t.color.startsWith('#') ? '' : (t.color || 'bg-slate-200'); const colorStyle = t.color && t.color.startsWith('#') ? `style="background-color: ${t.color};"` : '';
-                    const isDone = t.status === 'done'; const cardStyle = isDone ? 'bg-slate-50/50 opacity-70 border-dashed' : 'bg-white/85 dark:bg-slate-800';
-                    const titleStyle = isDone ? 'text-slate-500 font-semibold line-through' : 'text-slate-800 dark:text-white font-bold';
                     
+                    const isDone = t.status === 'done'; 
+                    const cardStyle = isDone ? 'bg-slate-50/50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700' : 'bg-white/85 dark:bg-slate-800 border-white dark:border-slate-700 shadow-sm';
+                    const titleStyle = isDone ? 'text-slate-500 dark:text-slate-400 font-semibold' : 'text-slate-800 dark:text-white font-bold';
+                    
+                    const checkIcon = isDone 
+                        ? `<svg class="w-5 h-5 text-green-500 shadow-sm rounded-full bg-white dark:bg-transparent" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>` 
+                        : `<div class="w-4 h-4 rounded-full ${colorClass} border border-slate-200 shadow-sm" ${colorStyle}></div>`;
+
                     html += `<div class="glass-card p-4 flex justify-between items-center cursor-pointer mb-3 ${cardStyle}" onclick="window.openPreviewModal('${t.id}')">
                         <div class="flex items-center gap-4">
-                            <div class="w-4 h-4 rounded-full ${colorClass} border border-slate-200 shadow-sm" ${colorStyle}></div>
-                            <div class="${titleStyle}">${window.highlightText(t.title, term)} ${isDone ? '✅' : ''}</div>
+                            ${checkIcon}
+                            <div class="${titleStyle}">${window.highlightText(t.title, term)}</div>
                         </div>
                         <div class="text-sm text-slate-500 dark:text-slate-400 font-medium">${window.formatDate(end)}</div>
                     </div>`;
@@ -888,7 +1003,6 @@
             document.getElementById('barSedang').style.width = ((priorCount['Sedang']/actT)*100)+'%'; document.getElementById('barSedangText').innerText = priorCount['Sedang'];
             document.getElementById('barRendah').style.width = ((priorCount['Rendah']/actT)*100)+'%'; document.getElementById('barRendahText').innerText = priorCount['Rendah'];
 
-            // Render Chart
             const isDark = document.documentElement.classList.contains('dark');
             const ctx = document.getElementById('statusChart').getContext('2d');
             if(window.myDoughnutChart) window.myDoughnutChart.destroy();
@@ -898,14 +1012,67 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: isDark ? '#f8fafc' : '#1e293b', usePointStyle: true, font: {family: "'Plus Jakarta Sans', sans-serif", weight: 'bold'} } } }, cutout: '70%' }
             });
 
-            // Render Team Activity (Sembunyikan User Anonim)
             const teamContainer = document.getElementById('teamList');
             let teamHtml = '';
             window.activeUsers.forEach(u => {
                 if(u.name.toLowerCase() === 'anonim' || u.name.toLowerCase() === 'tamu' || u.name === 'Mode Tamu') return;
-                teamHtml += `<div class="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 w-48"><div class="relative"><img src="${u.avatar}" class="w-10 h-10 rounded-full border-2 border-white"><span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span></div><div><p class="text-sm font-bold text-slate-800 dark:text-white truncate w-28">${u.name}</p><p class="text-[10px] text-green-600 font-bold">Online</p></div></div>`;
+                teamHtml += `
+                <div onclick="window.openUserDashboard('${u.uid}', '${u.name}', '${u.avatar}')" class="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 w-48 cursor-pointer hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600 transition-all">
+                    <div class="relative">
+                        <img src="${u.avatar}" class="w-10 h-10 rounded-full border-2 border-white dark:border-slate-700">
+                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
+                    </div>
+                    <div class="overflow-hidden">
+                        <p class="text-sm font-bold text-slate-800 dark:text-white truncate">${u.name}</p>
+                        <p class="text-[10px] text-green-600 font-bold">Online</p>
+                    </div>
+                </div>`;
             });
             teamContainer.innerHTML = teamHtml || '<p class="text-slate-400 text-sm font-bold w-full text-center p-4 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl">Belum ada rekan tim yang online.</p>';
+        };
+
+        // Modal User Dashboard (Mini Dashboard)
+        window.openUserDashboard = (uid, name, avatar) => {
+            document.getElementById('udName').innerText = name;
+            document.getElementById('udAvatar').src = avatar;
+
+            const userTasks = window.tasks.filter(t => t.creatorId === uid);
+            let todo = 0, inprog = 0, done = 0;
+            let listHtml = '';
+
+            userTasks.forEach(t => {
+                if(t.status === 'todo') todo++;
+                else if(t.status === 'inprogress') inprog++;
+                else done++;
+
+                const statusColor = t.status === 'done' ? 'text-green-600 bg-green-50 border-green-200' : (t.status === 'inprogress' ? 'text-blue-600 bg-blue-50 border-blue-200' : 'text-slate-600 bg-slate-50 border-slate-200');
+                const statusText = t.status === 'done' ? 'Selesai' : (t.status === 'inprogress' ? 'Proses' : 'To Do');
+                const end = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[t.selectedDates.length-1] : t.deadline;
+
+                listHtml += `
+                    <div class="flex justify-between items-center p-3 border dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-300 dark:hover:border-slate-500 transition-all" onclick="window.closeUserDashboard(); window.openPreviewModal('${t.id}')">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-slate-800 dark:text-slate-200">${t.title}</span>
+                            <span class="text-[10px] text-slate-400 font-medium mt-0.5">Tenggat: ${window.formatDate(end)}</span>
+                        </div>
+                        <span class="text-[10px] font-bold px-2 py-1 rounded-lg border ${statusColor}">${statusText}</span>
+                    </div>
+                `;
+            });
+
+            document.getElementById('udTodo').innerText = todo;
+            document.getElementById('udInProgress').innerText = inprog;
+            document.getElementById('udDone').innerText = done;
+            document.getElementById('udTaskList').innerHTML = listHtml || `<div class="p-6 text-center text-slate-400 font-bold text-sm border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl mt-2">Belum ada tugas yang dibuat.</div>`;
+
+            document.getElementById('userDashboardModal').classList.remove('hidden');
+            document.getElementById('userDashboardModal').classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        };
+        window.closeUserDashboard = () => {
+            document.getElementById('userDashboardModal').classList.add('hidden');
+            document.getElementById('userDashboardModal').classList.remove('flex');
+            document.body.style.overflow = '';
         };
 
         window.renderColorPicker = () => {
@@ -919,6 +1086,7 @@
         window.addCustomColor = (e) => { const val = e.target.value; if(!window.customColors.includes(val)) { window.customColors.push(val); localStorage.setItem('fathsCustomColors', JSON.stringify(window.customColors)); } window.renderColorPicker(); setTimeout(() => { const rb = document.querySelector(`input[name="taskColor"][value="${val}"]`); if(rb) rb.checked = true; }, 10); };
         window.removeCustomColor = (color, e) => { e.preventDefault(); e.stopPropagation(); window.customColors = window.customColors.filter(c => c !== color); localStorage.setItem('fathsCustomColors', JSON.stringify(window.customColors)); window.renderColorPicker(); const checked = document.querySelector('input[name="taskColor"]:checked'); if(!checked) document.querySelector(`input[name="taskColor"][value="bg-slate-200"]`).checked = true; };
 
+        // Modals Add/Edit
         window.openModal = (taskId = null) => {
             if (!window.enforceLogin("Form Tugas")) return;
             document.body.style.overflow = 'hidden'; 
@@ -960,7 +1128,6 @@
             }
             window.renderSubtasks(); window.renderMiniCalendar();
         };
-
         window.closeModal = () => { document.body.style.overflow = ''; document.getElementById('taskModal').classList.add('hidden'); document.getElementById('taskModal').classList.remove('flex'); };
         
         window.saveTask = (e) => {
@@ -978,6 +1145,9 @@
             const endDate = window.selectedTaskDates[window.selectedTaskDates.length - 1];
             const colorOption = document.querySelector('input[name="taskColor"]:checked'); const color = colorOption ? colorOption.value : 'bg-slate-200';
 
+            const activeUserName = window.currentUser ? window.currentUser.displayName : 'Tamu';
+            const activeUserUid = window.currentUser ? window.currentUser.uid : 'guest';
+
             if (editId) {
                 const tIndex = window.tasks.findIndex(t => t.id === editId);
                 if (tIndex !== -1) {
@@ -985,12 +1155,15 @@
                     window.tasks[tIndex].description = desc; window.tasks[tIndex].selectedDates = [...window.selectedTaskDates];
                     window.tasks[tIndex].deadline = endDate; window.tasks[tIndex].subtasks = window.currentSubtasks;
                     window.tasks[tIndex].color = color; window.tasks[tIndex].notify = notify;
+                    
                     window.addLog(window.tasks[tIndex], "Informasi tugas diperbarui");
+                    window.sendNotification(window.tasks[tIndex].creatorId, `${activeUserName} memperbarui tugas: ${title}`, editId);
                 }
             } else {
                 const newTask = {
                     id: Date.now().toString(), title: title, type: type, priority: priority, status: 'todo', description: desc,
-                    selectedDates: [...window.selectedTaskDates], deadline: endDate, subtasks: window.currentSubtasks, color: color, notify: notify, logs: []
+                    selectedDates: [...window.selectedTaskDates], deadline: endDate, subtasks: window.currentSubtasks, color: color, notify: notify, logs: [],
+                    creatorId: activeUserUid, creatorName: activeUserName
                 };
                 window.addLog(newTask, "Tugas dibuat");
                 window.tasks.push(newTask);
@@ -1015,6 +1188,7 @@
         };
         window.toggleTaskDate = (dateStr) => { if(window.selectedTaskDates.includes(dateStr)) window.selectedTaskDates = window.selectedTaskDates.filter(d => d !== dateStr); else window.selectedTaskDates.push(dateStr); window.renderMiniCalendar(); };
 
+        // Subtasks
         window.renderSubtasks = () => {
             const list = document.getElementById('subtaskList'); list.innerHTML = '';
             window.currentSubtasks.forEach(st => {
@@ -1027,6 +1201,7 @@
         window.toggleSubtask = (id) => { const st = window.currentSubtasks.find(t => t.id === id); if(st) st.completed = !st.completed; window.renderSubtasks(); };
         window.deleteSubtask = (id) => { window.currentSubtasks = window.currentSubtasks.filter(t => t.id !== id); window.renderSubtasks(); };
 
+        // Preview Modal
         window.openPreviewModal = (taskId) => {
             const task = window.tasks.find(t => t.id === taskId); if (!task) return;
             document.body.style.overflow = 'hidden'; 
@@ -1082,11 +1257,12 @@
             if (!window.enforceLogin("Update Checklist")) return;
             const tIdx = window.tasks.findIndex(t => t.id === tId);
             if(tIdx !== -1) {
-                const sub = window.tasks[tIdx].subtasks.find(s => s.id === sId); // Loose equality safety string vs numb
+                const sub = window.tasks[tIdx].subtasks.find(s => s.id === sId);
                 if(sub) { 
                     sub.completed = !sub.completed; 
                     window.saveToStorage(); window.renderApp(); 
                     window.openPreviewModal(tId); 
+                    window.sendNotification(window.tasks[tIdx].creatorId, `${window.currentUser.displayName} memperbarui checklist pada '${window.tasks[tIdx].title}'`, tId);
                 }
             }
         };
@@ -1117,7 +1293,6 @@
             if (menu.classList.contains('hidden')) { menu.classList.remove('hidden'); window.activeMenuId = id; } 
             else { menu.classList.add('hidden'); window.activeMenuId = null; }
         };
-        document.addEventListener('click', (e) => { if (window.activeMenuId) { const menu = document.getElementById(`menu-${window.activeMenuId}`); if (menu && !menu.contains(e.target)) { menu.classList.add('hidden'); window.activeMenuId = null; } } });
 
         window.editFromMenu = (e, id) => { e.stopPropagation(); window.toggleCardMenu(e, id); window.openModal(id); };
         window.duplicateTask = (e, id) => { 
@@ -1127,6 +1302,7 @@
             if (taskToCopy) { 
                 const newTask = JSON.parse(JSON.stringify(taskToCopy)); 
                 newTask.id = Date.now().toString(); newTask.title += " (Salinan)";
+                newTask.creatorId = window.currentUser.uid; newTask.creatorName = window.currentUser.displayName;
                 window.addLog(newTask, "Tugas diduplikat");
                 window.tasks.push(newTask); window.saveToStorage(); window.renderApp(); 
             } 
@@ -1139,6 +1315,7 @@
                 if(newStatus === 'done') task.completedAt = new Date().toISOString().split('T')[0];
                 window.addLog(task, `Dipindah ke ${newStatus.toUpperCase()}`);
                 task.status = newStatus; window.saveToStorage(); window.renderApp(); 
+                window.sendNotification(task.creatorId, `${window.currentUser.displayName} memindahkan tugas '${task.title}' ke ${newStatus.toUpperCase()}`, id);
             } 
         };
 
@@ -1156,13 +1333,11 @@
             const taskId = document.getElementById('previewTaskId').value;
             const t = window.tasks.find(x => x.id === taskId);
             if(!t) return;
-            
             const startD = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[0].replace(/-/g, '') : new Date().toISOString().split('T')[0].replace(/-/g, '');
             let endDStr = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[t.selectedDates.length-1] : startD;
             let endDObj = new Date(endDStr.substring(0,4), parseInt(endDStr.substring(5,7))-1, parseInt(endDStr.substring(8,10)));
             endDObj.setDate(endDObj.getDate() + 1);
             const formattedEndD = endDObj.toISOString().split('T')[0].replace(/-/g, '');
-
             const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(t.title)}&dates=${startD}/${formattedEndD}&details=${encodeURIComponent(t.description || 'Diimpor dari Faths Works Duty')}`;
             window.open(url, '_blank');
         };
@@ -1175,7 +1350,8 @@
             const task = window.tasks.find(t => t.id === taskId);
             if(val && task) {
                 window.addLog(task, `💬 Komentar: ${val}`);
-                input.value = ''; window.saveToStorage(); window.openPreviewModal(taskId); // Refresh
+                input.value = ''; window.saveToStorage(); window.openPreviewModal(taskId);
+                window.sendNotification(task.creatorId, `${window.currentUser.displayName} mengomentari tugas '${task.title}'`, taskId);
             }
         };
 
@@ -1220,6 +1396,7 @@
                 window.addLog(task, `Dipindah ke ${newStatus.toUpperCase()}`);
                 task.status = newStatus; if(newStatus === 'done') task.completedAt = new Date().toISOString().split('T')[0]; 
                 window.saveToStorage(); window.renderApp(); 
+                window.sendNotification(task.creatorId, `${window.currentUser.displayName} memindahkan tugas '${task.title}' ke ${newStatus.toUpperCase()}`, taskId);
             } 
         };
         document.addEventListener('dragend', (e) => { if(e.target.style) e.target.style.opacity = '1'; });
