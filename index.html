@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DO NUT GIVE UP - CnR Workspace</title>
+    <title>Fath's Works Duty Pro</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -457,7 +457,7 @@
                             <div id="previewDesc" class="text-slate-700 dark:text-slate-200 text-sm leading-relaxed bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700 whitespace-pre-wrap"></div>
                         </div>
                         <div id="previewSubtaskSection">
-                            <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-2"><svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg> Daftar Periksa</h3>
+                            <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-2"><svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg> Daftar Periksa</h3>
                             <div id="previewProgressContainer" class="mb-3 flex items-center gap-2"><div class="flex-1 h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden border border-slate-200 dark:border-slate-600"><div id="previewProgressBar" class="h-full bg-blue-500 transition-all duration-500"></div></div><span id="previewProgressText" class="text-xs font-bold text-slate-500">0%</span></div>
                             <div id="previewSubtasks" class="space-y-2"></div>
                         </div>
@@ -535,7 +535,7 @@
         <div class="bg-white rounded-2xl w-full max-w-sm p-6 text-center border border-red-200 shadow-2xl my-auto"><div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4"><svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div><h3 class="text-lg font-bold text-slate-900 mb-2">Hapus?</h3><p class="text-sm text-slate-500 mb-6" id="deleteMsg">Data akan dihapus permanen.</p><div class="flex gap-3"><button onclick="window.closeDeleteModal()" class="flex-1 bg-slate-50 border border-slate-200 py-2 rounded-xl text-slate-600 hover:bg-slate-100 font-bold">Batal</button><button onclick="window.confirmDelete()" class="flex-1 bg-red-500 text-white rounded-xl font-bold py-2 shadow hover:bg-red-600 transition-colors">Ya, Hapus</button></div></div>
     </div>
 
-    <!-- KEEP IT MODAL -->
+    <!-- KEEP IT EDIT MODAL -->
     <div id="noteModal" class="hidden fixed inset-0 bg-slate-900/60 z-[300] justify-center items-start p-4 pt-10 pb-24 backdrop-blur-sm overflow-y-auto transition-opacity">
         <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-4xl p-6 shadow-2xl border border-slate-200 dark:border-slate-700 my-auto flex flex-col relative transition-all">
             <div class="flex justify-between items-center mb-4">
@@ -591,10 +591,45 @@
                         <span class="block">Diedit: <span id="noteLastEdit" class="font-bold text-slate-600 dark:text-slate-400"></span></span>
                     </div>
                     <div class="flex gap-2 ml-auto">
-                        <button type="button" onclick="window.closeNoteModal()" class="px-5 py-2.5 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600">Tutup</button>
+                        <button type="button" onclick="window.closeNoteModal()" class="px-5 py-2.5 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600">Batal</button>
                         <button type="button" onclick="window.saveNote()" class="px-6 py-2.5 rounded-xl font-bold text-white bg-gradient-to-r from-amber-400 to-amber-500 hover:opacity-90 shadow-lg">Simpan</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KEEP IT PREVIEW MODAL (CLEAN READ) -->
+    <div id="keepPreviewModal" class="hidden fixed inset-0 bg-slate-900/60 z-[350] justify-center items-center p-4 backdrop-blur-sm transition-opacity">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden relative">
+            
+            <!-- Cover Header -->
+            <div id="keepPreviewCoverContainer" class="hidden w-full h-48 sm:h-64 relative bg-slate-100 dark:bg-slate-800">
+                <img id="keepPreviewCover" src="" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="absolute top-4 right-4 flex gap-2 z-10">
+                <button onclick="window.editFromKeepPreview()" class="p-2 bg-white/90 dark:bg-slate-800/90 hover:bg-amber-100 dark:hover:bg-amber-900/50 text-amber-600 dark:text-amber-400 rounded-full shadow backdrop-blur transition-colors" title="Edit Catatan">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                </button>
+                <button onclick="window.closeKeepPreviewModal()" class="p-2 bg-white/90 dark:bg-slate-800/90 hover:bg-red-100 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 rounded-full shadow backdrop-blur transition-colors" title="Tutup">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="flex-1 overflow-y-auto p-6 md:p-8 no-scrollbar relative" id="keepPreviewScrollArea">
+                <div class="flex flex-wrap gap-2 mb-4" id="keepPreviewTags"></div>
+                <h2 id="keepPreviewTitle" class="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-white mb-6 leading-tight"></h2>
+                <div id="keepPreviewContent" class="text-slate-700 dark:text-slate-200 text-base md:text-lg leading-relaxed whitespace-pre-wrap rich-content"></div>
+            </div>
+
+            <!-- Footer -->
+            <div class="p-4 md:px-8 border-t border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center text-xs font-bold text-slate-500">
+                <span class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg> <span id="keepPreviewAuthor"></span></span>
+                <span id="keepPreviewDate"></span>
             </div>
         </div>
     </div>
@@ -651,7 +686,11 @@
         window.keepCustomColors = JSON.parse(localStorage.getItem('keepCustomColors')) || [];
         window.currentNoteTags = [];
 
+        // Unsubscribe trackers to prevent memory leaks
         let notifUnsubscribe = null;
+        let workspaceUnsubscribe = null;
+        let keepUnsubscribe = null;
+        let usersUnsubscribe = null;
 
         // --- CUSTOM ALERTS ---
         window.showAlert = (title, message, showLoginBtn = false) => {
@@ -717,15 +756,20 @@
 
         // --- LOAD DATABASES ---
         function loadWorkspaceData(user) {
+            // Unsubscribe existing listeners if any
+            if(workspaceUnsubscribe) workspaceUnsubscribe();
+            if(keepUnsubscribe) keepUnsubscribe();
+            if(usersUnsubscribe) usersUnsubscribe();
+
             // Load RKB
-            onSnapshot(doc(db, "workJourney", "team_workspace"), async (docSnap) => {
+            workspaceUnsubscribe = onSnapshot(doc(db, "workJourney", "team_workspace"), async (docSnap) => {
                 if (docSnap.exists() && docSnap.data().tasks) window.tasks = docSnap.data().tasks;
                 else if (!window.isGuest) { window.tasks = []; setDoc(doc(db, "workJourney", "team_workspace"), { tasks: [] }); }
                 if(document.getElementById('module-rkb').classList.contains('hidden') === false) window.renderApp();
             }, (err) => console.error(err));
 
             // Load Keep It
-            onSnapshot(doc(db, "workJourney", "team_keep_notes"), async (docSnap) => {
+            keepUnsubscribe = onSnapshot(doc(db, "workJourney", "team_keep_notes"), async (docSnap) => {
                 if (docSnap.exists() && docSnap.data().notes) window.notes = docSnap.data().notes;
                 else if (!window.isGuest) { window.notes = []; setDoc(doc(db, "workJourney", "team_keep_notes"), { notes: [] }); }
                 window.renderTagsSidebar();
@@ -733,7 +777,7 @@
             }, (err) => console.error(err));
 
             // Active Users
-            onSnapshot(collection(db, "active_users"), (snapshot) => {
+            usersUnsubscribe = onSnapshot(collection(db, "active_users"), (snapshot) => {
                 window.activeUsers = [];
                 snapshot.forEach(doc => { if(doc.data().isOnline) window.activeUsers.push(doc.data()); });
                 if(window.currentTab === 'dashboard') window.renderDashboardStats();
@@ -746,8 +790,29 @@
         }
 
         window.loginWithGoogle = () => { setPersistence(auth, browserLocalPersistence).then(() => signInWithPopup(auth, googleProvider)); };
-        window.enterGuestMode = () => { window.isGuest = true; window.currentUser = { uid: 'guest', displayName: 'Mode Tamu', photoURL: 'https://ui-avatars.com/api/?name=Tamu' }; setupUIForUser(window.currentUser); loadWorkspaceData(window.currentUser); window.closeLoginScreen(); };
-        window.logoutApp = () => { if (window.currentUser && !window.isGuest) { setDoc(doc(db, "active_users", window.currentUser.uid), { isOnline: false }, { merge: true }).then(() => signOut(auth)).then(() => { window.isGuest = true; window.enterGuestMode(); window.showLoginScreen(); }); } else window.showLoginScreen(); };
+        
+        window.enterGuestMode = () => { 
+            window.isGuest = true; 
+            window.currentUser = { uid: 'guest', displayName: 'Mode Tamu', photoURL: 'https://ui-avatars.com/api/?name=Tamu' }; 
+            setupUIForUser(window.currentUser); 
+            loadWorkspaceData(window.currentUser); 
+            window.closeLoginScreen(); 
+        };
+        
+        window.logoutApp = () => { 
+            if (window.currentUser && !window.isGuest) { 
+                setDoc(doc(db, "active_users", window.currentUser.uid), { isOnline: false }, { merge: true }).then(() => {
+                    if(workspaceUnsubscribe) workspaceUnsubscribe();
+                    if(keepUnsubscribe) keepUnsubscribe();
+                    if(usersUnsubscribe) usersUnsubscribe();
+                    if(notifUnsubscribe) notifUnsubscribe();
+                    signOut(auth);
+                }).then(() => { 
+                    window.isGuest = true; window.enterGuestMode(); window.showLoginScreen(); 
+                }); 
+            } else window.showLoginScreen(); 
+        };
+        
         window.toggleAuthAction = () => { document.getElementById('profileMenu').classList.add('hidden'); if(window.isGuest) window.showLoginScreen(); else window.logoutApp(); };
         
         window.enforceLogin = (actionName) => {
@@ -1218,7 +1283,7 @@
             let sC = task.status === 'todo' ? 'bg-slate-200 text-slate-700' : (task.status === 'inprogress' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700');
             let sT = task.status === 'todo' ? 'To Do' : (task.status === 'inprogress' ? 'In Progress' : 'Done');
             let pD = task.priority === 'Tinggi' ? '<span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span> Tinggi' : (task.priority === 'Sedang' ? '<span class="w-2.5 h-2.5 rounded-full bg-yellow-400 animate-pulse"></span> Sedang' : '<span class="w-2.5 h-2.5 rounded-full bg-green-500"></span> Rendah');
-            document.getElementById('previewMeta').innerHTML = `<span class="px-3 py-1 text-xs font-bold rounded-full ${sC}">${sT}</span><span class="px-3 py-1 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 shadow-sm flex items-center gap-1.5">${prioDot}</span><span class="px-3 py-1 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 shadow-sm border border-slate-200 dark:border-slate-600">🏷️ ${task.type}</span>`;
+            document.getElementById('previewMeta').innerHTML = `<span class="px-3 py-1 text-xs font-bold rounded-full ${sC}">${sT}</span><span class="px-3 py-1 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 shadow-sm flex items-center gap-1.5">${pD}</span><span class="px-3 py-1 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 shadow-sm border border-slate-200 dark:border-slate-600">🏷️ ${task.type}</span>`;
             
             const logBox = document.getElementById('previewLogs'); logBox.innerHTML = '';
             if(task.logs && task.logs.length > 0) { task.logs.forEach(l => { logBox.innerHTML += `<div class="border-b border-slate-100 dark:border-slate-700 pb-2"><p class="text-slate-800 dark:text-white font-medium">${l.msg}</p><p class="text-[10px] text-slate-400 font-bold">${l.user} • ${l.time}</p></div>`; }); } 
@@ -1279,6 +1344,14 @@
                     <button onclick="window.openDeleteModal(event, '${task.id}', 'task')" class="text-left px-3 py-2 text-sm font-bold text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg">Hapus</button>
                 </div>
             `;
+        };
+
+        window.toggleCardMenu = (e, id) => {
+            e.stopPropagation(); 
+            if (window.activeMenuId && window.activeMenuId !== id) { document.getElementById(`menu-${window.activeMenuId}`)?.classList.add('hidden'); }
+            const menu = document.getElementById(`menu-${id}`);
+            if (menu.classList.contains('hidden')) { menu.classList.remove('hidden'); window.activeMenuId = id; } 
+            else { menu.classList.add('hidden'); window.activeMenuId = null; }
         };
 
         window.editFromMenu = (e, id) => { e.stopPropagation(); window.toggleCardMenu(e, id); window.openModal(id); };
@@ -1399,18 +1472,9 @@
         window.toggleKeepSidebar = () => { 
             const sb = document.getElementById('keepSidebar'); 
             if(window.innerWidth >= 768) {
-                // Toggle flex / hidden for desktop
-                if(sb.classList.contains('md:flex')) {
-                    sb.classList.remove('md:flex');
-                    sb.classList.add('md:hidden');
-                } else {
-                    sb.classList.remove('md:hidden');
-                    sb.classList.add('md:flex');
-                }
-            } else {
-                // Standard hidden for mobile
-                sb.classList.toggle('hidden'); 
-            }
+                if(sb.classList.contains('md:flex')) { sb.classList.remove('md:flex'); sb.classList.add('md:hidden'); } 
+                else { sb.classList.remove('md:hidden'); sb.classList.add('md:flex'); }
+            } else { sb.classList.toggle('hidden'); }
         };
 
         window.renderTagsSidebar = () => {
@@ -1451,12 +1515,12 @@
         window.addKeepCustomColor = (e) => { const val = e.target.value; if(!window.keepCustomColors.includes(val)) { window.keepCustomColors.push(val); localStorage.setItem('keepCustomColors', JSON.stringify(window.keepCustomColors)); } window.renderNoteColorPicker(); setTimeout(() => { const rb = document.querySelector(`input[name="noteColor"][value="${val}"]`); if(rb) rb.checked = true; }, 10); };
         window.removeKeepCustomColor = (color, e) => { e.preventDefault(); e.stopPropagation(); window.keepCustomColors = window.keepCustomColors.filter(c => c !== color); localStorage.setItem('keepCustomColors', JSON.stringify(window.keepCustomColors)); window.renderNoteColorPicker(); };
 
-        // Paste Link Auto-format for Keep It
         document.addEventListener('DOMContentLoaded', () => {
             const noteContent = document.getElementById('noteContent');
             if(noteContent) {
                 noteContent.addEventListener('paste', function(e) {
-                    e.preventDefault(); let text = (e.originalEvent || e).clipboardData.getData('text/plain');
+                    e.preventDefault(); 
+                    let text = (e.clipboardData || window.clipboardData).getData('text');
                     let urlRegex = /(https?:\/\/[^\s]+)/g;
                     let html = text.replace(urlRegex, function(url) { return `<a href="${url}" target="_blank" class="text-blue-500 underline font-medium break-words">${url}</a>`; });
                     html = html.replace(/\n/g, '<br>'); document.execCommand("insertHTML", false, html);
@@ -1484,10 +1548,10 @@
                 
                 let colorStyle = n.color && n.color.startsWith('#') ? `background-color: ${n.color};` : '';
                 let colorClass = n.color && !n.color.startsWith('#') ? n.color : (n.color ? '' : 'bg-white dark:bg-slate-800');
-                if(colorClass === 'bg-slate-50') colorClass = 'bg-white dark:bg-slate-800'; // Normalizing default
+                if(colorClass === 'bg-slate-50') colorClass = 'bg-white dark:bg-slate-800'; 
 
                 html += `
-                    <div class="masonry-item relative cursor-pointer group" onclick="window.openNoteModal('${n.id}')">
+                    <div class="masonry-item relative cursor-pointer group" onclick="window.previewKeepNote('${n.id}')">
                         ${pinIcon}
                         <div class="w-full rounded-2xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all transform hover:-translate-y-1 ${colorClass}" style="${colorStyle}">
                             ${coverHtml}
@@ -1555,6 +1619,49 @@
         };
 
         window.deleteNotePrompt = () => { const id = document.getElementById('editNoteId').value; if(id) { window.closeNoteModal(); window.openDeleteModal(event, id, 'note'); } };
+
+        // Keep It Read-Only Preview Logic
+        window.previewKeepNote = (id) => {
+            const n = window.notes.find(x => x.id === id); if(!n) return;
+            document.body.style.overflow = 'hidden';
+            
+            // Set Cover
+            const coverContainer = document.getElementById('keepPreviewCoverContainer');
+            if(n.coverUrl) { document.getElementById('keepPreviewCover').src = n.coverUrl; coverContainer.classList.remove('hidden'); } 
+            else { coverContainer.classList.add('hidden'); document.getElementById('keepPreviewCover').src = ''; }
+
+            // Set Title & Content
+            document.getElementById('keepPreviewTitle').innerText = n.title || 'Tanpa Judul';
+            document.getElementById('keepPreviewContent').innerHTML = n.content || '<em class="text-slate-400">Tidak ada isi...</em>';
+            
+            // Set Tags
+            const tagsContainer = document.getElementById('keepPreviewTags');
+            if (n.tags && n.tags.length > 0) { tagsContainer.innerHTML = n.tags.map(t => `<span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-xs font-bold border border-slate-200 dark:border-slate-600 shadow-sm">#${t}</span>`).join(''); } 
+            else { tagsContainer.innerHTML = ''; }
+
+            // Set Meta
+            document.getElementById('keepPreviewAuthor').innerText = n.creatorName || 'Anonim';
+            document.getElementById('keepPreviewDate').innerText = window.formatDate(n.updatedAt);
+            
+            // Store ID for Edit button
+            document.getElementById('keepPreviewModal').setAttribute('data-current-note', n.id);
+            
+            // Set overall theme based on Note color if hex, otherwise just default
+            const modalBox = document.getElementById('keepPreviewModal').firstElementChild;
+            if(n.color && n.color.startsWith('#') && n.color !== '#ffffff') { modalBox.style.backgroundColor = n.color; modalBox.classList.remove('dark:bg-slate-800', 'bg-white'); }
+            else { modalBox.style.backgroundColor = ''; modalBox.classList.add('dark:bg-slate-800', 'bg-white'); }
+
+            document.getElementById('keepPreviewModal').classList.remove('hidden'); document.getElementById('keepPreviewModal').classList.add('flex');
+            document.getElementById('keepPreviewScrollArea').scrollTop = 0;
+        };
+
+        window.closeKeepPreviewModal = () => { document.body.style.overflow = ''; document.getElementById('keepPreviewModal').classList.add('hidden'); document.getElementById('keepPreviewModal').classList.remove('flex'); };
+        
+        window.editFromKeepPreview = () => {
+            const id = document.getElementById('keepPreviewModal').getAttribute('data-current-note');
+            window.closeKeepPreviewModal();
+            if(id) setTimeout(() => window.openNoteModal(id), 100);
+        };
 
     </script>
 </body>
