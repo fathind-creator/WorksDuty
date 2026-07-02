@@ -282,7 +282,7 @@
 
         <div id="container-team" class="hidden flex-col flex-1 w-full space-y-6">
             <div class="flex justify-between items-center border-b border-slate-200 pb-2 mt-2">
-                <h2 class="text-xl font-bold text-slate-800 dark:text-white">👥 Manajemen Tim & Aktivitas</h2>
+                <h2 class="text-xl font-bold text-slate-800 dark:text-white">👥 Tim Workspace</h2>
             </div>
             <div class="glass-panel p-6 bg-white/70">
                 <div id="teamList" class="flex flex-wrap gap-4"></div>
@@ -410,7 +410,10 @@
             <div class="p-6 md:p-8 flex-1 overflow-y-auto relative">
                 <div class="flex justify-between items-start gap-4 mb-6">
                     <h2 id="kpTitle" class="text-3xl font-extrabold text-slate-800 dark:text-white leading-tight">Judul Catatan</h2>
-                    <div class="flex gap-2 relative z-10">
+                    <div class="flex gap-2 relative z-10 flex-shrink-0">
+                        <!-- Update: Added Share Buttons to Keep Note -->
+                        <button onclick="window.shareKeepToChat()" class="p-2 bg-blue-50/50 hover:bg-blue-100 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full transition-colors backdrop-blur-md" title="Bagikan ke Live Chat"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg></button>
+                        <button onclick="window.shareKeepToWeb()" class="p-2 bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20 text-slate-700 dark:text-white rounded-full transition-colors backdrop-blur-md" title="Bagikan Keluar"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg></button>
                         <button onclick="window.editKeepNote()" class="p-2 bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20 text-slate-700 dark:text-white rounded-full transition-colors backdrop-blur-md" title="Edit Catatan"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg></button>
                         <button onclick="window.closeKeepPreview()" class="p-2 bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20 text-slate-700 dark:text-white rounded-full transition-colors backdrop-blur-md"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                     </div>
@@ -499,44 +502,7 @@
     <!-- RKB MODALS                                     -->
     <!-- ============================================== -->
     
-    <!-- Team Profile Management Modal -->
-    <div id="teamProfileModal" class="hidden fixed inset-0 bg-slate-900/60 z-[350] justify-center items-center p-4 backdrop-blur-sm transition-opacity">
-        <div class="bg-white dark:bg-slate-800 rounded-3xl w-full max-w-md p-6 shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col max-h-[85vh]">
-            <div class="flex justify-between items-start mb-6">
-                <div class="flex items-center gap-4">
-                    <img id="tpAvatar" src="" class="w-14 h-14 rounded-full border-4 border-slate-100 dark:border-slate-700 shadow-md">
-                    <div>
-                        <h2 class="text-xl font-extrabold text-slate-800 dark:text-white leading-tight">Profil Anggota</h2>
-                        <p id="tpOriginalName" class="text-xs font-bold text-blue-500 tracking-wider">Nama Asli</p>
-                    </div>
-                </div>
-                <button onclick="window.closeProfileSettings()" class="text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 p-1.5 rounded-full transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            </div>
-            
-            <input type="hidden" id="tpUid">
-            <div class="space-y-4 flex-1 overflow-y-auto pr-1">
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">Nama Panggilan (Custom Nickname)</label>
-                    <input type="text" id="tpNickname" placeholder="Masukkan nama panggilan..." class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-sm font-bold text-slate-800 dark:text-white focus:outline-none focus:border-blue-400 transition-all">
-                </div>
-
-                <div class="border-t border-slate-200 dark:border-slate-700 pt-4 mt-4">
-                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Akun yang Digabungkan (Alias)</label>
-                    <div id="tpMergedList" class="space-y-2 mb-3"></div>
-                    
-                    <div class="flex gap-2">
-                        <select id="tpMergeSelect" class="flex-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2 text-sm focus:outline-none"></select>
-                        <button onclick="window.mergeProfile()" class="bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 px-4 rounded-lg font-bold text-sm text-slate-700 dark:text-slate-200">Gabung</button>
-                    </div>
-                    <p class="text-[10px] text-slate-500 mt-2">Gabungkan akun jika anggota ini login menggunakan email Google yang berbeda, agar tugasnya menyatu.</p>
-                </div>
-            </div>
-
-            <div class="mt-6 flex justify-end">
-                <button onclick="window.saveProfileSettings()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-xl shadow-md transition-colors w-full">Simpan Profil</button>
-            </div>
-        </div>
-    </div>
+    <!-- Team Profile Management Modal Dihapus sesuai permintaan -->
 
     <!-- RKB Task Modal -->
     <div id="taskModal" class="hidden fixed inset-0 bg-slate-900/60 z-[200] justify-center items-start p-4 pt-10 pb-24 backdrop-blur-sm overflow-y-auto transition-opacity">
@@ -620,11 +586,12 @@
                 <div class="flex justify-between items-start gap-4 mb-4">
                     <h2 id="previewTitle" class="text-3xl font-extrabold text-slate-800 dark:text-white pr-4 leading-tight">Judul Tugas</h2>
                     <div class="flex gap-2">
+                        <!-- Update: Modified share buttons -->
                         <button type="button" onclick="window.shareToChat()" class="bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 p-2.5 rounded-xl shadow-sm transition-colors flex-shrink-0" title="Bagikan ke Chat Tim">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                         </button>
-                        <button type="button" onclick="window.shareToWA()" class="bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/40 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800 p-2.5 rounded-xl shadow-sm transition-colors flex-shrink-0" title="Bagikan ke WhatsApp">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        <button type="button" onclick="window.shareToWeb()" class="bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/40 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800 p-2.5 rounded-xl shadow-sm transition-colors flex-shrink-0" title="Bagikan Keluar (WA, Telegram, dll)">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
                         </button>
                     </div>
                 </div>
@@ -737,53 +704,36 @@
         const googleProvider = new GoogleAuthProvider();
 
         // ----------------------------------------------------
-        // AUDIO SFX SETUP (WEB AUDIO API - 0 BYTES, NO DELAY)
+        // AUDIO SFX SETUP
         // ----------------------------------------------------
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // Membuka AudioContext saat ada interaksi pertama user (karena browser policy)
-        document.body.addEventListener('click', () => {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-        }, { once: true });
+        document.body.addEventListener('click', () => { if (audioCtx.state === 'suspended') audioCtx.resume(); }, { once: true });
 
-        // Chat pop sound
         window.playChatSound = () => { 
             try {
                 if(audioCtx.state === 'suspended') audioCtx.resume();
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.connect(gain); gain.connect(audioCtx.destination);
-                
-                osc.type = 'sine'; // Suara bulat halus
-                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05); // Naik mendadak seperti pop
-                
-                gain.gain.setValueAtTime(0.2, audioCtx.currentTime); // Volume kecil 20%
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1); // Pudar cepat
-                
-                osc.start(audioCtx.currentTime); 
-                osc.stop(audioCtx.currentTime + 0.1);
+                osc.type = 'sine'; osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.1);
             } catch(e) {}
         };
         
-        // Notif chime sound
         window.playNotifSound = () => { 
             try {
                 if(audioCtx.state === 'suspended') audioCtx.resume();
                 const playTone = (freq, startTime, duration) => {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
+                    const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
                     osc.connect(gain); gain.connect(audioCtx.destination);
-                    osc.type = 'sine';
-                    osc.frequency.value = freq;
-                    gain.gain.setValueAtTime(0.3, startTime); // Volume 30%
-                    gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+                    osc.type = 'sine'; osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.3, startTime); gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
                     osc.start(startTime); osc.stop(startTime + duration);
                 };
-                
                 const now = audioCtx.currentTime;
-                playTone(523.25, now, 0.4); // Nada C5 (Ting)
-                playTone(783.99, now + 0.15, 0.6); // Nada G5 (Tong)
+                playTone(523.25, now, 0.4); playTone(783.99, now + 0.15, 0.6);
             } catch(e) {}
         };
 
@@ -796,7 +746,6 @@
         // RKB State
         window.tasks = [];
         window.activeUsers = [];
-        window.teamProfiles = {}; 
         window.myNotifications = [];
         window.currentSubtasks = [];
         window.taskToDeleteId = null;
@@ -832,7 +781,6 @@
         let rkbUnsubscribe = null;
         let keepUnsubscribe = null;
         let usersUnsubscribe = null;
-        let teamSettingsUnsubscribe = null;
         let chatUnsubscribe = null;
 
         // ----------------------------------------------------
@@ -854,24 +802,42 @@
             return dObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', ' -'); 
         };
 
+        window.timeAgo = (dateStr) => {
+            if(!dateStr) return "Waktu tidak diketahui";
+            const diff = Date.now() - new Date(dateStr).getTime();
+            const minutes = Math.floor(diff / 60000);
+            if(minutes < 1) return "Baru saja";
+            if(minutes < 60) return `${minutes} menit yang lalu`;
+            const hours = Math.floor(minutes / 60);
+            if(hours < 24) return `${hours} jam yang lalu`;
+            const days = Math.floor(hours / 24);
+            return `${days} hari yang lalu`;
+        }
+
         window.highlightText = (text, term) => {
             if (!term) return text;
             const regex = new RegExp(`(${term})`, "gi");
             return text.replace(regex, `<span class="search-highlight">$1</span>`);
         };
 
-        // ----------------------------------------------------
-        // TEAM IDENTITY MAPPING
-        // ----------------------------------------------------
-        window.getCanonicalUid = (uid) => {
-            if (window.teamProfiles[uid] && window.teamProfiles[uid].mergedInto) return window.teamProfiles[uid].mergedInto;
-            return uid;
-        };
+        window.getUserDisplayName = (uid, fallbackName) => fallbackName;
 
-        window.getUserDisplayName = (uid, fallbackName) => {
-            const canUid = window.getCanonicalUid(uid);
-            return (window.teamProfiles[canUid] && window.teamProfiles[canUid].nickname) ? window.teamProfiles[canUid].nickname : fallbackName;
-        };
+        // ----------------------------------------------------
+        // SHARE API UTILITY
+        // ----------------------------------------------------
+        window.nativeShare = async (title, text, url) => {
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title, text, url });
+                } catch (err) {
+                    console.log("Membatalkan share atau error:", err);
+                }
+            } else {
+                navigator.clipboard.writeText(`${title}\n${text}`).then(() => {
+                    window.showAlert("Tersalin", "Teks disalin ke clipboard karena browser Anda tidak mendukung fitur berbagi langsung.");
+                });
+            }
+        }
 
         // ----------------------------------------------------
         // ROUTING (SUPER APP NAVIGATION)
@@ -918,10 +884,7 @@
                     window.myNotifications = docSnap.exists() ? docSnap.data().items || [] : [];
                     const currentUnread = window.myNotifications.filter(n => !n.read).length;
                     
-                    // Play Notification sound if unread count increases
-                    if(currentUnread > prevUnreadNotifCount) {
-                        window.playNotifSound();
-                    }
+                    if(currentUnread > prevUnreadNotifCount) { window.playNotifSound(); }
                     prevUnreadNotifCount = currentUnread;
                     window.renderNotifications();
                 });
@@ -986,8 +949,8 @@
 
         window.logoutApp = () => {
             if (window.currentUser && !window.isGuest) {
-                if(rkbUnsubscribe) rkbUnsubscribe(); if(keepUnsubscribe) keepUnsubscribe(); if(usersUnsubscribe) usersUnsubscribe(); if(teamSettingsUnsubscribe) teamSettingsUnsubscribe(); if(chatUnsubscribe) chatUnsubscribe();
-                setDoc(doc(db, "active_users", window.currentUser.uid), { isOnline: false }, { merge: true })
+                if(rkbUnsubscribe) rkbUnsubscribe(); if(keepUnsubscribe) keepUnsubscribe(); if(usersUnsubscribe) usersUnsubscribe(); if(chatUnsubscribe) chatUnsubscribe();
+                setDoc(doc(db, "active_users", window.currentUser.uid), { isOnline: false, lastSeen: new Date().toISOString() }, { merge: true })
                 .then(() => signOut(auth)).then(() => { window.isGuest = true; window.enterGuestMode(); window.goHome(); });
             } else { window.goHome(); }
         };
@@ -1009,13 +972,6 @@
         // DATA LOADERS
         // ----------------------------------------------------
         function loadWorkspaceData() {
-            if(teamSettingsUnsubscribe) teamSettingsUnsubscribe();
-            teamSettingsUnsubscribe = onSnapshot(doc(db, "workJourney", "team_settings"), (docSnap) => {
-                if(docSnap.exists() && docSnap.data().profiles) window.teamProfiles = docSnap.data().profiles;
-                else window.teamProfiles = {};
-                if(window.currentTab === 'team') window.renderTeamTab();
-                if(document.getElementById('module-rkb').classList.contains('flex')) window.renderApp();
-            });
 
             if(rkbUnsubscribe) rkbUnsubscribe();
             rkbUnsubscribe = onSnapshot(doc(db, "workJourney", "team_workspace"), (docSnap) => {
@@ -1041,7 +997,7 @@
             if(usersUnsubscribe) usersUnsubscribe();
             usersUnsubscribe = onSnapshot(collection(db, "active_users"), (snapshot) => {
                 window.activeUsers = [];
-                snapshot.forEach(d => { window.activeUsers.push(d.data()); }); // We track all for merging
+                snapshot.forEach(d => { window.activeUsers.push(d.data()); });
                 if(window.currentTab === 'team') window.renderTeamTab();
             });
 
@@ -1054,10 +1010,8 @@
                     setDoc(doc(db, "workJourney", "team_chat"), { messages: [] }, { merge: true });
                 }
                 
-                // Trigger SFX if there's a new message
                 if (window.chatMessages.length > prevMsgCount) {
                     const lastMsg = window.chatMessages[window.chatMessages.length - 1];
-                    // Play sound only if message is from someone else
                     if (window.currentUser && lastMsg.uid !== window.currentUser.uid) {
                         window.playChatSound();
                     }
@@ -1077,7 +1031,7 @@
         };
 
         // ----------------------------------------------------
-        // LIVE CHAT LOGIC (MINIMALIST)
+        // LIVE CHAT LOGIC
         // ----------------------------------------------------
         window.toggleChat = () => {
             window.isChatOpen = !window.isChatOpen;
@@ -1117,6 +1071,16 @@
             input.value = '';
         };
 
+        window.deleteChatMessage = (msgId) => {
+            if (!window.enforceLogin("Hapus Pesan")) return;
+            const msg = window.chatMessages.find(m => m.id === msgId);
+            if(msg && msg.uid === window.currentUser.uid) {
+                msg.isDeleted = true;
+                msg.text = "*pesan telah dihapus*";
+                setDoc(doc(db, "workJourney", "team_chat"), { messages: window.chatMessages }, { merge: true });
+            }
+        };
+
         window.renderChat = () => {
             const container = document.getElementById('chatMessages');
             if (!container) return;
@@ -1128,25 +1092,32 @@
                 const isMe = m.uid === currentUid;
                 const timeStr = new Date(m.time).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
                 
-                // Smart Parsing for Task and Mentions
                 let msgText = m.text;
-                // Basic html escape to prevent injection in chat
                 msgText = msgText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 
-                // Parse format baru (dengan ID Interaktif)
-                msgText = msgText.replace(/\[TUGAS:(.+?)\]/g, (match, taskId) => {
-                    return `<span onclick="if(window.innerWidth < 640) window.toggleChat(); window.openPreviewModal('${taskId}')" class="bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300 text-[10px] px-2 py-1.5 rounded-lg font-extrabold uppercase shadow-sm border border-blue-200 dark:border-blue-700 mr-1 cursor-pointer hover:bg-blue-200 dark:hover:bg-blue-800 hover:-translate-y-px transition-all inline-flex items-center gap-1.5 my-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg> Buka Detail Tugas</span><br/>`;
-                });
-                
-                // Parse format lama (kompatibilitas pesan lampau jika ada)
-                msgText = msgText.replace(/\[TUGAS\]/g, `<span class="bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 text-[10px] px-1.5 py-0.5 rounded font-extrabold uppercase shadow-sm border border-blue-200 dark:border-blue-800 mr-1"><svg class="w-3 h-3 inline pb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg> Task Shared</span><br/>`);
+                if (m.isDeleted) {
+                    msgText = `<span class="italic text-slate-400 dark:text-slate-500 text-xs">${msgText}</span>`;
+                } else {
+                    // Parse format RKB
+                    msgText = msgText.replace(/\[TUGAS:(.+?)\]/g, (match, taskId) => {
+                        return `<span onclick="if(window.innerWidth < 640) window.toggleChat(); window.switchModule('rkb'); window.openPreviewModal('${taskId}')" class="bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300 text-[10px] px-2 py-1.5 rounded-lg font-extrabold uppercase shadow-sm border border-blue-200 dark:border-blue-700 mr-1 cursor-pointer hover:bg-blue-200 dark:hover:bg-blue-800 hover:-translate-y-px transition-all inline-flex items-center gap-1.5 my-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg> Buka Detail Tugas</span><br/>`;
+                    });
+                    
+                    // Parse format Keep
+                    msgText = msgText.replace(/\[CATATAN:(.+?)\]/g, (match, keepId) => {
+                        return `<span onclick="if(window.innerWidth < 640) window.toggleChat(); window.switchModule('keepit'); window.openKeepPreview('${keepId}')" class="bg-amber-100 text-amber-700 dark:bg-amber-900/60 dark:text-amber-300 text-[10px] px-2 py-1.5 rounded-lg font-extrabold uppercase shadow-sm border border-amber-200 dark:border-amber-700 mr-1 cursor-pointer hover:bg-amber-200 dark:hover:bg-amber-800 hover:-translate-y-px transition-all inline-flex items-center gap-1.5 my-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg> Buka Catatan</span><br/>`;
+                    });
+                    msgText = msgText.replace(/@(\w+)/g, "<span class='font-bold text-blue-200 dark:text-blue-400'>@$1</span>");
+                }
 
-                // Mentions highlight
-                msgText = msgText.replace(/@(\w+)/g, "<span class='font-bold text-blue-200 dark:text-blue-400'>@$1</span>");
+                const delBtn = (isMe && !m.isDeleted) ? `<button onclick="window.deleteChatMessage('${m.id}')" class="text-slate-400 hover:text-red-500 ml-2 p-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>` : '';
 
                 if (isMe) {
                     html += `<div class="flex flex-col items-end mb-3">
-                                <div class="bg-blue-600 text-white px-3.5 py-2 rounded-2xl rounded-tr-sm text-sm max-w-[85%] shadow-sm">${msgText}</div>
+                                <div class="flex items-center">
+                                    ${delBtn}
+                                    <div class="${m.isDeleted ? 'bg-slate-100 dark:bg-slate-800/50' : 'bg-blue-600'} ${m.isDeleted ? 'text-slate-500' : 'text-white'} px-3.5 py-2 rounded-2xl rounded-tr-sm text-sm max-w-[85%] shadow-sm">${msgText}</div>
+                                </div>
                                 <span class="text-[9px] text-slate-400 mt-1">${timeStr}</span>
                             </div>`;
                 } else {
@@ -1184,7 +1155,6 @@
             if(t) {
                 if (!window.enforceLogin("Share ke Chat")) return;
                 window.closePreviewModal();
-                // Mengirim Format Baru dengan Menyisipkan ID Tugas di dalam Bracket
                 const text = `[TUGAS:${t.id}] 📌 *${t.title}* | Status: ${t.status.toUpperCase()}`;
                 
                 const currentUid = window.currentUser.uid;
@@ -1204,6 +1174,39 @@
                 if (!window.isChatOpen) window.toggleChat();
                 setTimeout(() => window.scrollToChatBottom(), 200);
             }
+        };
+
+        window.calculateUserScores = () => {
+            const scores = {};
+            window.activeUsers.forEach(u => scores[u.uid] = 0);
+
+            // Points from Tasks
+            window.tasks.forEach(t => {
+                if(t.creatorId && scores[t.creatorId] !== undefined) scores[t.creatorId] += 2; 
+                
+                if(t.involvedUsers) {
+                    t.involvedUsers.forEach(uid => {
+                        if(scores[uid] !== undefined) {
+                            scores[uid] += 1; // 1 point for being involved
+                            if(t.status === 'done') scores[uid] += 2; // +2 extra points if task is done
+                        }
+                    });
+                }
+            });
+
+            // Points from Chat
+            window.chatMessages.forEach(m => {
+                if(!m.isDeleted && scores[m.uid] !== undefined) scores[m.uid] += 1;
+            });
+
+            return scores;
+        };
+
+        window.getBadge = (score) => {
+            if(score >= 50) return { text: "🏆 Legend", class: "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300 border border-purple-200 dark:border-purple-800" };
+            if(score >= 20) return { text: "🌟 Kontributor Utama", class: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800" };
+            if(score >= 5) return { text: "🔥 Aktif", class: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300 border border-green-200 dark:border-green-800" };
+            return { text: "🌱 Pendatang Baru", class: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border border-slate-200 dark:border-slate-700" };
         };
 
         // ----------------------------------------------------
@@ -1335,7 +1338,6 @@
                 const tMenu = document.getElementById(`menu-${window.activeMenuId}`); 
                 if (tMenu && !tMenu.contains(e.target)) { tMenu.classList.add('hidden'); window.activeMenuId = null; } 
             } 
-            // Hide Keep Tag suggestions
             if (!e.target.closest('#kfTags') && !e.target.closest('#kfTagSuggestions')) {
                 document.getElementById('kfTagSuggestions')?.classList.add('hidden');
             }
@@ -1405,7 +1407,6 @@
             const filterType = document.getElementById('filterType')?.value || 'Semua';
             const filterPriority = document.getElementById('filterPriority')?.value || 'Semua';
             
-            // Set default month to current if empty on load
             const fmEl = document.getElementById('filterMonth');
             if (!fmEl.value && !searchTerm) fmEl.value = window.currentMonthStr;
             const filterMonthVal = searchTerm ? '' : fmEl.value;
@@ -1464,7 +1465,7 @@
                 let dateTag = window.formatDate(taskEnd).split(' - ')[0]; 
                 let monthBadge = `<span class="bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 px-2 py-0.5 rounded text-[10px] font-extrabold ml-1 uppercase shadow-sm">${monthNames[d.getMonth()]} ${d.getFullYear()}</span>`;
 
-                const creatorName = window.getUserDisplayName(task.creatorId, task.creatorName ? task.creatorName.split(' ')[0] : 'Anonim');
+                const creatorName = task.creatorName ? task.creatorName.split(' ')[0] : 'Anonim';
 
                 lists[task.status] += `
                     <div id="${task.id}" class="glass-card relative group pt-3 pb-4 px-4" draggable="${!window.isGuest}" ondragstart="window.drag(event)" onclick="window.openPreviewModal('${task.id}')">
@@ -1580,117 +1581,56 @@
         // --- TEAM MANAGEMENT & PROFILES ---
         window.renderTeamTab = () => {
             const teamContainer = document.getElementById('teamList');
-            let canonicalUsers = {};
             
-            // Map active_users to canonical profiles
-            window.activeUsers.forEach(u => {
-                if(u.name.toLowerCase() === 'anonim' || u.name.toLowerCase() === 'tamu' || u.name === 'Mode Tamu') return;
-                const cUid = window.getCanonicalUid(u.uid);
-                if(!canonicalUsers[cUid]) {
-                    canonicalUsers[cUid] = { 
-                        uid: cUid, 
-                        name: window.getUserDisplayName(cUid, u.name), 
-                        avatar: u.avatar, 
-                        isOnline: false,
-                        underlyingUids: []
-                    };
+            // Filter users who are not guests/anonymous
+            let displayUsers = window.activeUsers.filter(u => u.name.toLowerCase() !== 'anonim' && u.name.toLowerCase() !== 'tamu' && u.name !== 'Mode Tamu' && u.uid !== 'guest');
+            
+            // Calculate Scores for sorting and badges
+            const userScores = window.calculateUserScores();
+
+            // Sort: Online first, then by score
+            displayUsers.sort((a, b) => {
+                if (a.isOnline === b.isOnline) {
+                    return (userScores[b.uid] || 0) - (userScores[a.uid] || 0);
                 }
-                if(u.isOnline) canonicalUsers[cUid].isOnline = true;
-                if(!canonicalUsers[cUid].underlyingUids.includes(u.uid)) canonicalUsers[cUid].underlyingUids.push(u.uid);
+                return a.isOnline ? -1 : 1;
             });
 
             let teamHtml = '';
-            Object.values(canonicalUsers).forEach(cu => {
-                const onlineDot = cu.isOnline ? '<span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-slate-800 rounded-full"></span>' : '<span class="absolute bottom-0 right-0 w-3 h-3 bg-slate-400 border-2 border-white dark:border-slate-800 rounded-full"></span>';
-                const statusText = cu.isOnline ? '<p class="text-[10px] text-green-600 font-bold">Online</p>' : '<p class="text-[10px] text-slate-400 font-bold">Offline</p>';
+            displayUsers.forEach(cu => {
+                const isOnline = cu.isOnline;
+                const score = userScores[cu.uid] || 0;
+                const badge = window.getBadge(score);
+                
+                const containerStyle = isOnline 
+                    ? "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600" 
+                    : "bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-800 opacity-80";
+                
+                const avatarStyle = isOnline ? "" : "grayscale opacity-75";
+                
+                const onlineDot = isOnline 
+                    ? '<span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-slate-800 rounded-full"></span>' 
+                    : '<span class="absolute bottom-0 right-0 w-3 h-3 bg-slate-400 border-2 border-white dark:border-slate-800 rounded-full"></span>';
+                
+                const statusText = isOnline 
+                    ? '<p class="text-[10px] text-green-600 font-bold mt-0.5">Online</p>' 
+                    : `<p class="text-[9px] text-slate-400 font-medium mt-0.5" title="${window.formatDate(cu.lastSeen)}">${window.timeAgo(cu.lastSeen)}</p>`;
+                
                 teamHtml += `
-                <div onclick="window.openProfileSettings('${cu.uid}', '${cu.name}', '${cu.avatar}', '${cu.underlyingUids.join(',')}')" class="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 w-48 cursor-pointer hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600 transition-all">
-                    <div class="relative flex-shrink-0">
-                        <img src="${cu.avatar}" class="w-10 h-10 rounded-full border-2 border-white dark:border-slate-700">
+                <div class="flex flex-col items-center p-4 rounded-xl border ${containerStyle} w-44 transition-all relative overflow-hidden">
+                    <div class="relative mb-3">
+                        <img src="${cu.avatar}" class="w-14 h-14 rounded-full border-2 border-white dark:border-slate-700 shadow-sm ${avatarStyle}">
                         ${onlineDot}
                     </div>
-                    <div class="overflow-hidden">
+                    <div class="text-center w-full">
                         <p class="text-sm font-bold text-slate-800 dark:text-white truncate" title="${cu.name}">${cu.name}</p>
+                        <div class="mt-1.5 inline-block px-2 py-0.5 rounded text-[10px] font-extrabold shadow-sm ${badge.class}">${badge.text}</div>
                         ${statusText}
                     </div>
                 </div>`;
             });
 
-            teamContainer.innerHTML = teamHtml || '<p class="text-slate-400 text-sm font-bold w-full text-center p-4 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl">Belum ada rekan tim yang tercatat.</p>';
-        };
-
-        window.openProfileSettings = (cUid, displayName, avatar, underlyingStr) => {
-            if(!window.enforceLogin("Kelola Tim")) return;
-            document.getElementById('tpUid').value = cUid;
-            document.getElementById('tpOriginalName').innerText = `ID: ${cUid.substring(0,6)}...`;
-            document.getElementById('tpAvatar').src = avatar;
-            
-            // Set custom name if exists
-            document.getElementById('tpNickname').value = (window.teamProfiles[cUid] && window.teamProfiles[cUid].nickname) ? window.teamProfiles[cUid].nickname : '';
-
-            // Render underlying merged accounts
-            const listEl = document.getElementById('tpMergedList');
-            let mergedHtml = '';
-            const underlyingUids = underlyingStr.split(',').filter(id => id !== cUid);
-            underlyingUids.forEach(u => {
-                const rawUser = window.activeUsers.find(x => x.uid === u);
-                const rawName = rawUser ? rawUser.name : `Akun (${u.substring(0,4)}...)`;
-                mergedHtml += `<div class="flex justify-between items-center bg-white dark:bg-slate-800 p-2 rounded-lg border border-slate-200 dark:border-slate-600"><span class="text-xs font-semibold text-slate-600 dark:text-slate-300">${rawName}</span><button onclick="window.unmergeProfile('${u}')" class="text-red-500 hover:text-red-700 text-xs font-bold px-2 py-1 bg-red-50 dark:bg-red-900/30 rounded">Pisahkan</button></div>`;
-            });
-            listEl.innerHTML = mergedHtml || '<p class="text-xs text-slate-400 italic">Tidak ada akun lain yang tergabung.</p>';
-
-            // Populate Merge Select
-            const selectEl = document.getElementById('tpMergeSelect');
-            let opts = '<option value="">-- Pilih Akun --</option>';
-            window.activeUsers.forEach(u => {
-                if(u.name.toLowerCase() === 'anonim' || u.name.toLowerCase() === 'tamu' || u.name === 'Mode Tamu') return;
-                const itsCanUid = window.getCanonicalUid(u.uid);
-                if(itsCanUid !== cUid) {
-                    opts += `<option value="${u.uid}">${u.name} (${u.uid.substring(0,4)})</option>`;
-                }
-            });
-            selectEl.innerHTML = opts;
-
-            document.getElementById('teamProfileModal').classList.remove('hidden');
-            document.getElementById('teamProfileModal').classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        };
-
-        window.closeProfileSettings = () => {
-            document.getElementById('teamProfileModal').classList.add('hidden');
-            document.getElementById('teamProfileModal').classList.remove('flex');
-            document.body.style.overflow = '';
-        };
-
-        window.saveProfileSettings = () => {
-            const cUid = document.getElementById('tpUid').value;
-            const newName = document.getElementById('tpNickname').value.trim();
-            if(!window.teamProfiles[cUid]) window.teamProfiles[cUid] = {};
-            if(newName) window.teamProfiles[cUid].nickname = newName;
-            else delete window.teamProfiles[cUid].nickname;
-            
-            setDoc(doc(db, "workJourney", "team_settings"), { profiles: window.teamProfiles }, { merge: true });
-            window.closeProfileSettings();
-        };
-
-        window.mergeProfile = () => {
-            const mainUid = document.getElementById('tpUid').value;
-            const targetUid = document.getElementById('tpMergeSelect').value;
-            if(!targetUid) return;
-
-            if(!window.teamProfiles[targetUid]) window.teamProfiles[targetUid] = {};
-            window.teamProfiles[targetUid].mergedInto = mainUid;
-            
-            setDoc(doc(db, "workJourney", "team_settings"), { profiles: window.teamProfiles }, { merge: true });
-            window.closeProfileSettings();
-        };
-
-        window.unmergeProfile = (targetUid) => {
-            if(window.teamProfiles[targetUid]) {
-                delete window.teamProfiles[targetUid].mergedInto;
-                setDoc(doc(db, "workJourney", "team_settings"), { profiles: window.teamProfiles }, { merge: true });
-                window.closeProfileSettings();
-            }
+            teamContainer.innerHTML = teamHtml || '<p class="text-slate-400 text-sm font-bold w-full text-center p-4 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl">Belum ada rekan tim yang tercatat masuk ke dalam aplikasi.</p>';
         };
 
         // ----------------------------------------------------
@@ -1959,13 +1899,15 @@
             } 
         };
 
-        window.shareToWA = () => {
+        window.shareToWeb = () => {
             const taskId = document.getElementById('previewTaskId').value;
             const t = window.tasks.find(x => x.id === taskId);
             if(t) {
                 const endD = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[t.selectedDates.length-1] : t.deadline;
-                const text = `*TUGAS TIM: ${t.title}*\nStatus: ${t.status.toUpperCase()}\nPrioritas: ${t.priority}\nTenggat: ${window.formatDate(endD).split(' -')[0]}\n\n*Catatan:*\n${t.description || '-'}`;
-                window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+                const title = `TUGAS TIM: ${t.title}`;
+                const text = `Status: ${t.status.toUpperCase()}\nPrioritas: ${t.priority}\nTenggat: ${window.formatDate(endD).split(' -')[0]}\n\nCatatan:\n${t.description || '-'}`;
+                
+                window.nativeShare(title, text, window.location.href);
             }
         };
 
@@ -2250,6 +2192,50 @@
 
         window.closeKeepPreview = () => { document.body.style.overflow = ''; document.getElementById('keepPreviewModal').classList.add('hidden'); document.getElementById('keepPreviewModal').classList.remove('flex'); };
         
+        window.shareKeepToChat = () => {
+            const keepId = window.currentPreviewKeepId;
+            const note = window.keepNotes.find(n => n.id === keepId);
+            if(note) {
+                if (!window.enforceLogin("Share ke Chat")) return;
+                window.closeKeepPreview();
+                const text = `[CATATAN:${note.id}] 📝 *${note.title}*`;
+                
+                const currentUid = window.currentUser.uid;
+                const newMsg = {
+                    id: Date.now().toString(),
+                    uid: currentUid,
+                    name: window.getUserDisplayName(currentUid, window.currentUser.displayName),
+                    avatar: window.currentUser.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(window.currentUser.displayName)}`,
+                    text: text,
+                    time: new Date().toISOString()
+                };
+
+                window.chatMessages.push(newMsg);
+                if (window.chatMessages.length > 100) window.chatMessages.shift();
+                setDoc(doc(db, "workJourney", "team_chat"), { messages: window.chatMessages }, { merge: true });
+                
+                if (!window.isChatOpen) window.toggleChat();
+                setTimeout(() => window.scrollToChatBottom(), 200);
+            }
+        };
+
+        window.shareKeepToWeb = () => {
+            const keepId = window.currentPreviewKeepId;
+            const note = window.keepNotes.find(n => n.id === keepId);
+            if(note) {
+                const title = `CATATAN TIM: ${note.title}`;
+                
+                // create a temporary div to strip HTML tags for sharing text
+                const tempDiv = document.createElement("div");
+                tempDiv.innerHTML = note.content;
+                const cleanText = tempDiv.textContent || tempDiv.innerText || "";
+                
+                const text = `*${note.title}*\nOleh: ${note.authorName}\n\n${cleanText.substring(0, 150)}${cleanText.length > 150 ? '...' : ''}`;
+                
+                window.nativeShare(title, text, window.location.href);
+            }
+        };
+
         window.editKeepNote = () => {
             if(!window.enforceLogin("Edit Catatan")) return;
             const id = window.currentPreviewKeepId;
