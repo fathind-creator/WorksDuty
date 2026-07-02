@@ -199,12 +199,12 @@
                         <svg class="w-5 h-5 text-slate-500 dark:text-slate-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                         <span class="notifBadge absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 border-2 border-white dark:border-slate-800 rounded-full hidden animate-pulse pointer-events-none"></span>
                     </div>
-                    <div class="notifMenuDropdown hidden absolute -right-2 sm:right-0 top-12 w-[calc(100vw-2rem)] sm:w-80 max-w-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden flex-col z-[500]">
+                    <div class="notifMenuDropdown hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:absolute sm:top-12 sm:right-0 sm:left-auto sm:transform-none w-[calc(100vw-2rem)] sm:w-80 max-w-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden flex-col z-[600] sm:z-[500]">
                         <div class="p-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
                             <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Notifikasi</p>
                             <button onclick="window.markAllNotifAsRead(event)" class="text-[10px] text-blue-500 hover:text-blue-700 font-bold">Tandai Dibaca</button>
                         </div>
-                        <div class="notifList max-h-72 overflow-y-auto flex flex-col"></div>
+                        <div class="notifList max-h-[60vh] sm:max-h-72 overflow-y-auto flex flex-col"></div>
                     </div>
                 </div>
                 
@@ -329,12 +329,12 @@
                         <svg class="w-5 h-5 text-slate-500 dark:text-slate-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                         <span class="notifBadge absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 border-2 border-white dark:border-slate-800 rounded-full hidden animate-pulse pointer-events-none"></span>
                     </div>
-                    <div class="notifMenuDropdown hidden absolute -right-2 sm:right-0 top-12 w-[calc(100vw-2rem)] sm:w-80 max-w-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden flex-col z-[500]">
+                    <div class="notifMenuDropdown hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:absolute sm:top-12 sm:right-0 sm:left-auto sm:transform-none w-[calc(100vw-2rem)] sm:w-80 max-w-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden flex-col z-[600] sm:z-[500]">
                         <div class="p-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
                             <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Notifikasi</p>
                             <button onclick="window.markAllNotifAsRead(event)" class="text-[10px] text-blue-500 hover:text-blue-700 font-bold">Tandai Dibaca</button>
                         </div>
-                        <div class="notifList max-h-72 overflow-y-auto flex flex-col"></div>
+                        <div class="notifList max-h-[60vh] sm:max-h-72 overflow-y-auto flex flex-col"></div>
                     </div>
                 </div>
                 <!-- User Profile -->
@@ -669,9 +669,9 @@
                 <!-- Chat messages will be rendered here -->
             </div>
             
-            <div class="p-3 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex gap-2 items-center">
-                <input type="text" id="chatInput" onkeypress="if(event.key === 'Enter') window.sendMessage()" placeholder="Ketik pesan..." class="flex-1 bg-slate-100 dark:bg-slate-800 border-none rounded-full px-4 py-2 text-sm font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all">
-                <button onclick="window.sendMessage()" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full transition-colors flex items-center justify-center flex-shrink-0 w-9 h-9">
+            <div class="p-3 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex gap-2 items-end">
+                <textarea id="chatInput" rows="1" onkeydown="window.handleChatInput(event)" oninput="window.autoResizeChat(event)" placeholder="Ketik pesan (Shift+Enter baris baru)..." class="flex-1 bg-slate-100 dark:bg-slate-800 border-none rounded-2xl px-4 py-2 text-sm font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all resize-none max-h-24 overflow-y-auto"></textarea>
+                <button onclick="window.sendMessage()" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full transition-colors flex items-center justify-center flex-shrink-0 w-9 h-9 mb-0.5">
                     <svg class="w-4 h-4 translate-x-px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
                 </button>
             </div>
@@ -1048,6 +1048,18 @@
             }
         };
 
+        window.handleChatInput = (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                window.sendMessage();
+            }
+        };
+
+        window.autoResizeChat = (e) => {
+            e.target.style.height = 'auto';
+            e.target.style.height = (e.target.scrollHeight) + 'px';
+        };
+
         window.sendMessage = () => {
             if (!window.enforceLogin("Kirim Pesan")) return;
             const input = document.getElementById('chatInput');
@@ -1068,15 +1080,18 @@
             if (window.chatMessages.length > 100) window.chatMessages.shift();
 
             setDoc(doc(db, "workJourney", "team_chat"), { messages: window.chatMessages }, { merge: true });
+            
             input.value = '';
+            input.style.height = 'auto'; // Reset size
+            input.focus(); // Keep focus
         };
 
-        window.deleteChatMessage = (msgId) => {
+        window.deleteChatMessage = (id) => {
             if (!window.enforceLogin("Hapus Pesan")) return;
-            const msg = window.chatMessages.find(m => m.id === msgId);
-            if(msg && msg.uid === window.currentUser.uid) {
-                msg.isDeleted = true;
-                msg.text = "*pesan telah dihapus*";
+            const msgIndex = window.chatMessages.findIndex(m => m.id === id);
+            if (msgIndex > -1 && window.chatMessages[msgIndex].uid === window.currentUser.uid) {
+                window.chatMessages[msgIndex].isDeleted = true;
+                window.chatMessages[msgIndex].text = "pesan telah dihapus"; 
                 setDoc(doc(db, "workJourney", "team_chat"), { messages: window.chatMessages }, { merge: true });
             }
         };
@@ -1092,13 +1107,17 @@
                 const isMe = m.uid === currentUid;
                 const timeStr = new Date(m.time).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
                 
+                // Smart Parsing for Task and Mentions
                 let msgText = m.text;
-                msgText = msgText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 
                 if (m.isDeleted) {
-                    msgText = `<span class="italic text-slate-400 dark:text-slate-500 text-xs">${msgText}</span>`;
+                    msgText = "<span class='italic text-slate-400 dark:text-slate-500 text-xs'>pesan telah dihapus</span>";
                 } else {
-                    // Parse format RKB
+                    // Basic html escape to prevent injection in chat
+                    msgText = msgText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    msgText = msgText.replace(/\n/g, "<br/>"); // Parse new lines
+                    
+                    // Parse format baru (dengan ID Interaktif)
                     msgText = msgText.replace(/\[TUGAS:(.+?)\]/g, (match, taskId) => {
                         return `<span onclick="if(window.innerWidth < 640) window.toggleChat(); window.switchModule('rkb'); window.openPreviewModal('${taskId}')" class="bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300 text-[10px] px-2 py-1.5 rounded-lg font-extrabold uppercase shadow-sm border border-blue-200 dark:border-blue-700 mr-1 cursor-pointer hover:bg-blue-200 dark:hover:bg-blue-800 hover:-translate-y-px transition-all inline-flex items-center gap-1.5 my-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg> Buka Detail Tugas</span><br/>`;
                     });
@@ -1328,16 +1347,17 @@
         };
 
         document.addEventListener('click', (e) => { 
-            if(!e.target.closest('.profile-trigger')) {
+            if(!e.target.closest('.profile-trigger') && !e.target.closest('.profileMenuDropdown')) {
                 document.querySelectorAll('.profileMenuDropdown').forEach(pMenu => pMenu.classList.add('hidden'));
             }
-            if(!e.target.closest('.notif-trigger')) {
+            if(!e.target.closest('.notif-trigger') && !e.target.closest('.notifMenuDropdown')) {
                 document.querySelectorAll('.notifMenuDropdown').forEach(nMenu => nMenu.classList.add('hidden'));
             }
             if (window.activeMenuId) { 
                 const tMenu = document.getElementById(`menu-${window.activeMenuId}`); 
                 if (tMenu && !tMenu.contains(e.target)) { tMenu.classList.add('hidden'); window.activeMenuId = null; } 
             } 
+            // Hide Keep Tag suggestions
             if (!e.target.closest('#kfTags') && !e.target.closest('#kfTagSuggestions')) {
                 document.getElementById('kfTagSuggestions')?.classList.add('hidden');
             }
