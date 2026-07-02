@@ -13,8 +13,7 @@
         }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    
     <style>
         body { margin: 0; min-height: 100vh; overflow-x: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
         
@@ -80,14 +79,14 @@
         /* Highlight Search Text */
         .search-highlight { background-color: #fde047; color: #1e293b; font-weight: 800; padding: 0 2px; border-radius: 4px; box-shadow: 0 0 8px rgba(253, 224, 71, 0.6); }
         
-        /* Masonry Layout untuk Keep It */
+        /* Masonry Layout */
         .masonry-grid { column-count: 1; column-gap: 1.5rem; }
         @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
         @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
         @media (min-width: 1280px) { .masonry-grid { column-count: 4; } }
         .masonry-item { display: inline-block; width: 100%; break-inside: avoid; margin-bottom: 1.5rem; }
         
-        /* Pastel Colors Keep It */
+        /* Pastel Colors */
         .note-color-default { background-color: #ffffff; }
         .note-color-red { background-color: #fca5a5; }
         .note-color-orange { background-color: #fdba74; }
@@ -98,7 +97,6 @@
         .note-color-indigo { background-color: #a5b4fc; }
         .note-color-purple { background-color: #d8b4fe; }
         .note-color-pink { background-color: #fbcfe8; }
-        /* Dark Mode Equivalents */
         html.dark .note-color-default { background-color: #1e293b; }
         html.dark .note-color-red { background-color: #7f1d1d; }
         html.dark .note-color-orange { background-color: #7c2d12; }
@@ -116,7 +114,7 @@
 <body class="flex flex-col min-h-screen relative p-4 md:p-6 transition-colors duration-500">
 
     <!-- Custom Alert Modal -->
-    <div id="customAlert" class="hidden fixed inset-0 bg-slate-900/60 z-[400] flex justify-center items-center p-4 backdrop-blur-sm transition-opacity">
+    <div id="customAlert" class="hidden fixed inset-0 bg-slate-900/60 z-[600] flex justify-center items-center p-4 backdrop-blur-sm transition-opacity">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-2xl max-w-sm w-full text-center border border-slate-200 dark:border-slate-700">
             <h3 id="alertTitle" class="text-lg font-bold text-slate-900 dark:text-white mb-2">Info</h3>
             <p id="alertMessage" class="text-sm text-slate-600 dark:text-slate-300 mb-6"></p>
@@ -128,7 +126,7 @@
     </div>
 
     <!-- Login Screen Modal -->
-    <div id="loginScreen" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[350] justify-center items-center p-4 transition-opacity duration-300">
+    <div id="loginScreen" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[550] justify-center items-center p-4 transition-opacity duration-300">
         <div class="bg-white rounded-3xl w-full max-w-md p-10 shadow-2xl text-center relative overflow-hidden border border-slate-200">
             <button onclick="window.closeLoginScreen()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 bg-slate-100 rounded-full p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             <div class="absolute -top-20 -right-20 w-40 h-40 bg-blue-400 rounded-full blur-3xl opacity-30"></div>
@@ -194,10 +192,6 @@
                     <button onclick="window.switchMainTab('workspace')" id="tab-workspace" class="px-4 py-2 text-sm font-bold rounded-lg bg-white shadow-sm text-blue-600 transition-all">RKB</button>
                     <button onclick="window.switchMainTab('team')" id="tab-team" class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:bg-white/60 transition-all">Tim & Profil</button>
                 </div>
-
-                <button onclick="window.exportCSV()" class="p-2 bg-white/60 hover:bg-white rounded-xl border border-white shadow-sm text-slate-500 hover:text-green-600 transition-colors" title="Export CSV Laporan">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                </button>
 
                 <!-- Shared Notification Bell -->
                 <div class="relative">
@@ -686,33 +680,40 @@
         <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-sm p-6 text-center border border-red-200 dark:border-red-900/50 shadow-2xl my-auto"><div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-900/30 mb-4"><svg class="h-6 w-6 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div><h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Hapus Jadwal?</h3><p class="text-sm text-slate-500 mb-6">Jadwal akan dihapus permanen.</p><div class="flex gap-3"><button onclick="window.closeDeleteModal()" class="flex-1 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-600 font-bold">Batal</button><button onclick="window.confirmDelete()" class="flex-1 bg-red-500 text-white rounded-xl font-bold py-2 shadow hover:bg-red-600 transition-colors">Ya, Hapus</button></div></div>
     </div>
 
-    <!-- Floating Chat Component -->
+    <!-- Floating Chat Component (Redesigned Minimalist) -->
     <div id="floatingChatContainer" class="fixed bottom-6 right-6 z-[450] flex flex-col items-end">
         <!-- Chat Panel -->
-        <div id="chatPanel" class="hidden mb-4 w-80 sm:w-96 h-[500px] max-h-[70vh] glass-panel bg-white/90 dark:bg-slate-800/95 flex flex-col overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-700 transition-all origin-bottom-right rounded-3xl">
-            <div class="p-4 border-b border-slate-200/50 dark:border-slate-700/50 bg-gradient-to-r from-blue-600 to-sky-500 text-white flex justify-between items-center shadow-sm">
-                <div class="font-extrabold flex items-center gap-2"><span class="text-2xl drop-shadow-md">💬</span> All Team Lounge</div>
-                <button onclick="window.toggleChat()" class="text-white/80 hover:text-white hover:bg-white/20 p-1.5 rounded-full transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        <div id="chatPanel" class="hidden mb-4 w-80 sm:w-96 h-[500px] max-h-[75vh] bg-white dark:bg-slate-900 flex flex-col overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-700 transition-all origin-bottom-right rounded-2xl z-[500]">
+            <!-- Header Minimalis -->
+            <div class="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900">
+                <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500"></span>
+                    </span>
+                    Live Chat
+                </div>
+                <button onclick="window.toggleChat()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             
-            <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col scroll-smooth no-scrollbar relative bg-slate-50/50 dark:bg-slate-900/50">
+            <div id="chatMessages" class="flex-1 overflow-y-auto p-4 flex flex-col scroll-smooth no-scrollbar relative bg-slate-50 dark:bg-slate-950">
                 <!-- Chat messages will be rendered here -->
             </div>
             
-            <div class="p-3 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex gap-2 items-center">
-                <input type="text" id="chatInput" onkeypress="if(event.key === 'Enter') window.sendMessage()" placeholder="Ketik pesan (@Nama)..." class="flex-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full px-4 py-2.5 text-sm font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all">
-                <button onclick="window.sendMessage()" class="bg-gradient-to-tr from-blue-600 to-sky-500 hover:from-blue-700 hover:to-sky-600 text-white p-2.5 rounded-full shadow-md hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center">
-                    <svg class="w-5 h-5 translate-x-px -translate-y-px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+            <div class="p-3 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex gap-2 items-center">
+                <input type="text" id="chatInput" onkeypress="if(event.key === 'Enter') window.sendMessage()" placeholder="Ketik pesan..." class="flex-1 bg-slate-100 dark:bg-slate-800 border-none rounded-full px-4 py-2 text-sm font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all">
+                <button onclick="window.sendMessage()" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full transition-colors flex items-center justify-center flex-shrink-0 w-9 h-9">
+                    <svg class="w-4 h-4 translate-x-px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
                 </button>
             </div>
         </div>
 
-        <!-- Floating Chat Button -->
-        <button onclick="window.toggleChat()" class="w-16 h-16 bg-gradient-to-tr from-blue-600 to-sky-400 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.2)] flex items-center justify-center text-white hover:scale-110 transition-transform duration-300 relative group border-2 border-white/20">
-            <svg class="w-7 h-7 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-            <span id="chatUnreadBadge" class="hidden absolute top-0 right-0 w-4 h-4 bg-red-500 border-2 border-white dark:border-slate-900 rounded-full animate-pulse shadow-sm"></span>
+        <!-- Floating Chat Button (Minimalist) -->
+        <button onclick="window.toggleChat()" class="w-14 h-14 bg-blue-600 hover:bg-blue-700 rounded-full shadow-xl flex items-center justify-center text-white transition-all transform hover:scale-105 border-none relative z-[500]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+            <span id="chatUnreadBadge" class="hidden absolute top-0 right-0 w-3.5 h-3.5 bg-red-500 border-2 border-white dark:border-slate-900 rounded-full shadow-sm"></span>
         </button>
     </div>
 
@@ -734,6 +735,19 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
+
+        // ----------------------------------------------------
+        // AUDIO SFX SETUP
+        // ----------------------------------------------------
+        // Menggunakan sumber suara publik yang ringan (Base64 atau link terpercaya)
+        // Chat pop sound
+        const chatSfx = new Audio('https://assets.mixkit.co/active_storage/sfx/2354/2354-preview.mp3');
+        // Notif chime sound
+        const notifSfx = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+
+        window.playChatSound = () => { chatSfx.currentTime = 0; chatSfx.play().catch(e => { /* Ignore autoplay block */ }); };
+        window.playNotifSound = () => { notifSfx.currentTime = 0; notifSfx.play().catch(e => { /* Ignore autoplay block */ }); };
+
 
         // ----------------------------------------------------
         // GLOBAL STATE MANAGEMENT
@@ -770,9 +784,11 @@
         window.keepPastelColors = ['note-color-default', 'note-color-red', 'note-color-orange', 'note-color-yellow', 'note-color-green', 'note-color-teal', 'note-color-blue', 'note-color-indigo', 'note-color-purple', 'note-color-pink'];
         window.customKeepColors = JSON.parse(localStorage.getItem('fathsKeepColors')) || [];
 
-        // Chat State
+        // Chat & Notif State
         window.chatMessages = [];
         window.isChatOpen = false;
+        let prevMsgCount = 0;
+        let prevUnreadNotifCount = 0;
 
         let notifUnsubscribe = null;
         let rkbUnsubscribe = null;
@@ -862,6 +878,13 @@
                 if(notifUnsubscribe) notifUnsubscribe();
                 notifUnsubscribe = onSnapshot(doc(db, "user_notifications", user.uid), (docSnap) => {
                     window.myNotifications = docSnap.exists() ? docSnap.data().items || [] : [];
+                    const currentUnread = window.myNotifications.filter(n => !n.read).length;
+                    
+                    // Play Notification sound if unread count increases
+                    if(currentUnread > prevUnreadNotifCount) {
+                        window.playNotifSound();
+                    }
+                    prevUnreadNotifCount = currentUnread;
                     window.renderNotifications();
                 });
 
@@ -992,6 +1015,16 @@
                     window.chatMessages = [];
                     setDoc(doc(db, "workJourney", "team_chat"), { messages: [] }, { merge: true });
                 }
+                
+                // Trigger SFX if there's a new message
+                if (window.chatMessages.length > prevMsgCount) {
+                    const lastMsg = window.chatMessages[window.chatMessages.length - 1];
+                    // Play sound only if message is from someone else
+                    if (window.currentUser && lastMsg.uid !== window.currentUser.uid) {
+                        window.playChatSound();
+                    }
+                }
+                prevMsgCount = window.chatMessages.length;
                 window.renderChat();
             });
         }
@@ -1006,7 +1039,7 @@
         };
 
         // ----------------------------------------------------
-        // LIVE CHAT LOGIC
+        // LIVE CHAT LOGIC (MINIMALIST)
         // ----------------------------------------------------
         window.toggleChat = () => {
             window.isChatOpen = !window.isChatOpen;
@@ -1040,7 +1073,7 @@
             };
 
             window.chatMessages.push(newMsg);
-            if (window.chatMessages.length > 100) window.chatMessages.shift(); // keep max 100 messages to avoid heavy document
+            if (window.chatMessages.length > 100) window.chatMessages.shift();
 
             setDoc(doc(db, "workJourney", "team_chat"), { messages: window.chatMessages }, { merge: true });
             input.value = '';
@@ -1059,36 +1092,32 @@
                 
                 // Smart Parsing for Task and Mentions
                 let msgText = m.text;
-                // Basic html escape to prevent injection in chat
                 msgText = msgText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 
                 if (msgText.startsWith("[TUGAS]")) {
-                    msgText = msgText.replace("[TUGAS]", `<span class="bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 text-[10px] px-1.5 py-0.5 rounded font-extrabold uppercase shadow-sm border border-blue-200 dark:border-blue-800 mr-1"><svg class="w-3 h-3 inline pb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg> Task Shared</span><br/>`);
+                    msgText = msgText.replace("[TUGAS]", `<span class="bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 text-[10px] px-1.5 py-0.5 rounded font-bold uppercase mr-1"><svg class="w-3 h-3 inline pb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg> Shared Task</span><br/>`);
                 } else {
-                    // Mentions highlight
-                    msgText = msgText.replace(/@(\w+)/g, "<span class='text-blue-600 dark:text-blue-400 font-extrabold'>@$1</span>");
+                    msgText = msgText.replace(/@(\w+)/g, "<span class='font-bold text-blue-200 dark:text-blue-400'>@$1</span>");
                 }
 
                 if (isMe) {
-                    html += `<div class="flex gap-2 self-end max-w-[85%] animate-fade-in-up">
-                        <div class="flex flex-col items-end">
-                            <div class="bg-gradient-to-tr from-blue-500 to-sky-400 text-white px-4 py-2.5 rounded-2xl rounded-tr-sm shadow-md text-sm leading-relaxed">${msgText}</div>
-                            <span class="text-[9px] text-slate-400 dark:text-slate-500 mt-1 font-bold tracking-wider">${timeStr}</span>
-                        </div>
-                    </div>`;
+                    html += `<div class="flex flex-col items-end mb-3">
+                                <div class="bg-blue-600 text-white px-3.5 py-2 rounded-2xl rounded-tr-sm text-sm max-w-[85%] shadow-sm">${msgText}</div>
+                                <span class="text-[9px] text-slate-400 mt-1">${timeStr}</span>
+                            </div>`;
                 } else {
-                    html += `<div class="flex gap-2 self-start max-w-[85%] animate-fade-in-up">
-                        <img src="${m.avatar}" class="w-7 h-7 rounded-full flex-shrink-0 mt-0.5 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex flex-col items-start">
-                            <span class="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 mb-0.5 ml-1">${m.name}</span>
-                            <div class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-2xl rounded-tl-sm shadow-sm text-sm leading-relaxed">${msgText}</div>
-                            <span class="text-[9px] text-slate-400 dark:text-slate-500 mt-1 ml-1 font-bold tracking-wider">${timeStr}</span>
-                        </div>
-                    </div>`;
+                    html += `<div class="flex gap-2 items-end mb-3 max-w-[85%]">
+                                <img src="${m.avatar}" class="w-6 h-6 rounded-full mb-4 shadow-sm border border-slate-200 dark:border-slate-700">
+                                <div class="flex flex-col items-start">
+                                    <span class="text-[10px] font-semibold text-slate-500 ml-1 mb-1">${m.name}</span>
+                                    <div class="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3.5 py-2 rounded-2xl rounded-tl-sm text-sm shadow-sm border border-slate-100 dark:border-slate-800/50">${msgText}</div>
+                                    <span class="text-[9px] text-slate-400 mt-1 ml-1">${timeStr}</span>
+                                </div>
+                            </div>`;
                 }
             });
 
-            container.innerHTML = html || '<div class="text-center text-xs text-slate-400 my-auto font-bold"><div class="text-4xl mb-2">👋</div>Belum ada obrolan. Mulai sapa tim Anda!</div>';
+            container.innerHTML = html || '<div class="text-center text-xs text-slate-400 my-auto font-medium">Belum ada obrolan tim.</div>';
 
             if (!window.isChatOpen && window.chatMessages.length > 0) {
                 const lastMsg = window.chatMessages[window.chatMessages.length - 1];
@@ -1923,16 +1952,6 @@
         };
         window.handleCommentEnter = (e) => { if(e.key === 'Enter') { e.preventDefault(); window.addComment(); } };
 
-        window.exportCSV = () => {
-            if(window.tasks.length === 0) return window.showAlert("Kosong", "Tidak ada tugas untuk di-export.");
-            let csvContent = "data:text/csv;charset=utf-8,ID,Judul,Status,Prioritas,Tipe,Deadline\n";
-            window.tasks.forEach(t => {
-                let end = t.selectedDates && t.selectedDates.length > 0 ? t.selectedDates[t.selectedDates.length-1] : t.deadline;
-                csvContent += `${t.id},"${t.title}",${t.status},${t.priority},${t.type},${end}\n`;
-            });
-            const encodedUri = encodeURI(csvContent); const link = document.createElement("a"); link.setAttribute("href", encodedUri); link.setAttribute("download", "laporan_tugas.csv"); document.body.appendChild(link); link.click(); document.body.removeChild(link);
-        };
-
         window.openDeleteModal = (e, id) => { e.stopPropagation(); window.toggleCardMenu(e, id); if(!window.enforceLogin("Hapus Tugas")) return; window.taskToDeleteId = id; document.body.style.overflow='hidden'; document.getElementById('deleteModal').classList.remove('hidden'); document.getElementById('deleteModal').classList.add('flex'); };
         window.closeDeleteModal = () => { window.taskToDeleteId = null; document.body.style.overflow=''; document.getElementById('deleteModal').classList.add('hidden'); document.getElementById('deleteModal').classList.remove('flex'); };
         window.confirmDelete = () => { if (window.taskToDeleteId) { window.tasks = window.tasks.filter(t => t.id !== window.taskToDeleteId); window.saveToStorage(); window.renderApp(); window.closeDeleteModal(); } };
@@ -2003,7 +2022,6 @@
                 kfContent.addEventListener('paste', function(e) {
                     e.preventDefault(); 
                     let text = (e.clipboardData || window.clipboardData).getData('text/plain');
-                    // Cegah injeksi HTML kotor agar editor tidak rusak
                     text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                     let urlRegex = /(https?:\/\/[^\s]+)/g;
                     let html = text.replace(urlRegex, function(url) { return `<a href="${url}" target="_blank" class="text-blue-500 underline font-medium break-words">${url}</a>`; });
@@ -2044,7 +2062,6 @@
             window.renderKeepColorPicker();
         };
 
-        // Autocomplete Tag Logika
         window.showTagSuggestions = (e) => {
             const input = e.target;
             const val = input.value;
@@ -2153,11 +2170,9 @@
             document.body.style.overflow = 'hidden';
             
             const pCard = document.getElementById('keepPreviewCard');
-            // Clean previous colors
             window.keepPastelColors.forEach(c => pCard.classList.remove(c));
             pCard.style.backgroundColor = '';
             
-            // Apply new dynamic color to preview modal background
             if(note.color && note.color.startsWith('#')) {
                 pCard.style.backgroundColor = note.color;
                 pCard.classList.remove('bg-white', 'dark:bg-slate-800');
