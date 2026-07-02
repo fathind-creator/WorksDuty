@@ -65,6 +65,7 @@
         html.dark .hover\:bg-slate-800:hover { background-color: #1e293b !important; }
         html.dark .bg-slate-200 { background-color: #475569 !important; }
         
+        /* Utilities */
         .color-radio:checked + div { border: 3px solid #1e293b; transform: scale(1.1); }
         html.dark .color-radio:checked + div { border-color: #f8fafc; }
         .holiday-red { color: #ef4444 !important; font-weight: 800; }
@@ -75,6 +76,7 @@
         .pulse-highlight { animation: pulseBg 2.5s ease-out; }
         @keyframes pulseBg { 0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); background-color: rgba(253, 230, 138, 0.5); } 70% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); background-color: transparent; } 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); background-color: transparent; } }
 
+        /* Highlight Search Text */
         .search-highlight { background-color: #fde047; color: #1e293b; font-weight: 800; padding: 0 2px; border-radius: 4px; box-shadow: 0 0 8px rgba(253, 224, 71, 0.6); }
         
         /* Masonry Layout */
@@ -105,6 +107,19 @@
         html.dark .note-color-indigo { background-color: #312e81; }
         html.dark .note-color-purple { background-color: #4c1d95; }
         html.dark .note-color-pink { background-color: #831843; }
+
+        /* Catatan Keep It Typography (Fixing Space Issues) */
+        .keep-content-style { line-height: 1.7; font-size: 0.95rem; letter-spacing: 0.01em; }
+        .keep-content-style p, .keep-content-style div { margin-bottom: 0.5em; }
+        .keep-content-style p:last-child, .keep-content-style div:last-child { margin-bottom: 0; }
+        .keep-content-style p:empty, .keep-content-style div:empty { height: 0.5em; }
+        .keep-content-style ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75em; }
+        .keep-content-style ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 0.75em; }
+        .keep-content-style li { margin-bottom: 0.25em; padding-left: 0.25rem; }
+        .keep-content-style a { color: #3b82f6; text-decoration: none; font-weight: 600; transition: color 0.2s; }
+        .keep-content-style a:hover { color: #2563eb; text-decoration: underline; }
+        html.dark .keep-content-style a { color: #60a5fa; }
+        html.dark .keep-content-style a:hover { color: #93c5fd; }
 
         [contenteditable="true"]:empty:before { content: attr(placeholder); color: #94a3b8; pointer-events: none; display: block; }
     </style>
@@ -200,10 +215,7 @@
                     <div class="notifMenuDropdown hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:absolute sm:top-12 sm:right-0 sm:left-auto sm:transform-none w-[calc(100vw-2rem)] sm:w-80 max-w-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden flex-col z-[600] sm:z-[500]">
                         <div class="p-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
                             <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Notifikasi</p>
-                            <div class="flex items-center gap-3">
-                                <button onclick="window.markAllNotifAsRead(event)" class="text-[10px] text-blue-500 hover:text-blue-700 font-bold">Tandai Dibaca</button>
-                                <button onclick="window.toggleNotifications(false)" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 sm:hidden"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-                            </div>
+                            <button onclick="window.markAllNotifAsRead(event)" class="text-[10px] text-blue-500 hover:text-blue-700 font-bold">Tandai Dibaca</button>
                         </div>
                         <div class="notifList max-h-[60vh] sm:max-h-72 overflow-y-auto flex flex-col"></div>
                     </div>
@@ -299,7 +311,6 @@
                     <svg class="w-6 h-6 text-slate-700 dark:text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
                 <div class="flex items-center gap-2 cursor-pointer transition-transform hover:scale-[1.02]" onclick="window.goHome()">
-                    <div class="w-10 h-10 bg-gradient-to-tr from-amber-500 to-orange-400 rounded-xl shadow-lg flex items-center justify-center text-white text-xl font-bold">📝</div>
                     <div>
                         <h1 class="text-xl font-extrabold text-slate-800 dark:text-white tracking-tight leading-none">DO NUT GIVE UP</h1>
                         <p class="text-[11px] font-bold text-amber-500 uppercase tracking-wider">Keep It Repo</p>
@@ -330,10 +341,7 @@
                     <div class="notifMenuDropdown hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:absolute sm:top-12 sm:right-0 sm:left-auto sm:transform-none w-[calc(100vw-2rem)] sm:w-80 max-w-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden flex-col z-[600] sm:z-[500]">
                         <div class="p-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
                             <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Notifikasi</p>
-                            <div class="flex items-center gap-3">
-                                <button onclick="window.markAllNotifAsRead(event)" class="text-[10px] text-blue-500 hover:text-blue-700 font-bold">Tandai Dibaca</button>
-                                <button onclick="window.toggleNotifications(false)" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 sm:hidden"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-                            </div>
+                            <button onclick="window.markAllNotifAsRead(event)" class="text-[10px] text-blue-500 hover:text-blue-700 font-bold">Tandai Dibaca</button>
                         </div>
                         <div class="notifList max-h-[60vh] sm:max-h-72 overflow-y-auto flex flex-col"></div>
                     </div>
@@ -419,7 +427,8 @@
                     </div>
                 </div>
                 <div id="kpTags" class="flex flex-wrap gap-2 mb-6"></div>
-                <div id="kpContent" class="prose dark:prose-invert max-w-none text-slate-800 dark:text-slate-100 whitespace-pre-wrap leading-relaxed font-medium"></div>
+                <!-- Fix Keep Space issues: changed prose to keep-content-style -->
+                <div id="kpContent" class="keep-content-style text-slate-800 dark:text-slate-100 font-medium"></div>
                 <div class="mt-8 pt-4 border-t border-black/10 dark:border-white/10 text-xs font-bold text-slate-600 dark:text-slate-400 flex justify-between">
                     <span id="kpAuthor"></span>
                     <span id="kpDate"></span>
@@ -451,7 +460,8 @@
                         <div class="w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
                         <button onclick="document.execCommand('insertUnorderedList',false,null)" class="p-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded" title="Daftar Bullet">• List</button>
                     </div>
-                    <div id="kfContent" contenteditable="true" placeholder="Tuliskan ide, paste link repositori, atau catatan panjang di sini..." class="w-full p-4 min-h-[150px] text-slate-700 dark:text-slate-200 focus:outline-none prose dark:prose-invert break-words"></div>
+                    <!-- Fix Keep Space issues: changed prose to keep-content-style -->
+                    <div id="kfContent" contenteditable="true" placeholder="Tuliskan ide, paste link repositori, atau catatan panjang di sini..." class="w-full p-4 min-h-[150px] text-slate-700 dark:text-slate-200 focus:outline-none keep-content-style break-words"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -496,6 +506,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- RKB Task Modal -->
     <div id="taskModal" class="hidden fixed inset-0 bg-slate-900/60 z-[200] justify-center items-start p-4 pt-10 pb-24 backdrop-blur-sm overflow-y-auto transition-opacity">
@@ -579,11 +590,10 @@
                 <div class="flex justify-between items-start gap-4 mb-4">
                     <h2 id="previewTitle" class="text-3xl font-extrabold text-slate-800 dark:text-white pr-4 leading-tight">Judul Tugas</h2>
                     <div class="flex gap-2">
-                        <!-- Update: Modified share buttons -->
                         <button type="button" onclick="window.shareToChat()" class="bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 p-2.5 rounded-xl shadow-sm transition-colors flex-shrink-0" title="Bagikan ke Chat Tim">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                         </button>
-                        <button type="button" onclick="window.shareToWeb()" class="bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/40 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800 p-2.5 rounded-xl shadow-sm transition-colors flex-shrink-0" title="Bagikan Keluar (WA, Telegram, dll)">
+                        <button type="button" onclick="window.shareToWeb()" class="bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/40 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800 p-2.5 rounded-xl shadow-sm transition-colors flex-shrink-0" title="Bagikan Keluar">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
                         </button>
                     </div>
@@ -662,11 +672,16 @@
                 <!-- Chat messages will be rendered here -->
             </div>
             
-            <div id="chatInputArea" class="p-3 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex gap-2 items-end">
-                <textarea id="chatInput" rows="1" onkeydown="window.handleChatInput(event)" oninput="window.autoResizeChat(event)" placeholder="Ketik pesan (Shift+Enter baris baru)..." class="flex-1 bg-slate-100 dark:bg-slate-800 border-none rounded-2xl px-4 py-2 text-sm font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all resize-none max-h-24 overflow-y-auto"></textarea>
+            <!-- Chat Input / Lock Area -->
+            <div id="chatInputArea" class="p-3 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex gap-2 items-end hidden">
+                <textarea id="chatInput" rows="1" onkeydown="window.handleChatInput(event)" oninput="window.autoResizeChat(event)" placeholder="Ketik pesan (Shift+Enter baris baru)..." class="flex-1 bg-slate-100 dark:bg-slate-800 border-none rounded-2xl px-4 py-2 text-sm font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all resize-none max-h-24 overflow-y-auto no-scrollbar"></textarea>
                 <button onclick="window.sendMessage()" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full transition-colors flex items-center justify-center flex-shrink-0 w-9 h-9 mb-0.5">
                     <svg class="w-4 h-4 translate-x-px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
                 </button>
+            </div>
+            <!-- Guest Warning -->
+            <div id="chatGuestWarning" class="hidden p-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 text-center text-xs text-slate-500 font-bold">
+                Silakan <button onclick="window.showLoginScreen()" class="text-blue-500 hover:underline px-1">Login</button> untuk ikut berdiskusi di Live Chat.
             </div>
         </div>
 
@@ -897,10 +912,22 @@
             document.querySelectorAll('.userAvatar').forEach(el => el.src = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || 'G')}`);
             document.getElementById('homeGreeting').innerText = `Selamat datang kembali, ${user.displayName.split(' ')[0]}!`;
             
-            document.querySelectorAll('.guestBadge').forEach(badge => {
-                if(window.isGuest) { badge.classList.remove('hidden'); badge.classList.add('inline-block'); document.getElementById('homeGreeting').innerText = `Selamat datang, Tamu! (Mode Read-Only)`; }
-                else badge.classList.add('hidden');
-            });
+            if (window.isGuest) { 
+                document.querySelectorAll('.guestBadge').forEach(badge => { badge.classList.remove('hidden'); badge.classList.add('inline-block'); });
+                document.getElementById('homeGreeting').innerText = `Selamat datang, Tamu! (Mode Read-Only)`; 
+                
+                // Chat Lock
+                document.getElementById('chatInputArea')?.classList.add('hidden');
+                document.getElementById('chatInputArea')?.classList.remove('flex');
+                document.getElementById('chatGuestWarning')?.classList.remove('hidden');
+            } else {
+                document.querySelectorAll('.guestBadge').forEach(badge => badge.classList.add('hidden'));
+                
+                // Chat Unlock
+                document.getElementById('chatInputArea')?.classList.remove('hidden');
+                document.getElementById('chatInputArea')?.classList.add('flex');
+                document.getElementById('chatGuestWarning')?.classList.add('hidden');
+            }
 
             document.querySelectorAll('.authBtn').forEach(btn => {
                 btn.innerText = window.isGuest ? 'Login / Masuk' : 'Logout / Keluar';
@@ -1091,29 +1118,7 @@
 
         window.renderChat = () => {
             const container = document.getElementById('chatMessages');
-            const inputArea = document.getElementById('chatInputArea');
             if (!container) return;
-
-            if (window.isGuest) {
-                container.innerHTML = `
-                    <div class="flex flex-col items-center justify-center h-full text-center p-6 text-slate-500 my-auto">
-                        <svg class="w-12 h-12 mb-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        <h3 class="text-sm font-bold text-slate-700 dark:text-slate-200 mb-1">Chat Terkunci</h3>
-                        <p class="text-xs mb-4">Fitur ini khusus untuk anggota tim. Silakan login untuk melihat dan berpartisipasi.</p>
-                        <button onclick="window.showLoginScreen()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm hover:bg-blue-700">Login Sekarang</button>
-                    </div>
-                `;
-                if (inputArea) {
-                    inputArea.classList.add('hidden');
-                    inputArea.classList.remove('flex');
-                }
-                return;
-            } else {
-                if (inputArea) {
-                    inputArea.classList.remove('hidden');
-                    inputArea.classList.add('flex');
-                }
-            }
 
             let html = '';
             const currentUid = window.currentUser ? window.currentUser.uid : 'guest';
@@ -1122,25 +1127,25 @@
                 const isMe = m.uid === currentUid;
                 const timeStr = new Date(m.time).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
                 
+                // Smart Parsing for Task and Mentions
                 let msgText = m.text;
                 
                 if (m.isDeleted) {
                     msgText = "<span class='italic text-slate-400 dark:text-slate-500 text-xs'>pesan telah dihapus</span>";
                 } else {
-                    // Escape HTML
+                    // Basic html escape to prevent injection in chat
                     msgText = msgText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                    msgText = msgText.replace(/\n/g, "<br/>"); 
+                    msgText = msgText.replace(/\n/g, "<br/>"); // Parse new lines
                     
-                    // Parse Task
+                    // Parse format baru (dengan ID Interaktif)
                     msgText = msgText.replace(/\[TUGAS:(.+?)\]/g, (match, taskId) => {
                         return `<span onclick="if(window.innerWidth < 640) window.toggleChat(); window.switchModule('rkb'); window.openPreviewModal('${taskId}')" class="bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300 text-[10px] px-2 py-1.5 rounded-lg font-extrabold uppercase shadow-sm border border-blue-200 dark:border-blue-700 mr-1 cursor-pointer hover:bg-blue-200 dark:hover:bg-blue-800 hover:-translate-y-px transition-all inline-flex items-center gap-1.5 my-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg> Buka Detail Tugas</span><br/>`;
                     });
                     
-                    // Parse Keep
+                    // Parse format Keep
                     msgText = msgText.replace(/\[CATATAN:(.+?)\]/g, (match, keepId) => {
                         return `<span onclick="if(window.innerWidth < 640) window.toggleChat(); window.switchModule('keepit'); window.openKeepPreview('${keepId}')" class="bg-amber-100 text-amber-700 dark:bg-amber-900/60 dark:text-amber-300 text-[10px] px-2 py-1.5 rounded-lg font-extrabold uppercase shadow-sm border border-amber-200 dark:border-amber-700 mr-1 cursor-pointer hover:bg-amber-200 dark:hover:bg-amber-800 hover:-translate-y-px transition-all inline-flex items-center gap-1.5 my-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg> Buka Catatan</span><br/>`;
                     });
-                    
                     msgText = msgText.replace(/@(\w+)/g, "<span class='font-bold text-blue-200 dark:text-blue-400'>@$1</span>");
                 }
 
@@ -1512,7 +1517,7 @@
                         <div class="flex justify-between items-start mb-2 mt-2">
                             <div class="flex items-center gap-1">${prioDot} <span class="text-xs font-bold text-slate-500 dark:text-slate-400 bg-black/5 dark:bg-white/10 px-2 py-0.5 rounded ml-1">${dateTag}</span> ${monthBadge}</div>
                             <div class="relative" onclick="event.stopPropagation()">
-                                <button onclick="window.toggleCardMenu(event, '${task.id}')" class="text-slate-400 hover:text-slate-800 dark:hover:text-white p-1"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg></button>
+                                <button onclick="window.toggleCardMenu(event, '${task.id}')" class="text-slate-400 hover:text-slate-800 dark:hover:text-white p-1"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg></button>
                                 ${window.buildMenuOptions(task)}
                             </div>
                         </div>
@@ -1621,13 +1626,9 @@
         window.renderTeamTab = () => {
             const teamContainer = document.getElementById('teamList');
             
-            // Filter users who are not guests/anonymous
             let displayUsers = window.activeUsers.filter(u => u.name.toLowerCase() !== 'anonim' && u.name.toLowerCase() !== 'tamu' && u.name !== 'Mode Tamu' && u.uid !== 'guest');
-            
-            // Calculate Scores for sorting and badges
             const userScores = window.calculateUserScores();
 
-            // Sort: Online first, then by score
             displayUsers.sort((a, b) => {
                 if (a.isOnline === b.isOnline) {
                     return (userScores[b.uid] || 0) - (userScores[a.uid] || 0);
@@ -1890,7 +1891,7 @@
         
         window.buildMenuOptions = (task) => {
             return `
-                <div id="menu-${task.id}" class="hidden absolute right-0 top-8 w-44 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-1.5 shadow-2xl rounded-xl z-[200] flex flex-col">
+                <div id="menu-${task.id}" class="hidden absolute right-0 top-8 w-44 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-1.5 shadow-2xl rounded-xl flex flex-col z-[200]">
                     <button onclick="window.editFromMenu(event, '${task.id}')" class="text-left px-3 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">Edit</button>
                     <button onclick="window.duplicateTask(event, '${task.id}')" class="text-left px-3 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">Duplikat</button>
                     <div class="h-px bg-slate-200 dark:bg-slate-700 my-1"></div>
@@ -2029,7 +2030,6 @@
         // ----------------------------------------------------
         // KEEP IT MODULE (Google Keep Clone Logic)
         // ----------------------------------------------------
-        
         window.linkifyNode = (element) => {
             const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
             let node; const nodesToReplace = [];
