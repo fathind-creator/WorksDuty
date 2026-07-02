@@ -199,7 +199,7 @@
                         <svg class="w-5 h-5 text-slate-500 dark:text-slate-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                         <span class="notifBadge absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 border-2 border-white dark:border-slate-800 rounded-full hidden animate-pulse pointer-events-none"></span>
                     </div>
-                    <div class="notifMenuDropdown hidden absolute right-0 top-12 w-80 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden flex-col z-[500]">
+                    <div class="notifMenuDropdown hidden absolute -right-2 sm:right-0 top-12 w-[calc(100vw-2rem)] sm:w-80 max-w-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden flex-col z-[500]">
                         <div class="p-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
                             <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Notifikasi</p>
                             <button onclick="window.markAllNotifAsRead(event)" class="text-[10px] text-blue-500 hover:text-blue-700 font-bold">Tandai Dibaca</button>
@@ -218,7 +218,7 @@
                         <svg class="w-4 h-4 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                     
-                    <div class="profileMenuDropdown hidden absolute right-0 top-14 w-56 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden z-[500]">
+                    <div class="profileMenuDropdown hidden absolute -right-2 sm:right-0 top-14 w-[calc(100vw-2rem)] sm:w-56 max-w-xs bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden z-[500]">
                         <div class="p-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
                             <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Pengaturan</p>
                         </div>
@@ -329,7 +329,7 @@
                         <svg class="w-5 h-5 text-slate-500 dark:text-slate-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                         <span class="notifBadge absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 border-2 border-white dark:border-slate-800 rounded-full hidden animate-pulse pointer-events-none"></span>
                     </div>
-                    <div class="notifMenuDropdown hidden absolute right-0 top-12 w-80 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden flex-col z-[500]">
+                    <div class="notifMenuDropdown hidden absolute -right-2 sm:right-0 top-12 w-[calc(100vw-2rem)] sm:w-80 max-w-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden flex-col z-[500]">
                         <div class="p-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
                             <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Notifikasi</p>
                             <button onclick="window.markAllNotifAsRead(event)" class="text-[10px] text-blue-500 hover:text-blue-700 font-bold">Tandai Dibaca</button>
@@ -346,7 +346,7 @@
                         </div>
                         <svg class="w-4 h-4 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
-                    <div class="profileMenuDropdown hidden absolute right-0 top-14 w-56 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden z-[500]">
+                    <div class="profileMenuDropdown hidden absolute -right-2 sm:right-0 top-14 w-[calc(100vw-2rem)] sm:w-56 max-w-xs bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden z-[500]">
                         <div class="p-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
                             <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Pengaturan</p>
                         </div>
@@ -683,7 +683,7 @@
     <!-- Floating Chat Component (Redesigned Minimalist) -->
     <div id="floatingChatContainer" class="fixed bottom-6 right-6 z-[450] flex flex-col items-end">
         <!-- Chat Panel -->
-        <div id="chatPanel" class="hidden mb-4 w-80 sm:w-96 h-[500px] max-h-[75vh] bg-white dark:bg-slate-900 flex flex-col overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-700 transition-all origin-bottom-right rounded-2xl z-[500]">
+        <div id="chatPanel" class="hidden mb-4 w-[calc(100vw-3rem)] sm:w-96 h-[500px] max-h-[75vh] bg-white dark:bg-slate-900 flex flex-col overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-700 transition-all origin-bottom-right rounded-2xl z-[500]">
             <!-- Header Minimalis -->
             <div class="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900">
                 <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
@@ -737,17 +737,55 @@
         const googleProvider = new GoogleAuthProvider();
 
         // ----------------------------------------------------
-        // AUDIO SFX SETUP
+        // AUDIO SFX SETUP (WEB AUDIO API - 0 BYTES, NO DELAY)
         // ----------------------------------------------------
-        // Menggunakan sumber suara publik yang ringan (Base64 atau link terpercaya)
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Membuka AudioContext saat ada interaksi pertama user (karena browser policy)
+        document.body.addEventListener('click', () => {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+        }, { once: true });
+
         // Chat pop sound
-        const chatSfx = new Audio('https://assets.mixkit.co/active_storage/sfx/2354/2354-preview.mp3');
+        window.playChatSound = () => { 
+            try {
+                if(audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain); gain.connect(audioCtx.destination);
+                
+                osc.type = 'sine'; // Suara bulat halus
+                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05); // Naik mendadak seperti pop
+                
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime); // Volume kecil 20%
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1); // Pudar cepat
+                
+                osc.start(audioCtx.currentTime); 
+                osc.stop(audioCtx.currentTime + 0.1);
+            } catch(e) {}
+        };
+        
         // Notif chime sound
-        const notifSfx = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
-
-        window.playChatSound = () => { chatSfx.currentTime = 0; chatSfx.play().catch(e => { /* Ignore autoplay block */ }); };
-        window.playNotifSound = () => { notifSfx.currentTime = 0; notifSfx.play().catch(e => { /* Ignore autoplay block */ }); };
-
+        window.playNotifSound = () => { 
+            try {
+                if(audioCtx.state === 'suspended') audioCtx.resume();
+                const playTone = (freq, startTime, duration) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain); gain.connect(audioCtx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.3, startTime); // Volume 30%
+                    gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+                    osc.start(startTime); osc.stop(startTime + duration);
+                };
+                
+                const now = audioCtx.currentTime;
+                playTone(523.25, now, 0.4); // Nada C5 (Ting)
+                playTone(783.99, now + 0.15, 0.6); // Nada G5 (Tong)
+            } catch(e) {}
+        };
 
         // ----------------------------------------------------
         // GLOBAL STATE MANAGEMENT
@@ -1092,13 +1130,19 @@
                 
                 // Smart Parsing for Task and Mentions
                 let msgText = m.text;
+                // Basic html escape to prevent injection in chat
                 msgText = msgText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 
-                if (msgText.startsWith("[TUGAS]")) {
-                    msgText = msgText.replace("[TUGAS]", `<span class="bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 text-[10px] px-1.5 py-0.5 rounded font-bold uppercase mr-1"><svg class="w-3 h-3 inline pb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg> Shared Task</span><br/>`);
-                } else {
-                    msgText = msgText.replace(/@(\w+)/g, "<span class='font-bold text-blue-200 dark:text-blue-400'>@$1</span>");
-                }
+                // Parse format baru (dengan ID Interaktif)
+                msgText = msgText.replace(/\[TUGAS:(.+?)\]/g, (match, taskId) => {
+                    return `<span onclick="if(window.innerWidth < 640) window.toggleChat(); window.openPreviewModal('${taskId}')" class="bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300 text-[10px] px-2 py-1.5 rounded-lg font-extrabold uppercase shadow-sm border border-blue-200 dark:border-blue-700 mr-1 cursor-pointer hover:bg-blue-200 dark:hover:bg-blue-800 hover:-translate-y-px transition-all inline-flex items-center gap-1.5 my-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg> Buka Detail Tugas</span><br/>`;
+                });
+                
+                // Parse format lama (kompatibilitas pesan lampau jika ada)
+                msgText = msgText.replace(/\[TUGAS\]/g, `<span class="bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 text-[10px] px-1.5 py-0.5 rounded font-extrabold uppercase shadow-sm border border-blue-200 dark:border-blue-800 mr-1"><svg class="w-3 h-3 inline pb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg> Task Shared</span><br/>`);
+
+                // Mentions highlight
+                msgText = msgText.replace(/@(\w+)/g, "<span class='font-bold text-blue-200 dark:text-blue-400'>@$1</span>");
 
                 if (isMe) {
                     html += `<div class="flex flex-col items-end mb-3">
@@ -1140,7 +1184,8 @@
             if(t) {
                 if (!window.enforceLogin("Share ke Chat")) return;
                 window.closePreviewModal();
-                const text = `[TUGAS] 📌 *${t.title}* | Status: ${t.status.toUpperCase()}`;
+                // Mengirim Format Baru dengan Menyisipkan ID Tugas di dalam Bracket
+                const text = `[TUGAS:${t.id}] 📌 *${t.title}* | Status: ${t.status.toUpperCase()}`;
                 
                 const currentUid = window.currentUser.uid;
                 const newMsg = {
